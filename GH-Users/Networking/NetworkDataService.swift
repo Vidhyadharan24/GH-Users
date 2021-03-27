@@ -18,7 +18,16 @@ public enum NetworkDataServiceError: Error {
 public protocol NetworkDataServiceProtocol {
     typealias CompletionHandler = (Result<Data?, NetworkDataServiceError>) -> Void
     
-    func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> NetworkCancellable?
+    func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol?
+}
+
+public class NetworkDataServiceTask: NetworkCancellableProtocol {
+    var isCancelled = false
+    var networkCancellable: NetworkCancellableProtocol?
+    
+    public func cancel() {
+        networkCancellable?.cancel()
+    }
 }
 
 public final class NetworkDataService {
@@ -27,7 +36,7 @@ public final class NetworkDataService {
     private let logger: NetworkDataServiceErrorLoggerProtocol
     
     public init(config: ApiConfig,
-                sessionManager: NetworkOperationsManagerProtocol = NetworkOperationsManager(),
+                sessionManager: NetworkOperationsManagerProtocol,
                 logger: NetworkDataServiceErrorLoggerProtocol = NetworkDataServiceErrorLogger()) {
         self.sessionManager = sessionManager
         self.config = config
@@ -36,7 +45,7 @@ public final class NetworkDataService {
 }
 
 extension NetworkDataService: NetworkDataServiceProtocol {
-    private func request(request: URLRequest, completion: @escaping CompletionHandler) -> NetworkCancellable {
+    private func request(request: URLRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol {
         
         let sessionDataTask = sessionManager.request(urlRequest: request) { data, response, requestError in
             self.logger.log(request: request)
@@ -73,14 +82,44 @@ extension NetworkDataService: NetworkDataServiceProtocol {
 }
 
 extension NetworkDataService {
-    public func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> NetworkCancellable? {
+    public func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol? {
         do {
             let urlRequest = try endpoint.urlRequest(with: config)
-            return request(request: urlRequest, completion: completion)
+            let task = NetworkDataServiceTask()
+            requestWithRetry(request: urlRequest, networkDataServiceTask: task, completion: completion)
+            return task
         } catch {
             completion(.failure(.urlGeneration))
             return nil
         }
+    }
+    
+    // BONUS TASK: Exponential backoff ​must be used​ ​when trying to reload the data.
+    // Exponential back off for retrying api call failure with increasing delay.
+
+    private func requestWithRetry(request: URLRequest, networkDataServiceTask: NetworkDataServiceTask, retryCount: Int = 0, completion: @escaping CompletionHandler) {
+        guard !networkDataServiceTask.isCancelled else { return }
+        guard retryCount <= self.config.maxRetryCount else { return }
+        
+        let delay = getDelay(for: retryCount)
+        let deadline: DispatchTime = .now() + .milliseconds(delay)
+        DispatchQueue.main.asyncAfter(deadline: deadline) {[weak self] in
+            networkDataServiceTask.networkCancellable = self?.request(request: request) {[weak self] result in
+                do {
+                    _ = try result.get()
+                    completion(result)
+                } catch _ {
+                    self?.requestWithRetry(request: request, networkDataServiceTask: networkDataServiceTask, retryCount: retryCount + 1, completion: completion)
+                }
+            }
+        }
+    }
+    
+    private func getDelay(for n: Int) -> Int {
+        let maxDelay = 60000 // 1 minute
+        let delay = Int(pow(2.0, Double(n))) * 1000
+        let jitter = Int.random(in: 0...1000)
+        return min(delay + jitter, maxDelay)
     }
 }
 
