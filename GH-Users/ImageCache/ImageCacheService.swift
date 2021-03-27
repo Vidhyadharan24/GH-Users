@@ -16,6 +16,8 @@ public enum ImageCacheServiceError: Error {
 public protocol ImageCacheServiceProtocol {
     typealias CompletionHandler = (Result<UIImage?, ImageCacheServiceError>) -> Void
     func getImageFor(url: String, completion: @escaping CompletionHandler) -> Cancellable
+    
+    func write(imageData: Data, for url: String)
 }
 
 public class ImageCacheService: ImageCacheServiceProtocol {
@@ -63,8 +65,9 @@ public class ImageCacheService: ImageCacheServiceProtocol {
         return blockOperation
     }
     
-    private func write(image: UIImage, for url: String) {
+    public func write(imageData: Data, for url: String) {
         let blockOperation = BlockOperation.init { [weak self] in
+            guard let image = UIImage(data: imageData) else { return }
             guard let fileName = self?.md5(string: url) else { return }
             self?.imageMemoryCache[fileName] = image
             
