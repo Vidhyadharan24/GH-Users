@@ -58,6 +58,7 @@ struct PersistenceManager {
         viewContext.automaticallyMergesChangesFromParent = true
         
         backgroundContext = container.newBackgroundContext()
+        backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
     }
     
     func saveContext() {

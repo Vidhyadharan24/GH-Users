@@ -16,6 +16,10 @@
 		180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */; };
 		180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E81260F2E7F00508F21 /* Cancellable.swift */; };
 		180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E8F260F61E000508F21 /* ImageCacheService.swift */; };
+		180D2EAB260F780500508F21 /* UsersListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EAA260F780500508F21 /* UsersListRequest.swift */; };
+		180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */; };
+		180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */; };
+		180D2EC0260F834500508F21 /* UserEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */; };
 		188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF265260EF67900EB2CC6 /* AppDelegate.swift */; };
 		188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF267260EF67900EB2CC6 /* SceneDelegate.swift */; };
 		188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF269260EF67900EB2CC6 /* ViewController.swift */; };
@@ -54,6 +58,10 @@
 		180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePersistanceManager.swift; sourceTree = "<group>"; };
 		180D2E81260F2E7F00508F21 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		180D2E8F260F61E000508F21 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
+		180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListPersistanceService.swift; sourceTree = "<group>"; };
+		180D2EAA260F780500508F21 /* UsersListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRequest.swift; sourceTree = "<group>"; };
+		180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListResponse.swift; sourceTree = "<group>"; };
+		180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+Mapping.swift"; sourceTree = "<group>"; };
 		188BF262260EF67900EB2CC6 /* GH-Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GH-Users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		188BF265260EF67900EB2CC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188BF267260EF67900EB2CC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +108,7 @@
 		180D2E3C260EF83B00508F21 /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
+				180D2EBE260F832400508F21 /* Entity+Mapping */,
 				180D2E37260EF83800508F21 /* PersistenceManager.swift */,
 				188BF26E260EF67900EB2CC6 /* GH_Users.xcdatamodeld */,
 			);
@@ -135,6 +144,47 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		180D2E9D260F74F200508F21 /* PersistanceService */ = {
+			isa = PBXGroup;
+			children = (
+				180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */,
+			);
+			path = PersistanceService;
+			sourceTree = "<group>";
+		};
+		180D2EA7260F77DC00508F21 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				180D2EA9260F77ED00508F21 /* ResponseModels */,
+				180D2EA8260F77E300508F21 /* QueryModels */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		180D2EA8260F77E300508F21 /* QueryModels */ = {
+			isa = PBXGroup;
+			children = (
+				180D2EAA260F780500508F21 /* UsersListRequest.swift */,
+			);
+			path = QueryModels;
+			sourceTree = "<group>";
+		};
+		180D2EA9260F77ED00508F21 /* ResponseModels */ = {
+			isa = PBXGroup;
+			children = (
+				180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */,
+			);
+			path = ResponseModels;
+			sourceTree = "<group>";
+		};
+		180D2EBE260F832400508F21 /* Entity+Mapping */ = {
+			isa = PBXGroup;
+			children = (
+				180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */,
+			);
+			path = "Entity+Mapping";
+			sourceTree = "<group>";
+		};
 		188BF259260EF67900EB2CC6 = {
 			isa = PBXGroup;
 			children = (
@@ -159,9 +209,11 @@
 		188BF264260EF67900EB2CC6 /* GH-Users */ = {
 			isa = PBXGroup;
 			children = (
-				180D2E80260F2E5E00508F21 /* Common */,
+				180D2EA7260F77DC00508F21 /* Models */,
+				180D2E9D260F74F200508F21 /* PersistanceService */,
 				180D2E6A260F026B00508F21 /* ImageCache */,
 				180D2E4D260EF87800508F21 /* Networking */,
+				180D2E80260F2E5E00508F21 /* Common */,
 				180D2E3C260EF83B00508F21 /* Persistance */,
 				188BF265260EF67900EB2CC6 /* AppDelegate.swift */,
 				188BF267260EF67900EB2CC6 /* SceneDelegate.swift */,
@@ -325,7 +377,11 @@
 				180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */,
 				180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */,
 				180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */,
+				180D2EAB260F780500508F21 /* UsersListRequest.swift in Sources */,
+				180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */,
 				180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */,
+				180D2EC0260F834500508F21 /* UserEntity+Mapping.swift in Sources */,
+				180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */,
 				180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */,
 				180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */,
 				188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */,
