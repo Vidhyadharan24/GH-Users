@@ -15,7 +15,7 @@ public enum ImagePersistanceError: Error {
 public protocol ImagePersistanceManagerProtocol {
     func getImageFor(fileName: String) -> Result<Data?, ImagePersistanceError>
     
-    func write(data: Data, fileName: String) -> Result<Data?, ImagePersistanceError>
+    func write(data: Data, fileName: String) -> ImagePersistanceError?
 }
 
 
@@ -32,13 +32,13 @@ public class ImagePersistanceManager: ImagePersistanceManagerProtocol {
         }
     }
     
-    public func write(data: Data, fileName: String) -> Result<Data?, ImagePersistanceError> {
+    public func write(data: Data, fileName: String) -> ImagePersistanceError? {
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         do {
             try data.write(to: fileURL)
-            return .success(data)
+            return nil
         } catch (let error) {
-            return .failure(.writeError(error))
+            return .writeError(error)
         }
     }    
 }

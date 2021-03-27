@@ -17,7 +17,7 @@ public protocol ImageCacheServiceProtocol {
     typealias CompletionHandler = (Result<Data?, ImageCacheServiceError>) -> Void
     func getImageFor(url: String, completion: @escaping CompletionHandler) -> Cancellable
     
-    func write(imageData: Data, for url: String, completion: @escaping CompletionHandler)
+    func write(imageData: Data, for url: String, completion: @escaping (Error?) -> Void)
 }
 
 public class ImageCacheService: ImageCacheServiceProtocol {
@@ -59,7 +59,6 @@ public class ImageCacheService: ImageCacheServiceProtocol {
                     completion(.success(data))
                 case .failure(let error):
                     print(error.localizedDescription)
-                    completion(.failure(.noImage))
                 }
             }
             completion(.failure(.noImage))
@@ -70,21 +69,20 @@ public class ImageCacheService: ImageCacheServiceProtocol {
         return blockOperation
     }
     
-    public func write(imageData: Data, for url: String, completion: @escaping CompletionHandler) {
+    public func write(imageData: Data, for url: String, completion: @escaping (Error?) -> Void) {
         let blockOperation = BlockOperation.init { [weak self] in
             guard let self = self else { return }
             let fileName = self.md5(string: url)
             self.imageMemoryCache[fileName] = imageData
             
-            let result = self.imagePersistanceManager.write(data: imageData, fileName: fileName)
+            let error = self.imagePersistanceManager.write(data: imageData, fileName: fileName)
             
-            switch result {
-            case .success(let data):
-                self.imageMemoryCache[fileName] = data
-                completion(.success(data))
-            case .failure(let error):
+            if let error = error {
                 print(error.localizedDescription)
-                completion(.failure(.noImage))
+                completion(error)
+            } else {
+                self.imageMemoryCache[fileName] = imageData
+                completion(nil)
             }
         }
         

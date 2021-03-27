@@ -20,6 +20,14 @@
 		180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */; };
 		180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */; };
 		180D2EC0260F834500508F21 /* UserEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */; };
+		180D2EC8260F9AE800508F21 /* UserDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EC7260F9AE800508F21 /* UserDetailsResponse.swift */; };
+		180D2ECE260FA88B00508F21 /* UsersListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2ECD260FA88B00508F21 /* UsersListRepository.swift */; };
+		180D2ED7260FAA1A00508F21 /* RepositoryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2ED6260FAA1A00508F21 /* RepositoryTask.swift */; };
+		180D2EE1260FAB7000508F21 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EDF260FAB7000508F21 /* APIEndpoints.swift */; };
+		180D2EF2260FAF7900508F21 /* UserDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EF1260FAF7900508F21 /* UserDetailsRequest.swift */; };
+		180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */; };
+		180D2EFC260FB02C00508F21 /* UserDetailsPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */; };
+		180D2F01260FB8C100508F21 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F00260FB8C100508F21 /* ImageRepository.swift */; };
 		188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF265260EF67900EB2CC6 /* AppDelegate.swift */; };
 		188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF267260EF67900EB2CC6 /* SceneDelegate.swift */; };
 		188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF269260EF67900EB2CC6 /* ViewController.swift */; };
@@ -62,6 +70,14 @@
 		180D2EAA260F780500508F21 /* UsersListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRequest.swift; sourceTree = "<group>"; };
 		180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListResponse.swift; sourceTree = "<group>"; };
 		180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+Mapping.swift"; sourceTree = "<group>"; };
+		180D2EC7260F9AE800508F21 /* UserDetailsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsResponse.swift; sourceTree = "<group>"; };
+		180D2ECD260FA88B00508F21 /* UsersListRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRepository.swift; sourceTree = "<group>"; };
+		180D2ED6260FAA1A00508F21 /* RepositoryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTask.swift; sourceTree = "<group>"; };
+		180D2EDF260FAB7000508F21 /* APIEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
+		180D2EF1260FAF7900508F21 /* UserDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsRequest.swift; sourceTree = "<group>"; };
+		180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsRepository.swift; sourceTree = "<group>"; };
+		180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsPersistanceService.swift; sourceTree = "<group>"; };
+		180D2F00260FB8C100508F21 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		188BF262260EF67900EB2CC6 /* GH-Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GH-Users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		188BF265260EF67900EB2CC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188BF267260EF67900EB2CC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +134,7 @@
 		180D2E4D260EF87800508F21 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				180D2EDF260FAB7000508F21 /* APIEndpoints.swift */,
 				180D2E44260EF86F00508F21 /* ApiConfig.swift */,
 				180D2E40260EF86E00508F21 /* EndPoint.swift */,
 				180D2E43260EF86F00508F21 /* NetworkDataService.swift */,
@@ -148,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */,
+				180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */,
 			);
 			path = PersistanceService;
 			sourceTree = "<group>";
@@ -165,6 +183,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2EAA260F780500508F21 /* UsersListRequest.swift */,
+				180D2EF1260FAF7900508F21 /* UserDetailsRequest.swift */,
 			);
 			path = QueryModels;
 			sourceTree = "<group>";
@@ -173,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */,
+				180D2EC7260F9AE800508F21 /* UserDetailsResponse.swift */,
 			);
 			path = ResponseModels;
 			sourceTree = "<group>";
@@ -183,6 +203,25 @@
 				180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */,
 			);
 			path = "Entity+Mapping";
+			sourceTree = "<group>";
+		};
+		180D2ECC260FA87600508F21 /* Respositories */ = {
+			isa = PBXGroup;
+			children = (
+				180D2ED5260FAA0D00508F21 /* Utils */,
+				180D2ECD260FA88B00508F21 /* UsersListRepository.swift */,
+				180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */,
+				180D2F00260FB8C100508F21 /* ImageRepository.swift */,
+			);
+			path = Respositories;
+			sourceTree = "<group>";
+		};
+		180D2ED5260FAA0D00508F21 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				180D2ED6260FAA1A00508F21 /* RepositoryTask.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		188BF259260EF67900EB2CC6 = {
@@ -209,6 +248,7 @@
 		188BF264260EF67900EB2CC6 /* GH-Users */ = {
 			isa = PBXGroup;
 			children = (
+				180D2ECC260FA87600508F21 /* Respositories */,
 				180D2EA7260F77DC00508F21 /* Models */,
 				180D2E9D260F74F200508F21 /* PersistanceService */,
 				180D2E6A260F026B00508F21 /* ImageCache */,
@@ -377,18 +417,26 @@
 				180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */,
 				180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */,
 				180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */,
+				180D2EF2260FAF7900508F21 /* UserDetailsRequest.swift in Sources */,
+				180D2EE1260FAB7000508F21 /* APIEndpoints.swift in Sources */,
 				180D2EAB260F780500508F21 /* UsersListRequest.swift in Sources */,
 				180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */,
 				180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */,
+				180D2ED7260FAA1A00508F21 /* RepositoryTask.swift in Sources */,
 				180D2EC0260F834500508F21 /* UserEntity+Mapping.swift in Sources */,
 				180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */,
+				180D2EC8260F9AE800508F21 /* UserDetailsResponse.swift in Sources */,
+				180D2F01260FB8C100508F21 /* ImageRepository.swift in Sources */,
 				180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */,
 				180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */,
+				180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */,
 				188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */,
 				180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */,
 				188BF270260EF67900EB2CC6 /* GH_Users.xcdatamodeld in Sources */,
 				180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */,
 				188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */,
+				180D2ECE260FA88B00508F21 /* UsersListRepository.swift in Sources */,
+				180D2EFC260FB02C00508F21 /* UserDetailsPersistanceService.swift in Sources */,
 				180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */,
 				188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */,
 			);
@@ -564,6 +612,7 @@
 		188BF290260EF67A00EB2CC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				API_BASE_URL = "​https://api.github.com/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -582,6 +631,7 @@
 		188BF291260EF67A00EB2CC6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				API_BASE_URL = "​https://api.github.com/";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

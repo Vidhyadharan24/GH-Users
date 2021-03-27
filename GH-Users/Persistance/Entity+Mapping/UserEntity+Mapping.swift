@@ -16,4 +16,12 @@ extension UserEntity {
         self.type = user.type?.rawValue
         self.login = user.login
     }
+    
+    convenience init(user: UserDetailsResponse, insertInto context: NSManagedObjectContext) {
+        self.init(context: context)
+        self.id = String(user.id)
+        self.avatarURL = user.avatarURL
+        self.type = user.type?.rawValue
+        self.login = user.login
+    }
 }

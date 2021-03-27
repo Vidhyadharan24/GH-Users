@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UsersListRequest: Encodable {
+public struct UsersListRequest: Encodable {
     let since: Int
 }
 
