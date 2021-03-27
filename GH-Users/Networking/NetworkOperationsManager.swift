@@ -21,6 +21,8 @@ public protocol NetworkOperationsManagerProtocol {
 
 public class NetworkOperationsManager: NetworkOperationsManagerProtocol {
     
+// REQUIRED TASK: All ​network calls​ must be ​queued​ and ​limited​ to ​1​ request at a time.
+// Queuing network task in a an operation queue to limit the max request to 1 at a time.
     lazy var networkQueue: OperationQueue = {
         let networkQueue = OperationQueue()
         networkQueue.maxConcurrentOperationCount = 1
