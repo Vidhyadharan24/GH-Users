@@ -6,39 +6,39 @@
 //
 
 import Foundation
-import UIKit
+
+public enum ImagePersistanceError: Error {
+    case noImage(Error)
+    case writeError(Error)
+}
 
 public protocol ImagePersistanceManagerProtocol {
-    func getImageFor(fileName: String) -> UIImage?
+    func getImageFor(fileName: String) -> Result<Data?, ImagePersistanceError>
     
-    func write(image: UIImage, fileName: String)
+    func write(data: Data, fileName: String) -> Result<Data?, ImagePersistanceError>
 }
 
 
 public class ImagePersistanceManager: ImagePersistanceManagerProtocol {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
-    public func getImageFor(fileName: String) -> UIImage? {
+    public func getImageFor(fileName: String) -> Result<Data?, ImagePersistanceError> {
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            if let image = UIImage(contentsOfFile: fileURL.path) {
-                return image
-            }
+        do {
+            let data = try Data(contentsOf: fileURL)
+            return .success(data)
+        } catch (let error) {
+            return .failure(.noImage(error))
         }
-                
-        return nil
     }
     
-    public func write(image: UIImage, fileName: String) {
+    public func write(data: Data, fileName: String) -> Result<Data?, ImagePersistanceError> {
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        if let data = image.jpegData(compressionQuality:  1.0),
-           !FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                try data.write(to: fileURL)
-                print("file saved")
-            } catch {
-                print("error saving file:", error)
-            }
+        do {
+            try data.write(to: fileURL)
+            return .success(data)
+        } catch (let error) {
+            return .failure(.writeError(error))
         }
     }    
 }

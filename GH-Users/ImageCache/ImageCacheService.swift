@@ -14,10 +14,10 @@ public enum ImageCacheServiceError: Error {
 }
 
 public protocol ImageCacheServiceProtocol {
-    typealias CompletionHandler = (Result<UIImage?, ImageCacheServiceError>) -> Void
+    typealias CompletionHandler = (Result<Data?, ImageCacheServiceError>) -> Void
     func getImageFor(url: String, completion: @escaping CompletionHandler) -> Cancellable
     
-    func write(imageData: Data, for url: String)
+    func write(imageData: Data, for url: String, completion: @escaping CompletionHandler)
 }
 
 public class ImageCacheService: ImageCacheServiceProtocol {
@@ -30,7 +30,7 @@ public class ImageCacheService: ImageCacheServiceProtocol {
     
     private var imagePersistanceManager: ImagePersistanceManagerProtocol
     
-    private var imageMemoryCache: [String: UIImage] = [:]
+    private var imageMemoryCache: [String: Data] = [:]
     
     init(imagePersistanceManager: ImagePersistanceManagerProtocol) {
         self.imagePersistanceManager = imagePersistanceManager
@@ -44,17 +44,22 @@ public class ImageCacheService: ImageCacheServiceProtocol {
     
     public func getImageFor(url: String, completion: @escaping CompletionHandler) -> Cancellable {
         let blockOperation = BlockOperation.init { [weak self] in
-            guard let fileName = self?.md5(string: url) else { return }
+            guard let self = self else { return }
+            let fileName = self.md5(string: url)
             
             if FileManager.default.fileExists(atPath: fileName) {
-                if let image = self?.imageMemoryCache[fileName] {
-                    completion(.success(image))
+                if let data = self.imageMemoryCache[fileName] {
+                    completion(.success(data))
                     return
                 }
-                if let image = UIImage(contentsOfFile: fileName) {
-                    self?.imageMemoryCache[fileName] = image
-                    completion(.success(image))
-                    return
+                let result = self.imagePersistanceManager.getImageFor(fileName: fileName)
+                switch result {
+                case .success(let data):
+                    self.imageMemoryCache[fileName] = data
+                    completion(.success(data))
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    completion(.failure(.noImage))
                 }
             }
             completion(.failure(.noImage))
@@ -65,13 +70,22 @@ public class ImageCacheService: ImageCacheServiceProtocol {
         return blockOperation
     }
     
-    public func write(imageData: Data, for url: String) {
+    public func write(imageData: Data, for url: String, completion: @escaping CompletionHandler) {
         let blockOperation = BlockOperation.init { [weak self] in
-            guard let image = UIImage(data: imageData) else { return }
-            guard let fileName = self?.md5(string: url) else { return }
-            self?.imageMemoryCache[fileName] = image
+            guard let self = self else { return }
+            let fileName = self.md5(string: url)
+            self.imageMemoryCache[fileName] = imageData
             
-            self?.imagePersistanceManager.write(image: image, fileName: fileName)
+            let result = self.imagePersistanceManager.write(data: imageData, fileName: fileName)
+            
+            switch result {
+            case .success(let data):
+                self.imageMemoryCache[fileName] = data
+                completion(.success(data))
+            case .failure(let error):
+                print(error.localizedDescription)
+                completion(.failure(.noImage))
+            }
         }
         
         imageQueue.addOperation(blockOperation)
