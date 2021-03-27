@@ -27,7 +27,7 @@ struct PersistenceManager {
     }
 
     init(inMemory: Bool = false) {
-        container = NSPersistentContainer(name: "TMDB")
+        container = NSPersistentContainer(name: "GH_Users")
         if inMemory {
             container.persistentStoreDescriptions.first!.url = URL(fileURLWithPath: "/dev/null")
         }

@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E37260EF83800508F21 /* PersistenceManager.swift */; };
 		180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E40260EF86E00508F21 /* EndPoint.swift */; };
-		180D2E46260EF86F00508F21 /* NetworkSessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E41260EF86E00508F21 /* NetworkSessionManager.swift */; };
+		180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E41260EF86E00508F21 /* NetworkOperationsManager.swift */; };
 		180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */; };
 		180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E43260EF86F00508F21 /* NetworkDataService.swift */; };
 		180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E44260EF86F00508F21 /* ApiConfig.swift */; };
@@ -44,7 +44,7 @@
 /* Begin PBXFileReference section */
 		180D2E37260EF83800508F21 /* PersistenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		180D2E40260EF86E00508F21 /* EndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
-		180D2E41260EF86E00508F21 /* NetworkSessionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkSessionManager.swift; sourceTree = "<group>"; };
+		180D2E41260EF86E00508F21 /* NetworkOperationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperationsManager.swift; sourceTree = "<group>"; };
 		180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDecodableService.swift; sourceTree = "<group>"; };
 		180D2E43260EF86F00508F21 /* NetworkDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDataService.swift; sourceTree = "<group>"; };
 		180D2E44260EF86F00508F21 /* ApiConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 				180D2E40260EF86E00508F21 /* EndPoint.swift */,
 				180D2E43260EF86F00508F21 /* NetworkDataService.swift */,
 				180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */,
-				180D2E41260EF86E00508F21 /* NetworkSessionManager.swift */,
+				180D2E41260EF86E00508F21 /* NetworkOperationsManager.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -303,7 +303,7 @@
 				188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */,
 				180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */,
 				188BF270260EF67900EB2CC6 /* GH_Users.xcdatamodeld in Sources */,
-				180D2E46260EF86F00508F21 /* NetworkSessionManager.swift in Sources */,
+				180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */,
 				188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */,
 				180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */,
 				188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */,
@@ -412,7 +412,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -467,7 +467,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

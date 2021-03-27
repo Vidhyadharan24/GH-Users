@@ -23,11 +23,11 @@ public protocol NetworkDataServiceProtocol {
 
 public final class NetworkDataService {
     private let config: ApiConfig
-    private let sessionManager: NetworkSessionManagerProtocol
+    private let sessionManager: NetworkOperationsManagerProtocol
     private let logger: NetworkDataServiceErrorLoggerProtocol
     
     public init(config: ApiConfig,
-                sessionManager: NetworkSessionManagerProtocol = NetworkSessionManager(),
+                sessionManager: NetworkOperationsManagerProtocol = NetworkOperationsManager(),
                 logger: NetworkDataServiceErrorLoggerProtocol = NetworkDataServiceErrorLogger()) {
         self.sessionManager = sessionManager
         self.config = config
