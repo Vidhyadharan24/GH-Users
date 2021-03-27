@@ -18,12 +18,12 @@ public enum NetworkDataServiceError: Error {
 public protocol NetworkDataServiceProtocol {
     typealias CompletionHandler = (Result<Data?, NetworkDataServiceError>) -> Void
     
-    func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol?
+    func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> Cancellable?
 }
 
-public class NetworkDataServiceTask: NetworkCancellableProtocol {
+public class NetworkDataServiceTask: Cancellable {
     var isCancelled = false
-    var networkCancellable: NetworkCancellableProtocol?
+    var networkCancellable: Cancellable?
     
     public func cancel() {
         networkCancellable?.cancel()
@@ -45,7 +45,7 @@ public final class NetworkDataService {
 }
 
 extension NetworkDataService: NetworkDataServiceProtocol {
-    private func request(request: URLRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol {
+    private func request(request: URLRequest, completion: @escaping CompletionHandler) -> Cancellable {
         
         let sessionDataTask = sessionManager.request(urlRequest: request) { data, response, requestError in
             self.logger.log(request: request)
@@ -82,7 +82,7 @@ extension NetworkDataService: NetworkDataServiceProtocol {
 }
 
 extension NetworkDataService {
-    public func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol? {
+    public func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> Cancellable? {
         do {
             let urlRequest = try endpoint.urlRequest(with: config)
             let task = NetworkDataServiceTask()

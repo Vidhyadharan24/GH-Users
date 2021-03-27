@@ -7,16 +7,10 @@
 
 import Foundation
 
-public protocol NetworkCancellableProtocol {
-    func cancel()
-}
-
-extension BlockOperation: NetworkCancellableProtocol {}
-
 public protocol NetworkOperationsManagerProtocol {
     typealias CompletionHandler = ((Data?, URLResponse?, Error?) -> Void)
 
-    func request(urlRequest: URLRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol
+    func request(urlRequest: URLRequest, completion: @escaping CompletionHandler) -> Cancellable
 }
 
 public class NetworkOperationsManager: NetworkOperationsManagerProtocol {
@@ -31,7 +25,7 @@ public class NetworkOperationsManager: NetworkOperationsManagerProtocol {
     
     public init() {}
     
-    public func request(urlRequest: URLRequest, completion: @escaping CompletionHandler) -> NetworkCancellableProtocol {
+    public func request(urlRequest: URLRequest, completion: @escaping CompletionHandler) -> Cancellable {
         let blockOperation = BlockOperation.init {
             let task = URLSession.shared.dataTask(with: urlRequest, completionHandler: completion)
             task.resume()

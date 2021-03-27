@@ -13,6 +13,9 @@
 		180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */; };
 		180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E43260EF86F00508F21 /* NetworkDataService.swift */; };
 		180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E44260EF86F00508F21 /* ApiConfig.swift */; };
+		180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */; };
+		180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E81260F2E7F00508F21 /* Cancellable.swift */; };
+		180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E8F260F61E000508F21 /* ImageCacheService.swift */; };
 		188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF265260EF67900EB2CC6 /* AppDelegate.swift */; };
 		188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF267260EF67900EB2CC6 /* SceneDelegate.swift */; };
 		188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF269260EF67900EB2CC6 /* ViewController.swift */; };
@@ -48,6 +51,9 @@
 		180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDecodableService.swift; sourceTree = "<group>"; };
 		180D2E43260EF86F00508F21 /* NetworkDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDataService.swift; sourceTree = "<group>"; };
 		180D2E44260EF86F00508F21 /* ApiConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
+		180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePersistanceManager.swift; sourceTree = "<group>"; };
+		180D2E81260F2E7F00508F21 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
+		180D2E8F260F61E000508F21 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
 		188BF262260EF67900EB2CC6 /* GH-Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GH-Users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		188BF265260EF67900EB2CC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188BF267260EF67900EB2CC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -112,6 +118,23 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		180D2E6A260F026B00508F21 /* ImageCache */ = {
+			isa = PBXGroup;
+			children = (
+				180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */,
+				180D2E8F260F61E000508F21 /* ImageCacheService.swift */,
+			);
+			path = ImageCache;
+			sourceTree = "<group>";
+		};
+		180D2E80260F2E5E00508F21 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				180D2E81260F2E7F00508F21 /* Cancellable.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		188BF259260EF67900EB2CC6 = {
 			isa = PBXGroup;
 			children = (
@@ -136,6 +159,8 @@
 		188BF264260EF67900EB2CC6 /* GH-Users */ = {
 			isa = PBXGroup;
 			children = (
+				180D2E80260F2E5E00508F21 /* Common */,
+				180D2E6A260F026B00508F21 /* ImageCache */,
 				180D2E4D260EF87800508F21 /* Networking */,
 				180D2E3C260EF83B00508F21 /* Persistance */,
 				188BF265260EF67900EB2CC6 /* AppDelegate.swift */,
@@ -297,6 +322,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */,
+				180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */,
+				180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */,
 				180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */,
 				180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */,
 				180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */,

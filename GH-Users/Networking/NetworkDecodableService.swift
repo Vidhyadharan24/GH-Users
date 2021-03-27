@@ -19,10 +19,10 @@ public protocol NetworkDecodableServiceProtocol {
     
     @discardableResult
     func request<T: Decodable, E: DecodableAPIRequest>(with endpoint: E,
-                                                       completion: @escaping CompletionHandler<T>) -> NetworkCancellableProtocol? where E.Response == T
+                                                       completion: @escaping CompletionHandler<T>) -> Cancellable? where E.Response == T
     @discardableResult
     func request<E: DecodableAPIRequest>(with endpoint: E,
-                                         completion: @escaping CompletionHandler<Void>) -> NetworkCancellableProtocol? where E.Response == Void
+                                         completion: @escaping CompletionHandler<Void>) -> Cancellable? where E.Response == Void
 }
 
 public final class NetworkDecodableService {
@@ -41,7 +41,7 @@ public final class NetworkDecodableService {
 
 extension NetworkDecodableService: NetworkDecodableServiceProtocol {
     public func request<T: Decodable, E: DecodableAPIRequest>(with endpoint: E,
-                                                              completion: @escaping CompletionHandler<T>) -> NetworkCancellableProtocol? where E.Response == T {
+                                                              completion: @escaping CompletionHandler<T>) -> Cancellable? where E.Response == T {
 
         return self.networkService.request(endpoint: endpoint) { result in
             switch result {
@@ -56,7 +56,7 @@ extension NetworkDecodableService: NetworkDecodableServiceProtocol {
         }
     }
 
-    public func request<E>(with endpoint: E, completion: @escaping CompletionHandler<Void>) -> NetworkCancellableProtocol? where E : DecodableAPIRequest, E.Response == Void {
+    public func request<E>(with endpoint: E, completion: @escaping CompletionHandler<Void>) -> Cancellable? where E : DecodableAPIRequest, E.Response == Void {
         return self.networkService.request(endpoint: endpoint) { result in
             switch result {
             case .success:
