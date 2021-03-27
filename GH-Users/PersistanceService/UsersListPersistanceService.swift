@@ -10,7 +10,7 @@ import CoreData
 
 protocol UsersListStorageServiceProtocol {
     func getResponse(for request: UsersListRequest, completion: @escaping (Result<[UserEntity]?, PersistanceError>) -> Void)
-    func save(response: UsersListResponse)
+    func save(response: UsersListResponse, completion: @escaping (PersistanceError?) -> Void)
 }
 
 final class UsersListStorageService: UsersListStorageServiceProtocol {
@@ -49,7 +49,7 @@ extension UsersListStorageService {
         }
     }
     
-    func save(response: UsersListResponse) {
+    func save(response: UsersListResponse, completion: @escaping (PersistanceError?) -> Void) {
         let context = persistenceManager.backgroundContext
         context.performAndWait {
             do {
@@ -57,9 +57,11 @@ extension UsersListStorageService {
                     let _ = UserEntity(user: user, insertInto: context)
                 }
                 try context.save()
-            } catch {
-                // TODO: - Log to Crashlytics
+    
+                completion(nil)
+            } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
+                completion(PersistanceError.saveError(error))
             }
         }
     }
