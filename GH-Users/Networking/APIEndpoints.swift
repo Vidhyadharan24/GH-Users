@@ -12,7 +12,7 @@ struct APIEndpoints {
     static func getUsers(with usersListRequest: UsersListRequest) -> Endpoint<UsersListResponse> {
         return Endpoint(path: "users",
                         method: .get,
-                        queryParametersEncodable: ["since": usersListRequest.since])
+                        queryParametersEncodable: usersListRequest)
     }
     
     static func getUserDetails(with userDetailsRequest: UserDetailsRequest) -> Endpoint<UserDetailsResponse> {

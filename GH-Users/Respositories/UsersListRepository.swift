@@ -13,7 +13,7 @@ public protocol UsersListRepositoryProtocol {
                          completion: @escaping (Result<[UserEntity], Error>) -> Void) -> Cancellable?
 }
 
-final class UsersListRespository: UsersListRepositoryProtocol {
+final class UsersListRepository: UsersListRepositoryProtocol {
     
     private let networkDecodableService: NetworkDecodableServiceProtocol
     private let persistantStorageService: UsersListStorageServiceProtocol

@@ -99,7 +99,14 @@ extension APIRequest {
     }
     
     private func url(with apiConfig: ApiConfig) throws -> URL {
-        let endpoint = isFullPath ? path : apiConfig.baseURL.appending(path)
+        let endpoint: String
+        
+        if let baseURL = apiConfig.baseURL, !isFullPath {
+            let baseURL = baseURL.last != "/" ? baseURL + "/" : baseURL
+            endpoint = baseURL.appending(path)
+        } else {
+            endpoint = path
+        }
         
         guard var urlComponents = URLComponents(string: endpoint) else { throw RequestGenerationError.components }
         var urlQueryItems = [URLQueryItem]()

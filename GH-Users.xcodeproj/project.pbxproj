@@ -28,6 +28,16 @@
 		180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */; };
 		180D2EFC260FB02C00508F21 /* UserDetailsPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */; };
 		180D2F01260FB8C100508F21 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F00260FB8C100508F21 /* ImageRepository.swift */; };
+		180D2F1A261036E000508F21 /* UsersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F19261036E000508F21 /* UsersListViewModel.swift */; };
+		180D2F3E261066E200508F21 /* ConnectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F3D261066E200508F21 /* ConnectionError.swift */; };
+		180D2F452610676300508F21 /* NetworkDecodableServiceError+ConnectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F442610676300508F21 /* NetworkDecodableServiceError+ConnectionError.swift */; };
+		180D2F5826106A3A00508F21 /* UsersListCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F5726106A3A00508F21 /* UsersListCellViewModel.swift */; };
+		180D2F6626107A2600508F21 /* UsersListCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F2E2610470000508F21 /* UsersListCoordinator.swift */; };
+		180D2F6726107A2600508F21 /* UsersSceneDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E54260EFBC600508F21 /* UsersSceneDIContainer.swift */; };
+		180D2F6826107A2600508F21 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E52260EFBC600508F21 /* AppCoordinator.swift */; };
+		180D2F6926107A2600508F21 /* UsersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F132610369E00508F21 /* UsersListViewController.swift */; };
+		180D2F6A26107A2600508F21 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E55260EFBC600508F21 /* AppDIContainer.swift */; };
+		180D2F6B26107A2600508F21 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E56260EFBC600508F21 /* AppConfig.swift */; };
 		188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF265260EF67900EB2CC6 /* AppDelegate.swift */; };
 		188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF267260EF67900EB2CC6 /* SceneDelegate.swift */; };
 		188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF269260EF67900EB2CC6 /* ViewController.swift */; };
@@ -63,6 +73,10 @@
 		180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDecodableService.swift; sourceTree = "<group>"; };
 		180D2E43260EF86F00508F21 /* NetworkDataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDataService.swift; sourceTree = "<group>"; };
 		180D2E44260EF86F00508F21 /* ApiConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiConfig.swift; sourceTree = "<group>"; };
+		180D2E52260EFBC600508F21 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		180D2E54260EFBC600508F21 /* UsersSceneDIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersSceneDIContainer.swift; sourceTree = "<group>"; };
+		180D2E55260EFBC600508F21 /* AppDIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
+		180D2E56260EFBC600508F21 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePersistanceManager.swift; sourceTree = "<group>"; };
 		180D2E81260F2E7F00508F21 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		180D2E8F260F61E000508F21 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
@@ -78,6 +92,12 @@
 		180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsRepository.swift; sourceTree = "<group>"; };
 		180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsPersistanceService.swift; sourceTree = "<group>"; };
 		180D2F00260FB8C100508F21 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
+		180D2F132610369E00508F21 /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
+		180D2F19261036E000508F21 /* UsersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewModel.swift; sourceTree = "<group>"; };
+		180D2F2E2610470000508F21 /* UsersListCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListCoordinator.swift; sourceTree = "<group>"; };
+		180D2F3D261066E200508F21 /* ConnectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionError.swift; sourceTree = "<group>"; };
+		180D2F442610676300508F21 /* NetworkDecodableServiceError+ConnectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkDecodableServiceError+ConnectionError.swift"; sourceTree = "<group>"; };
+		180D2F5726106A3A00508F21 /* UsersListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListCellViewModel.swift; sourceTree = "<group>"; };
 		188BF262260EF67900EB2CC6 /* GH-Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GH-Users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		188BF265260EF67900EB2CC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188BF267260EF67900EB2CC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +164,25 @@
 			path = Networking;
 			sourceTree = "<group>";
 		};
+		180D2E51260EFBC600508F21 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				180D2E52260EFBC600508F21 /* AppCoordinator.swift */,
+				180D2E53260EFBC600508F21 /* DIContainer */,
+				180D2E56260EFBC600508F21 /* AppConfig.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		180D2E53260EFBC600508F21 /* DIContainer */ = {
+			isa = PBXGroup;
+			children = (
+				180D2E54260EFBC600508F21 /* UsersSceneDIContainer.swift */,
+				180D2E55260EFBC600508F21 /* AppDIContainer.swift */,
+			);
+			path = DIContainer;
+			sourceTree = "<group>";
+		};
 		180D2E6A260F026B00508F21 /* ImageCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -157,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2E81260F2E7F00508F21 /* Cancellable.swift */,
+				180D2F3D261066E200508F21 /* ConnectionError.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -224,6 +264,66 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		180D2F052610365200508F21 /* Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F422610672B00508F21 /* Utils */,
+				180D2F2D261046EE00508F21 /* Coordinators */,
+				180D2F18261036A600508F21 /* UsersList */,
+			);
+			path = Presentation;
+			sourceTree = "<group>";
+		};
+		180D2F062610365A00508F21 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F19261036E000508F21 /* UsersListViewModel.swift */,
+				180D2F5726106A3A00508F21 /* UsersListCellViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		180D2F072610366400508F21 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F132610369E00508F21 /* UsersListViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		180D2F18261036A600508F21 /* UsersList */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F072610366400508F21 /* View */,
+				180D2F062610365A00508F21 /* ViewModels */,
+			);
+			path = UsersList;
+			sourceTree = "<group>";
+		};
+		180D2F2D261046EE00508F21 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F2E2610470000508F21 /* UsersListCoordinator.swift */,
+			);
+			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		180D2F422610672B00508F21 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F432610674400508F21 /* Extensions */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		180D2F432610674400508F21 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F442610676300508F21 /* NetworkDecodableServiceError+ConnectionError.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		188BF259260EF67900EB2CC6 = {
 			isa = PBXGroup;
 			children = (
@@ -248,20 +348,22 @@
 		188BF264260EF67900EB2CC6 /* GH-Users */ = {
 			isa = PBXGroup;
 			children = (
-				180D2ECC260FA87600508F21 /* Respositories */,
-				180D2EA7260F77DC00508F21 /* Models */,
-				180D2E9D260F74F200508F21 /* PersistanceService */,
-				180D2E6A260F026B00508F21 /* ImageCache */,
-				180D2E4D260EF87800508F21 /* Networking */,
-				180D2E80260F2E5E00508F21 /* Common */,
-				180D2E3C260EF83B00508F21 /* Persistance */,
 				188BF265260EF67900EB2CC6 /* AppDelegate.swift */,
+				180D2E51260EFBC600508F21 /* Application */,
+				188BF271260EF67A00EB2CC6 /* Assets.xcassets */,
+				180D2E80260F2E5E00508F21 /* Common */,
+				180D2E6A260F026B00508F21 /* ImageCache */,
+				188BF276260EF67A00EB2CC6 /* Info.plist */,
+				188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */,
+				188BF26B260EF67900EB2CC6 /* Main.storyboard */,
+				180D2EA7260F77DC00508F21 /* Models */,
+				180D2E4D260EF87800508F21 /* Networking */,
+				180D2E3C260EF83B00508F21 /* Persistance */,
+				180D2E9D260F74F200508F21 /* PersistanceService */,
+				180D2F052610365200508F21 /* Presentation */,
+				180D2ECC260FA87600508F21 /* Respositories */,
 				188BF267260EF67900EB2CC6 /* SceneDelegate.swift */,
 				188BF269260EF67900EB2CC6 /* ViewController.swift */,
-				188BF26B260EF67900EB2CC6 /* Main.storyboard */,
-				188BF271260EF67A00EB2CC6 /* Assets.xcassets */,
-				188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */,
-				188BF276260EF67A00EB2CC6 /* Info.plist */,
 			);
 			path = "GH-Users";
 			sourceTree = "<group>";
@@ -415,30 +517,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */,
+				180D2F6726107A2600508F21 /* UsersSceneDIContainer.swift in Sources */,
 				180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */,
 				180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */,
 				180D2EF2260FAF7900508F21 /* UserDetailsRequest.swift in Sources */,
 				180D2EE1260FAB7000508F21 /* APIEndpoints.swift in Sources */,
 				180D2EAB260F780500508F21 /* UsersListRequest.swift in Sources */,
+				180D2F3E261066E200508F21 /* ConnectionError.swift in Sources */,
+				180D2F6926107A2600508F21 /* UsersListViewController.swift in Sources */,
+				180D2F5826106A3A00508F21 /* UsersListCellViewModel.swift in Sources */,
 				180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */,
+				180D2F6626107A2600508F21 /* UsersListCoordinator.swift in Sources */,
 				180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */,
 				180D2ED7260FAA1A00508F21 /* RepositoryTask.swift in Sources */,
 				180D2EC0260F834500508F21 /* UserEntity+Mapping.swift in Sources */,
 				180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */,
 				180D2EC8260F9AE800508F21 /* UserDetailsResponse.swift in Sources */,
+				180D2F1A261036E000508F21 /* UsersListViewModel.swift in Sources */,
 				180D2F01260FB8C100508F21 /* ImageRepository.swift in Sources */,
 				180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */,
 				180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */,
+				180D2F6826107A2600508F21 /* AppCoordinator.swift in Sources */,
 				180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */,
 				188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */,
 				180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */,
 				188BF270260EF67900EB2CC6 /* GH_Users.xcdatamodeld in Sources */,
 				180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */,
 				188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */,
+				180D2F6A26107A2600508F21 /* AppDIContainer.swift in Sources */,
 				180D2ECE260FA88B00508F21 /* UsersListRepository.swift in Sources */,
 				180D2EFC260FB02C00508F21 /* UserDetailsPersistanceService.swift in Sources */,
+				180D2F6B26107A2600508F21 /* AppConfig.swift in Sources */,
 				180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */,
 				188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */,
+				180D2F452610676300508F21 /* NetworkDecodableServiceError+ConnectionError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -612,7 +724,7 @@
 		188BF290260EF67A00EB2CC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_BASE_URL = "​https://api.github.com/";
+				API_BASE_URL = "https://api.github.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -631,7 +743,7 @@
 		188BF291260EF67A00EB2CC6 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				API_BASE_URL = "​https://api.github.com/";
+				API_BASE_URL = "https://api.github.com";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;

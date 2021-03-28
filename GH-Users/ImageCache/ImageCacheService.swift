@@ -49,19 +49,19 @@ public class ImageCacheService: ImageCacheServiceProtocol {
             
             if FileManager.default.fileExists(atPath: fileName) {
                 if let data = self.imageMemoryCache[fileName] {
-                    completion(.success(data))
-                    return
+                    return DispatchQueue.main.async { return completion(.success(data)) }
                 }
+                
                 let result = self.imagePersistanceManager.getImageFor(fileName: fileName)
                 switch result {
                 case .success(let data):
                     self.imageMemoryCache[fileName] = data
-                    completion(.success(data))
+                    DispatchQueue.main.async { return completion(.success(data)) }
                 case .failure(let error):
                     print(error.localizedDescription)
                 }
             }
-            completion(.failure(.noImage))
+            DispatchQueue.main.async { return completion(.failure(.noImage)) }
         }
         
         imageQueue.addOperation(blockOperation)
@@ -79,10 +79,10 @@ public class ImageCacheService: ImageCacheServiceProtocol {
             
             if let error = error {
                 print(error.localizedDescription)
-                completion(error)
+                DispatchQueue.main.async { return completion(error) }
             } else {
                 self.imageMemoryCache[fileName] = imageData
-                completion(nil)
+                DispatchQueue.main.async { return completion(nil) }
             }
         }
         

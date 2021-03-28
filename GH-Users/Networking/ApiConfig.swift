@@ -8,12 +8,12 @@
 import Foundation
 
 public struct ApiConfig {
-    public let baseURL: String
+    public let baseURL: String?
     public let maxRetryCount: Int
     public let headers: [String: String]
     public let queryParameters: [String: String]
     
-     public init(baseURL: String,
+     public init(baseURL: String? = nil,
                  maxRetryCount: Int = 5,
                  headers: [String: String] = [:],
                  queryParameters: [String: String] = [:]) {

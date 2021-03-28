@@ -99,8 +99,8 @@ extension NetworkDataService {
 
     private func requestWithRetry(request: URLRequest, networkDataServiceTask: NetworkDataServiceTask, retryCount: Int = 0, completion: @escaping CompletionHandler) {
         guard !networkDataServiceTask.isCancelled else { return }
-        guard retryCount <= self.config.maxRetryCount else { return }
-        
+        let maxRetryCount = self.config.maxRetryCount
+
         let delay = getDelay(for: retryCount)
         let deadline: DispatchTime = .now() + .milliseconds(delay)
         DispatchQueue.main.asyncAfter(deadline: deadline) {[weak self] in
@@ -108,8 +108,13 @@ extension NetworkDataService {
                 do {
                     _ = try result.get()
                     completion(result)
-                } catch _ {
-                    self?.requestWithRetry(request: request, networkDataServiceTask: networkDataServiceTask, retryCount: retryCount + 1, completion: completion)
+                } catch (let error) {
+                    if retryCount < maxRetryCount - 1 {
+                        self?.requestWithRetry(request: request, networkDataServiceTask: networkDataServiceTask, retryCount: retryCount + 1, completion: completion)
+                    } else if let self = self {
+                        let err = self.resolve(error: error)
+                        return completion(.failure(err))
+                    }
                 }
             }
         }

@@ -17,7 +17,7 @@ final class UsersListStorageService: UsersListStorageServiceProtocol {
     private let persistenceManager: PersistenceManager
     private let fetchLimit: Int
 
-    init(persistenceManager: PersistenceManager = PersistenceManager.shared, fetchLimit: Int = 20) {
+    init(persistenceManager: PersistenceManager, fetchLimit: Int) {
         self.persistenceManager = persistenceManager
         self.fetchLimit = fetchLimit
     }
@@ -42,9 +42,9 @@ extension UsersListStorageService {
                 let fetchRequest = self.getFetchRequest(for: request)
                 let userList = try context.fetch(fetchRequest)
 
-                completion(.success(userList))
+                DispatchQueue.main.async { return completion(.success(userList)) }
             } catch {
-                completion(.failure(PersistanceError.readError(error)))
+                DispatchQueue.main.async { return completion(.failure(PersistanceError.readError(error))) }
             }
         }
     }
@@ -58,10 +58,10 @@ extension UsersListStorageService {
                 }
                 try context.save()
     
-                completion(nil)
+                DispatchQueue.main.async { return completion(nil) }
             } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
-                completion(PersistanceError.saveError(error))
+                DispatchQueue.main.async { return completion(PersistanceError.saveError(error)) }
             }
         }
     }
