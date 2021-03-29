@@ -28,6 +28,8 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
         let task = RepositoryTask()
         
         persistantStorageService.getResponse(for: request) { (result) in
+            guard !task.isCancelled else { return }
+            
             switch result {
             case .success(let user):
                 cached(.success(user))
@@ -35,10 +37,11 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
                 cached(.failure(error))
             }
         
-            guard !task.isCancelled else { return }
             let endpoint = APIEndpoints.getUserDetails(with: request)
             
             task.task = self.networkDecodableService.request(with: endpoint) { result in
+                guard !task.isCancelled else { return }
+
                 switch result {
                 case .success(let response):
                     self.persistantStorageService.save(response: response) { (error) in

@@ -16,6 +16,8 @@ final class UsersSceneDIContainer {
     // MARK: - Persistent Storage
     lazy var persistantStorageService: UsersListStorageServiceProtocol = UsersListStorageService(persistenceManager: PersistenceManager.shared, fetchLimit: appConfig.persistantStorageFetchLimit)
     
+    lazy var localUserSearchPersistanceService: LocalUsersSearchPersistanceServiceProtocol = LocalUsersSearchPersistanceService(persistenceManager: PersistenceManager.shared)
+    
     // MARK: - Image Cache Service
     lazy var imageCacheService: ImageCacheServiceProtocol = ImageCacheService(imagePersistanceManager: ImagePersistanceManager())
 
@@ -29,6 +31,9 @@ final class UsersSceneDIContainer {
     func makeUsersListRepository() -> UsersListRepositoryProtocol {
         return UsersListRepository(networkDecodableService: apiDecodableService, persistantStorageService: persistantStorageService)
     }
+    func makeLocalUsersSearchRepository() -> LocalUsersSearchRepositoryProtocol {
+        return LocalUsersSearchRepository(persistantStorageService: localUserSearchPersistanceService)
+    }
     func makeImageRepository() -> ImageRepositoryProtocol {
         return ImageRepository(networkDecodableService: imageDecodableService, imageCacheService: imageCacheService)
     }
@@ -40,9 +45,20 @@ final class UsersSceneDIContainer {
     }
 
     func makeUsersListViewModel(actions: UsersListViewModelActions) -> UsersListViewModel {
-        return UsersListViewModel(usersListRepository: makeUsersListRepository(), actions: actions)
+        return UsersListViewModel(usersListRepository: makeUsersListRepository(), imageRepository: makeImageRepository(), actions: actions)
     }
-
+    
+    // MARK: Local User Search
+    
+    func makeLocalUserSearchListViewController(actions: LocalUsersSearchViewModelActions) -> UsersSearchTableViewController {
+        return UsersSearchTableViewController(viewModel: makeLocalUsersSearchViewModel(actions: actions))
+    }
+    
+    func makeLocalUsersSearchViewModel(actions: LocalUsersSearchViewModelActions) -> LocalUsersSearchViewModel {
+        return LocalUsersSearchViewModel(localUsersSearchRepository: makeLocalUsersSearchRepository(),
+                                         imageRepository: makeImageRepository(),
+                                         actions: actions)
+    }
 //    // MARK: - User Details
 //    func makeUsersDetailsViewController(user: UserEntity) -> UserDetailsViewController {
 //        return UserDetailsViewController.create(with: makeUsersDetailsViewModel(user: user))
@@ -56,8 +72,8 @@ final class UsersSceneDIContainer {
     // MARK: - Coordinators
     func makeUsersListCoordinator(navigationController: UINavigationController) -> UsersListCoordinator {
         return UsersListCoordinator(navigationController: navigationController,
-                                     dependencies: self)
+                                    diContainer: self)
     }
 }
 
-extension UsersSceneDIContainer: UsersListCoordinatorProtocol {}
+extension UsersSceneDIContainer: UsersListDIContainerProtocol {}

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ImageRepositoryProtocol {
+public protocol ImageRepositoryProtocol {
     func fetchImage(with urlString: String, completion: @escaping (Result<Data?, Error>) -> Void) -> Cancellable?
 }
 
@@ -24,7 +24,7 @@ final class ImageRepository {
 
 extension ImageRepository: ImageRepositoryProtocol {
     
-    func fetchImage(with urlString: String, completion: @escaping (Result<Data?, Error>) -> Void) -> Cancellable? {
+    public func fetchImage(with urlString: String, completion: @escaping (Result<Data?, Error>) -> Void) -> Cancellable? {
         let task = RepositoryTask()
         
         task.task = imageCacheService.getImageFor(url: urlString) { (result) in
@@ -40,6 +40,7 @@ extension ImageRepository: ImageRepositoryProtocol {
             
             let endpoint = APIEndpoints.imageEndPoint(with: urlString)
             task.task = self.networkDecodableService.request(with: endpoint) { result in
+                guard !task.isCancelled else { return }
                 switch result {
                 case .success(let response):
                     self.imageCacheService.write(imageData: response, for: urlString, completion: { (result) in

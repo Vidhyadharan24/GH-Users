@@ -104,7 +104,9 @@ extension NetworkDataService {
         let delay = getDelay(for: retryCount)
         let deadline: DispatchTime = .now() + .milliseconds(delay)
         DispatchQueue.main.asyncAfter(deadline: deadline) {[weak self] in
+            guard !networkDataServiceTask.isCancelled else { return }
             networkDataServiceTask.networkCancellable = self?.request(request: request) {[weak self] result in
+                guard !networkDataServiceTask.isCancelled else { return }
                 do {
                     _ = try result.get()
                     completion(result)

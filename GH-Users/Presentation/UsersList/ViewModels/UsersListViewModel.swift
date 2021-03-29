@@ -9,7 +9,9 @@ import Foundation
 import Combine
 
 struct UsersListViewModelActions {
-    let showUserDetails: (UserEntity) -> Void
+    let showUserDetails: (UserEntity, @escaping (_ updated: UserEntity) -> Void) -> Void
+    let showLocalUserSearch: () -> Void
+    let closeLocalUserSearch: () -> Void
 }
 
 struct UsersSince {
@@ -18,7 +20,6 @@ struct UsersSince {
 }
 
 enum UsersListViewModelLoading {
-    case none
     case fullScreen
     case nextPage
 }
@@ -26,12 +27,14 @@ enum UsersListViewModelLoading {
 protocol UsersListViewModelInputProtocol {
     func viewDidLoad()
     func didLoadNextPage()
+    func showLocalUserSearch()
+    func closeLocalUserSearch()
     func didSelectItem(at index: Int)
 }
 
 protocol UsersListViewModelOutputProtocol {
-    var userViewModels: CurrentValueSubject<[UserListCellViewModel], Never> { get }
-    var loading: CurrentValueSubject<UsersListViewModelLoading, Never> { get }
+    var userViewModels: CurrentValueSubject<[UserListCellViewModelProtocol], Never> { get }
+    var loading: CurrentValueSubject<UsersListViewModelLoading?, Never> { get }
     var error: CurrentValueSubject<String?, Never> { get }
     var isCached: CurrentValueSubject<Bool, Never> { get }
     var isEmpty: Bool { get }
@@ -44,14 +47,19 @@ protocol UsersListViewModelOutputProtocol {
 protocol UsersListViewModelProtocol: UsersListViewModelInputProtocol, UsersListViewModelOutputProtocol {}
 
 class UsersListViewModel: UsersListViewModelProtocol {
+
+    
     let respository: UsersListRepositoryProtocol
+    let imageRepository: ImageRepositoryProtocol
+
     let actions: UsersListViewModelActions
     
     private var usersLoadTask: Cancellable? { willSet { usersLoadTask?.cancel() } }
 
     private var pages: [UsersSince] = []
-    private(set) var userViewModels = CurrentValueSubject<[UserListCellViewModel], Never>([])
-    private(set) var loading = CurrentValueSubject<UsersListViewModelLoading, Never>(.none)
+    private var users: [UserEntity] = []
+    private(set) var userViewModels = CurrentValueSubject<[UserListCellViewModelProtocol], Never>([])
+    private(set) var loading = CurrentValueSubject<UsersListViewModelLoading?, Never>(.none)
     private(set) var error = CurrentValueSubject<String?, Never>(nil)
     private(set) var isCached = CurrentValueSubject<Bool, Never>(false)
     var isEmpty: Bool { return userViewModels.value.isEmpty }
@@ -60,9 +68,10 @@ class UsersListViewModel: UsersListViewModelProtocol {
     let errorTitle = NSLocalizedString("Error", comment: "")
     let searchBarPlaceholder = NSLocalizedString("Search Users", comment: "")
     
-    init(usersListRepository: UsersListRepositoryProtocol, actions: UsersListViewModelActions) {
+    init(usersListRepository: UsersListRepositoryProtocol, imageRepository: ImageRepositoryProtocol, actions: UsersListViewModelActions) {
         self.respository = usersListRepository
         self.actions = actions
+        self.imageRepository = imageRepository
     }
     
     func viewDidLoad() {
@@ -70,13 +79,24 @@ class UsersListViewModel: UsersListViewModelProtocol {
     }
     
     func didLoadNextPage() {
-        guard let lastUserId = Int(pages.last?.users.last?.id ?? "0") else { return }
+        let lastUserId = Int(users.last?.id ?? 0)
         load(since: lastUserId, loading: .nextPage)
+    }
+    
+    func showLocalUserSearch() {
+        actions.showLocalUserSearch()
+    }
+    
+    func closeLocalUserSearch() {
+        actions.closeLocalUserSearch()
     }
     
     func didSelectItem(at index: Int) {
         let users = pages.flatMap { $0.users }
-        actions.showUserDetails(users[index])
+        actions.showUserDetails(users[index]) {[weak self] _ in
+            guard let self = self else { return }
+            self.userViewModels.send(self.userViewModels.value)
+        }
     }
 }
 
@@ -88,12 +108,13 @@ extension UsersListViewModel {
             .filter { $0.since != since }
             + [UsersSince(since: since, users: response)]
 
-        let users = pages.flatMap { $0.users }
-        userViewModels.send(users.map(UserListCellViewModel.init))
+        users = pages.flatMap { $0.users }.sorted {Int($0.id) < Int($1.id)}
+        userViewModels.send(users.map {(user) in UserListCellViewModel(user: user, imageRepository: imageRepository)})
     }
 
     private func resetPages() {
         pages.removeAll()
+        users.removeAll()
         userViewModels.send([])
     }
 

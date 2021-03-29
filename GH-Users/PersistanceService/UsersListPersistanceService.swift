@@ -27,7 +27,7 @@ final class UsersListStorageService: UsersListStorageServiceProtocol {
     private func getFetchRequest(for request: UsersListRequest) -> NSFetchRequest<UserEntity> {
         let fetchRequest: NSFetchRequest = UserEntity.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
-        fetchRequest.predicate = NSPredicate(format: "%K.intValue > %d",
+        fetchRequest.predicate = NSPredicate(format: "%K > %d",
                                              (\UserEntity.id)._kvcKeyPathString!, request.since)
         fetchRequest.fetchLimit = fetchLimit
         return fetchRequest

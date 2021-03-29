@@ -95,6 +95,7 @@ extension APIRequest {
         }
         urlRequest.httpMethod = method.rawValue
         urlRequest.allHTTPHeaderFields = allHeaders
+        urlRequest.cachePolicy = .reloadIgnoringLocalCacheData
         return urlRequest
     }
     

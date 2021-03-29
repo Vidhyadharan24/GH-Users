@@ -7,39 +7,57 @@
 
 import UIKit
 
-protocol UsersListCoordinatorProtocol  {
+protocol UsersListDIContainerProtocol  {
     func makeUsersListViewController(actions: UsersListViewModelActions) -> UsersListViewController
 //    func makeUsersDetailsViewController(user: UserEntity) -> UserDetailsViewController
+    func makeLocalUserSearchListViewController(actions: LocalUsersSearchViewModelActions) -> UsersSearchTableViewController
 }
 
 final class UsersListCoordinator {
     
     private weak var navigationController: UINavigationController?
-    private let dependencies: UsersListCoordinatorProtocol
+    private let diContainer: UsersListDIContainerProtocol
 
     private weak var usersListViewController: UsersListViewController?
-    private weak var usersLocalSearchViewController: UIViewController?
+    private weak var usersLocalSearchViewController: UsersSearchTableViewController?
 
     init(navigationController: UINavigationController,
-         dependencies: UsersListCoordinatorProtocol) {
+         diContainer: UsersListDIContainerProtocol) {
         self.navigationController = navigationController
-        self.dependencies = dependencies
+        self.diContainer = diContainer
     }
     
     func start() {
-        let actions = UsersListViewModelActions(showUserDetails: showUserDetails)
-        let vc = dependencies.makeUsersListViewController(actions: actions)
+        let actions = UsersListViewModelActions(showUserDetails: showUserDetails,
+                                                showLocalUserSearch: showLocalUserSearch,
+                                                closeLocalUserSearch: closeLocalUserSearch)
+        let vc = diContainer.makeUsersListViewController(actions: actions)
 
         navigationController?.pushViewController(vc, animated: false)
         usersListViewController = vc
     }
 
-    private func showUserDetails(user: UserEntity) {
+    private func showUserDetails(user: UserEntity, completion: (UserEntity) -> Void) {
+        
     }
     
-    private func showLocalUserSearch(didSelect: @escaping (UserEntity) -> Void) {
+    private func showLocalUserSearch() {
+        guard let usersListViewController = usersListViewController, usersLocalSearchViewController == nil,
+            let container = usersListViewController.usersSearchContainer else { return }
+
+        let actions = LocalUsersSearchViewModelActions(showUserDetails: showUserDetails)
+        let vc = diContainer.makeLocalUserSearchListViewController(actions: actions)
+        
+        usersListViewController.add(child: vc, container: container)
+        usersListViewController.usersSearchTableViewController = vc
+        usersLocalSearchViewController = vc
+        container.isHidden = false
     }
 
     private func closeLocalUserSearch() {
+        usersLocalSearchViewController?.remove()
+        usersLocalSearchViewController = nil
+        usersListViewController?.usersSearchTableViewController = nil
+        usersListViewController?.usersSearchContainer.isHidden = true
     }
 }

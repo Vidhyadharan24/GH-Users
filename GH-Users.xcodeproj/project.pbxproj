@@ -38,10 +38,27 @@
 		180D2F6926107A2600508F21 /* UsersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F132610369E00508F21 /* UsersListViewController.swift */; };
 		180D2F6A26107A2600508F21 /* AppDIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E55260EFBC600508F21 /* AppDIContainer.swift */; };
 		180D2F6B26107A2600508F21 /* AppConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E56260EFBC600508F21 /* AppConfig.swift */; };
+		180D2F7C261090D400508F21 /* SwiftUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F7B261090D400508F21 /* SwiftUIView.swift */; };
+		180D2F8B2610970800508F21 /* UsersListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F8A2610970800508F21 /* UsersListTableViewController.swift */; };
+		180D2F932610971A00508F21 /* UsersSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F922610971A00508F21 /* UsersSearchTableViewController.swift */; };
+		180D2F9926109AAC00508F21 /* UsersListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F9826109AAC00508F21 /* UsersListItemCell.swift */; };
+		180D2FA226109AE700508F21 /* UsersListItemCellProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FA126109AE700508F21 /* UsersListItemCellProtocol.swift */; };
+		180D2FB02610AEE000508F21 /* UIViewController+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FAF2610AEE000508F21 /* UIViewController+Embed.swift */; };
+		180D2FB82610D73400508F21 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FB72610D73400508F21 /* ShadowView.swift */; };
+		180D2FC92610DBF000508F21 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FC82610DBF000508F21 /* UIImage+Resize.swift */; };
+		180D2FCE2610DD3600508F21 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FCD2610DD3600508F21 /* RoundedImageView.swift */; };
+		180D2FD32610E95400508F21 /* InvertedUsersListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FD22610E95400508F21 /* InvertedUsersListItemCell.swift */; };
+		180D2FD82610E9CF00508F21 /* UsersListNoteItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FD72610E9CF00508F21 /* UsersListNoteItemCell.swift */; };
+		180D2FDD2610EA7100508F21 /* UIIMage+InvertImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FDC2610EA7100508F21 /* UIIMage+InvertImage.swift */; };
+		180D2FE52610F2D500508F21 /* InvertedUsersNoteListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FE42610F2D500508F21 /* InvertedUsersNoteListItemCell.swift */; };
+		180D2FF326111B5200508F21 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FF226111B5200508F21 /* LoadingView.swift */; };
+		180D2FFB26115D4D00508F21 /* LocalUsersSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FFA26115D4D00508F21 /* LocalUsersSearchViewModel.swift */; };
+		180D300426115F4100508F21 /* LocalUsersSearchPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */; };
+		180D300D261160D200508F21 /* LocalUsersSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */; };
+		180D301826116C3700508F21 /* LocalUserSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D301726116C3700508F21 /* LocalUserSearchRepository.swift */; };
 		188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF265260EF67900EB2CC6 /* AppDelegate.swift */; };
 		188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF267260EF67900EB2CC6 /* SceneDelegate.swift */; };
 		188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF269260EF67900EB2CC6 /* ViewController.swift */; };
-		188BF26D260EF67900EB2CC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 188BF26B260EF67900EB2CC6 /* Main.storyboard */; };
 		188BF270260EF67900EB2CC6 /* GH_Users.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 188BF26E260EF67900EB2CC6 /* GH_Users.xcdatamodeld */; };
 		188BF272260EF67A00EB2CC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188BF271260EF67A00EB2CC6 /* Assets.xcassets */; };
 		188BF275260EF67A00EB2CC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */; };
@@ -98,11 +115,28 @@
 		180D2F3D261066E200508F21 /* ConnectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionError.swift; sourceTree = "<group>"; };
 		180D2F442610676300508F21 /* NetworkDecodableServiceError+ConnectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NetworkDecodableServiceError+ConnectionError.swift"; sourceTree = "<group>"; };
 		180D2F5726106A3A00508F21 /* UsersListCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListCellViewModel.swift; sourceTree = "<group>"; };
+		180D2F7B261090D400508F21 /* SwiftUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIView.swift; sourceTree = "<group>"; };
+		180D2F8A2610970800508F21 /* UsersListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListTableViewController.swift; sourceTree = "<group>"; };
+		180D2F922610971A00508F21 /* UsersSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersSearchTableViewController.swift; sourceTree = "<group>"; };
+		180D2F9826109AAC00508F21 /* UsersListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListItemCell.swift; sourceTree = "<group>"; };
+		180D2FA126109AE700508F21 /* UsersListItemCellProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListItemCellProtocol.swift; sourceTree = "<group>"; };
+		180D2FAF2610AEE000508F21 /* UIViewController+Embed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Embed.swift"; sourceTree = "<group>"; };
+		180D2FB72610D73400508F21 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		180D2FC82610DBF000508F21 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
+		180D2FCD2610DD3600508F21 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		180D2FD22610E95400508F21 /* InvertedUsersListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertedUsersListItemCell.swift; sourceTree = "<group>"; };
+		180D2FD72610E9CF00508F21 /* UsersListNoteItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListNoteItemCell.swift; sourceTree = "<group>"; };
+		180D2FDC2610EA7100508F21 /* UIIMage+InvertImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIIMage+InvertImage.swift"; sourceTree = "<group>"; };
+		180D2FE42610F2D500508F21 /* InvertedUsersNoteListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertedUsersNoteListItemCell.swift; sourceTree = "<group>"; };
+		180D2FF226111B5200508F21 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		180D2FFA26115D4D00508F21 /* LocalUsersSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchViewModel.swift; sourceTree = "<group>"; };
+		180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchPersistanceService.swift; sourceTree = "<group>"; };
+		180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchQuery.swift; sourceTree = "<group>"; };
+		180D301726116C3700508F21 /* LocalUserSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUserSearchRepository.swift; sourceTree = "<group>"; };
 		188BF262260EF67900EB2CC6 /* GH-Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GH-Users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		188BF265260EF67900EB2CC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188BF267260EF67900EB2CC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		188BF269260EF67900EB2CC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		188BF26C260EF67900EB2CC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		188BF26F260EF67900EB2CC6 /* GH_Users.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GH_Users.xcdatamodel; sourceTree = "<group>"; };
 		188BF271260EF67A00EB2CC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		188BF274260EF67A00EB2CC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -206,6 +240,7 @@
 			children = (
 				180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */,
 				180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */,
+				180D300B261160B000508F21 /* LocalUserSearch */,
 			);
 			path = PersistanceService;
 			sourceTree = "<group>";
@@ -252,6 +287,7 @@
 				180D2ECD260FA88B00508F21 /* UsersListRepository.swift */,
 				180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */,
 				180D2F00260FB8C100508F21 /* ImageRepository.swift */,
+				180D301726116C3700508F21 /* LocalUserSearchRepository.swift */,
 			);
 			path = Respositories;
 			sourceTree = "<group>";
@@ -267,6 +303,7 @@
 		180D2F052610365200508F21 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				180D2FF726115D2300508F21 /* LocalUsersSearch */,
 				180D2F422610672B00508F21 /* Utils */,
 				180D2F2D261046EE00508F21 /* Coordinators */,
 				180D2F18261036A600508F21 /* UsersList */,
@@ -286,6 +323,7 @@
 		180D2F072610366400508F21 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				180D2F89261096EA00508F21 /* TableViewController */,
 				180D2F132610369E00508F21 /* UsersListViewController.swift */,
 			);
 			path = View;
@@ -312,6 +350,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2F432610674400508F21 /* Extensions */,
+				180D2FBC2610DA8000508F21 /* CustomClasses */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -320,13 +359,90 @@
 			isa = PBXGroup;
 			children = (
 				180D2F442610676300508F21 /* NetworkDecodableServiceError+ConnectionError.swift */,
+				180D2FAF2610AEE000508F21 /* UIViewController+Embed.swift */,
+				180D2FC82610DBF000508F21 /* UIImage+Resize.swift */,
+				180D2FDC2610EA7100508F21 /* UIIMage+InvertImage.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		180D2F89261096EA00508F21 /* TableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F9726109AA300508F21 /* Cells */,
+				180D2F8A2610970800508F21 /* UsersListTableViewController.swift */,
+			);
+			path = TableViewController;
+			sourceTree = "<group>";
+		};
+		180D2F9726109AA300508F21 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				180D2FA026109AD600508F21 /* Protocols */,
+				180D2F9826109AAC00508F21 /* UsersListItemCell.swift */,
+				180D2FD22610E95400508F21 /* InvertedUsersListItemCell.swift */,
+				180D2FD72610E9CF00508F21 /* UsersListNoteItemCell.swift */,
+				180D2FE42610F2D500508F21 /* InvertedUsersNoteListItemCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		180D2FA026109AD600508F21 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				180D2FA126109AE700508F21 /* UsersListItemCellProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		180D2FBC2610DA8000508F21 /* CustomClasses */ = {
+			isa = PBXGroup;
+			children = (
+				180D2FB72610D73400508F21 /* ShadowView.swift */,
+				180D2FCD2610DD3600508F21 /* RoundedImageView.swift */,
+				180D2FF226111B5200508F21 /* LoadingView.swift */,
+			);
+			path = CustomClasses;
+			sourceTree = "<group>";
+		};
+		180D2FF726115D2300508F21 /* LocalUsersSearch */ = {
+			isa = PBXGroup;
+			children = (
+				180D2FF926115D3D00508F21 /* ViewModel */,
+				180D2FF826115D3000508F21 /* View */,
+			);
+			path = LocalUsersSearch;
+			sourceTree = "<group>";
+		};
+		180D2FF826115D3000508F21 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				180D2F922610971A00508F21 /* UsersSearchTableViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		180D2FF926115D3D00508F21 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				180D2FFA26115D4D00508F21 /* LocalUsersSearchViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		180D300B261160B000508F21 /* LocalUserSearch */ = {
+			isa = PBXGroup;
+			children = (
+				180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */,
+				180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */,
+			);
+			path = LocalUserSearch;
 			sourceTree = "<group>";
 		};
 		188BF259260EF67900EB2CC6 = {
 			isa = PBXGroup;
 			children = (
+				180D2F7B261090D400508F21 /* SwiftUIView.swift */,
 				188BF2A1260EF6BA00EB2CC6 /* Cartfile */,
 				188BF264260EF67900EB2CC6 /* GH-Users */,
 				188BF27E260EF67A00EB2CC6 /* GH-UsersTests */,
@@ -355,7 +471,6 @@
 				180D2E6A260F026B00508F21 /* ImageCache */,
 				188BF276260EF67A00EB2CC6 /* Info.plist */,
 				188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */,
-				188BF26B260EF67900EB2CC6 /* Main.storyboard */,
 				180D2EA7260F77DC00508F21 /* Models */,
 				180D2E4D260EF87800508F21 /* Networking */,
 				180D2E3C260EF83B00508F21 /* Persistance */,
@@ -491,7 +606,6 @@
 			files = (
 				188BF275260EF67A00EB2CC6 /* LaunchScreen.storyboard in Resources */,
 				188BF272260EF67A00EB2CC6 /* Assets.xcassets in Resources */,
-				188BF26D260EF67900EB2CC6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -517,14 +631,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */,
+				180D2FDD2610EA7100508F21 /* UIIMage+InvertImage.swift in Sources */,
 				180D2F6726107A2600508F21 /* UsersSceneDIContainer.swift in Sources */,
+				180D2F7C261090D400508F21 /* SwiftUIView.swift in Sources */,
 				180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */,
 				180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */,
 				180D2EF2260FAF7900508F21 /* UserDetailsRequest.swift in Sources */,
+				180D2FB82610D73400508F21 /* ShadowView.swift in Sources */,
 				180D2EE1260FAB7000508F21 /* APIEndpoints.swift in Sources */,
+				180D2FCE2610DD3600508F21 /* RoundedImageView.swift in Sources */,
 				180D2EAB260F780500508F21 /* UsersListRequest.swift in Sources */,
 				180D2F3E261066E200508F21 /* ConnectionError.swift in Sources */,
+				180D2FF326111B5200508F21 /* LoadingView.swift in Sources */,
 				180D2F6926107A2600508F21 /* UsersListViewController.swift in Sources */,
+				180D2F9926109AAC00508F21 /* UsersListItemCell.swift in Sources */,
+				180D2FD32610E95400508F21 /* InvertedUsersListItemCell.swift in Sources */,
+				180D300426115F4100508F21 /* LocalUsersSearchPersistanceService.swift in Sources */,
 				180D2F5826106A3A00508F21 /* UsersListCellViewModel.swift in Sources */,
 				180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */,
 				180D2F6626107A2600508F21 /* UsersListCoordinator.swift in Sources */,
@@ -533,20 +655,30 @@
 				180D2EC0260F834500508F21 /* UserEntity+Mapping.swift in Sources */,
 				180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */,
 				180D2EC8260F9AE800508F21 /* UserDetailsResponse.swift in Sources */,
+				180D301826116C3700508F21 /* LocalUserSearchRepository.swift in Sources */,
+				180D2FB02610AEE000508F21 /* UIViewController+Embed.swift in Sources */,
 				180D2F1A261036E000508F21 /* UsersListViewModel.swift in Sources */,
 				180D2F01260FB8C100508F21 /* ImageRepository.swift in Sources */,
+				180D2FA226109AE700508F21 /* UsersListItemCellProtocol.swift in Sources */,
+				180D2FC92610DBF000508F21 /* UIImage+Resize.swift in Sources */,
 				180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */,
 				180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */,
+				180D300D261160D200508F21 /* LocalUsersSearchQuery.swift in Sources */,
 				180D2F6826107A2600508F21 /* AppCoordinator.swift in Sources */,
 				180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */,
 				188BF26A260EF67900EB2CC6 /* ViewController.swift in Sources */,
 				180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */,
+				180D2FD82610E9CF00508F21 /* UsersListNoteItemCell.swift in Sources */,
+				180D2F932610971A00508F21 /* UsersSearchTableViewController.swift in Sources */,
 				188BF270260EF67900EB2CC6 /* GH_Users.xcdatamodeld in Sources */,
 				180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */,
 				188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */,
 				180D2F6A26107A2600508F21 /* AppDIContainer.swift in Sources */,
 				180D2ECE260FA88B00508F21 /* UsersListRepository.swift in Sources */,
+				180D2F8B2610970800508F21 /* UsersListTableViewController.swift in Sources */,
+				180D2FFB26115D4D00508F21 /* LocalUsersSearchViewModel.swift in Sources */,
 				180D2EFC260FB02C00508F21 /* UserDetailsPersistanceService.swift in Sources */,
+				180D2FE52610F2D500508F21 /* InvertedUsersNoteListItemCell.swift in Sources */,
 				180D2F6B26107A2600508F21 /* AppConfig.swift in Sources */,
 				180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */,
 				188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */,
@@ -586,14 +718,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		188BF26B260EF67900EB2CC6 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				188BF26C260EF67900EB2CC6 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

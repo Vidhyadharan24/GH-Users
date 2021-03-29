@@ -11,7 +11,8 @@ import CoreData
 extension UserEntity {
     convenience init(user: UsersListResponseElement, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        self.id = String(user.id)
+        self.idString = String(user.id)
+        self.id = Int64(user.id)
         self.avatarURL = user.avatarURL
         self.type = user.type?.rawValue
         self.login = user.login
@@ -19,9 +20,11 @@ extension UserEntity {
     
     convenience init(user: UserDetailsResponse, insertInto context: NSManagedObjectContext) {
         self.init(context: context)
-        self.id = String(user.id)
+        self.idString = String(user.id)
+        self.id = Int64(user.id)
         self.avatarURL = user.avatarURL
         self.type = user.type?.rawValue
         self.login = user.login
+        self.viewed = true
     }
 }

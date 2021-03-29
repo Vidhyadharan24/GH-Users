@@ -47,21 +47,19 @@ public class ImageCacheService: ImageCacheServiceProtocol {
             guard let self = self else { return }
             let fileName = self.md5(string: url)
             
-            if FileManager.default.fileExists(atPath: fileName) {
-                if let data = self.imageMemoryCache[fileName] {
-                    return DispatchQueue.main.async { return completion(.success(data)) }
-                }
-                
-                let result = self.imagePersistanceManager.getImageFor(fileName: fileName)
-                switch result {
-                case .success(let data):
-                    self.imageMemoryCache[fileName] = data
-                    DispatchQueue.main.async { return completion(.success(data)) }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
+            if let data = self.imageMemoryCache[fileName] {
+                return DispatchQueue.main.async { return completion(.success(data)) }
             }
-            DispatchQueue.main.async { return completion(.failure(.noImage)) }
+            
+            let result = self.imagePersistanceManager.getImageFor(fileName: fileName)
+            switch result {
+            case .success(let data):
+                self.imageMemoryCache[fileName] = data
+                DispatchQueue.main.async { return completion(.success(data)) }
+            case .failure(let error):
+                print(error.localizedDescription)
+                DispatchQueue.main.async { return completion(.failure(.noImage)) }
+            }
         }
         
         imageQueue.addOperation(blockOperation)
