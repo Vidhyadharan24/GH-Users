@@ -40,8 +40,7 @@ final class UsersSceneDIContainer {
 
     // MARK: - Users List
     func makeUsersListViewController(actions: UsersListViewModelActions) -> UsersListViewController {
-        return UsersListViewController.create(viewModel: makeUsersListViewModel(actions: actions),
-                                              imageRepository: makeImageRepository())
+        return UsersListViewController.create(viewModel: makeUsersListViewModel(actions: actions))
     }
 
     func makeUsersListViewModel(actions: UsersListViewModelActions) -> UsersListViewModel {

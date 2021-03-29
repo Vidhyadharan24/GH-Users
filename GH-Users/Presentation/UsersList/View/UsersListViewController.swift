@@ -11,7 +11,6 @@ import Combine
 class UsersListViewController: UIViewController {
 
     private let viewModel: UsersListViewModelProtocol
-    private let imageRepository: ImageRepositoryProtocol
     
     private var searchBarContainer: UIView!
     private var usersListContainer: UIView!
@@ -29,14 +28,13 @@ class UsersListViewController: UIViewController {
     
     private var cancellableSet: Set<AnyCancellable> = []
 
-    static func create(viewModel: UsersListViewModelProtocol, imageRepository: ImageRepositoryProtocol) -> UsersListViewController {
-        let controller = UsersListViewController(viewModel: viewModel, imageRepository: imageRepository)
+    static func create(viewModel: UsersListViewModelProtocol) -> UsersListViewController {
+        let controller = UsersListViewController(viewModel: viewModel)
         return controller
     }
         
-    private init(viewModel: UsersListViewModelProtocol, imageRepository: ImageRepositoryProtocol) {
+    private init(viewModel: UsersListViewModelProtocol) {
         self.viewModel = viewModel
-        self.imageRepository = imageRepository
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -145,7 +143,7 @@ extension UsersListViewController {
         usersTableViewController.updateLoading(loading)
     }
     
-    private func updateQueriesSuggestions() {
+    private func updateLocalSearch() {
         guard searchController.searchBar.isFirstResponder else {
             viewModel.closeLocalUserSearch()
             return
@@ -180,8 +178,6 @@ extension UsersListViewController {
 extension UsersListViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchText = searchBar.text, !searchText.isEmpty else { return }
-        searchController.isActive = false
-        usersSearchContainer.isHidden = false
         usersSearchTableViewController?.didSearch(query: searchText)
     }
 
@@ -192,12 +188,14 @@ extension UsersListViewController: UISearchBarDelegate {
 
 extension UsersListViewController: UISearchControllerDelegate {
     public func willPresentSearchController(_ searchController: UISearchController) {
-        updateQueriesSuggestions()
+        updateLocalSearch()
     }
 
     public func willDismissSearchController(_ searchController: UISearchController) {
+        updateLocalSearch()
     }
 
     public func didDismissSearchController(_ searchController: UISearchController) {
+        updateLocalSearch()
     }
 }
