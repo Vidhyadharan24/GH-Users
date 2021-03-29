@@ -8,6 +8,7 @@
 import CoreData
 
 enum PersistanceError: Error {
+    case noData
     case readError(Error)
     case saveError(Error)
     case deleteError(Error)
