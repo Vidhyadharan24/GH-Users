@@ -20,6 +20,7 @@ protocol UserDetailsViewModelOutputProtocol {
     var note:  NSObject.KeyValueObservingPublisher<UserEntity, String?> { get }
     var isCached: CurrentValueSubject<Bool, Never> { get }
     var error: CurrentValueSubject<String?, Never> { get }
+    var title: String { get }
     var emptyDataTitle: String { get }
     var errorTitle: String { get }
 }
@@ -33,6 +34,7 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
 
     var userDetails = CurrentValueSubject<UserEntity?, Never>(nil)
     var image = CurrentValueSubject<UIImage?, Never>(nil)
+    let title = NSLocalizedString("Details", comment: "")
     lazy var note = self.user.publisher(for: \.note)
     var isCached = CurrentValueSubject<Bool, Never>(false)
     var error = CurrentValueSubject<String?, Never>(nil)

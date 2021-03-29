@@ -37,12 +37,17 @@ class UserDetailsViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        setupViews(with: viewModel)
         bind(to: viewModel)
         viewModel.viewDidLoad()
     }
     
     public override func viewWillDisappear(_ animated: Bool) {
         completion?()
+    }
+    
+    func setupViews(with viewModel: UserDetailsViewModel) {
+        self.title = viewModel.title
     }
     
     func bind(to viewModel: UserDetailsViewModel) {
@@ -66,6 +71,10 @@ class UserDetailsViewController: UIViewController {
         guard let userEntity = userEntity else { return }
         self.publicResposLabel.text = String(format: NSLocalizedString("Public Repos %d", comment: ""), userEntity.publicRepos)
         self.followingLabel.text = String(format: NSLocalizedString("Following %d", comment: ""), userEntity.following)
+        
+        self.nameLabel.text = String(format: NSLocalizedString("Name: %@", comment: ""), userEntity.name ?? "")
+        self.organisationLabel.text = String(format: NSLocalizedString("Organisation: %@", comment: ""), userEntity.company ?? "")
+        self.blogLabel.text = String(format: NSLocalizedString("Blog: %@", comment: ""), userEntity.blog ?? "")
         
     }
     
