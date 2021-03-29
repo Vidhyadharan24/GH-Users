@@ -22,26 +22,6 @@ struct PersistenceManager {
     
     var backgroundContext: NSManagedObjectContext
     
-    static var preview: PersistenceManager = {
-        let result = PersistenceManager(inMemory: true)
-        let viewContext = result.container.viewContext
-        for _ in 0..<10 {
-            let userEntity = UserEntity(context: viewContext)
-            userEntity.idString = "1"
-            userEntity.id = 1
-            userEntity.avatarURL = "https://avatars.githubusercontent.com/u/9743939?v=4"
-        }
-        do {
-            try viewContext.save()
-        } catch {
-            // Replace this implementation with code to handle the error appropriately.
-            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            let nsError = error as NSError
-            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-        }
-        return result
-    }()
-    
     private init() {
         self.init(inMemory: false)
     }

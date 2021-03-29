@@ -31,10 +31,14 @@ public class ImageCacheService: ImageCacheServiceProtocol {
     private var imagePersistanceManager: ImagePersistanceManagerProtocol
     
     private var imageMemoryCache: [String: Data] = [:]
-    
+        
     init(imagePersistanceManager: ImagePersistanceManagerProtocol) {
         self.imagePersistanceManager = imagePersistanceManager
         
+        setupObservers()
+    }
+    
+    func setupObservers() {
         NotificationCenter.default.addObserver(forName: UIApplication.didReceiveMemoryWarningNotification,
                                                object: nil,
                                                queue: imageQueue) { [weak self] (_) in
@@ -97,5 +101,4 @@ extension ImageCacheService {
             String(format: "%02hhx", $0)
         }.joined()
     }
-
 }

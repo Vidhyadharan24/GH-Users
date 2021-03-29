@@ -33,22 +33,22 @@ class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
     let imageRepository: ImageRepositoryProtocol
 
     let actions: LocalUsersSearchViewModelActions
-    
-    private var usersLoadTask: Cancellable? { willSet { usersLoadTask?.cancel() } }
 
     private var users: [UserEntity] = []
     private(set) var userViewModels = CurrentValueSubject<[UserListCellViewModelProtocol], Never>([])
     private(set) var error = CurrentValueSubject<String?, Never>(nil)
     var isEmpty: Bool { return userViewModels.value.isEmpty }
-    let emptyDataTitle = NSLocalizedString("No users foud", comment: "")
+    let emptyDataTitle = NSLocalizedString("No users found", comment: "")
     let errorTitle = NSLocalizedString("Error", comment: "")
     
-    init(localUsersSearchRepository: LocalUsersSearchRepositoryProtocol,
+    private var usersLoadTask: Cancellable? { willSet { usersLoadTask?.cancel() } }
+
+    init(repository: LocalUsersSearchRepositoryProtocol,
          imageRepository: ImageRepositoryProtocol,
          actions: LocalUsersSearchViewModelActions) {
-        self.respository = localUsersSearchRepository
-        self.actions = actions
+        self.respository = repository
         self.imageRepository = imageRepository
+        self.actions = actions
     }
     
     func didSearch(query: String) {
@@ -61,6 +61,7 @@ class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
     
     func didSelectItem(at index: Int) {
         actions.showUserDetails(users[index]) {[weak self] in
+            // Reloading on return from User Details Page
             guard let self = self else { return }
             self.userViewModels.send(self.userViewModels.value)
         }
@@ -72,7 +73,8 @@ extension LocalUsersSearchViewModel {
     
     private func setLocalSearch(results: [UserEntity]) {
         users = results
-        userViewModels.send(users.map { UserListCellViewModel(user: $0, imageRepository: imageRepository)})
+        let models = users.map { UserListCellViewModel(user: $0, imageRepository: imageRepository)}
+        userViewModels.send(models)
     }
 
     private func load(query: String) {

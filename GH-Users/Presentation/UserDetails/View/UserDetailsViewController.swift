@@ -17,7 +17,6 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet private var nameLabel: UILabel!
     @IBOutlet private var organisationLabel: UILabel!
     @IBOutlet private var blogLabel: UILabel!
-
     
     @IBOutlet private var publicResposLabel: UILabel!
     @IBOutlet private var followingLabel: UILabel!
@@ -37,7 +36,7 @@ class UserDetailsViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews(with: viewModel)
+        setupViews()
         bind(to: viewModel)
         viewModel.viewDidLoad()
     }
@@ -46,8 +45,17 @@ class UserDetailsViewController: UIViewController {
         completion?()
     }
     
-    func setupViews(with viewModel: UserDetailsViewModel) {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.notesTextView.layer.shadowColor = UIColor.systemGray.cgColor
+    }
+}
+
+extension UserDetailsViewController {
+    func setupViews() {
         self.title = viewModel.title
+        notesTextView.layer.borderWidth = 2
+        notesTextView.layer.borderColor = UIColor.systemGray.cgColor
     }
     
     func bind(to viewModel: UserDetailsViewModel) {
@@ -58,7 +66,7 @@ class UserDetailsViewController: UIViewController {
         }.store(in: &cancellableSet)
         
         viewModel.userDetails.sink { (userEntity) in
-            self.update(userEntity: userEntity)
+            self.update()
         }.store(in: &cancellableSet)
         
         viewModel.note
@@ -67,14 +75,13 @@ class UserDetailsViewController: UIViewController {
         }.store(in: &cancellableSet)
     }
     
-    public func update(userEntity: UserEntity?) {
-        guard let userEntity = userEntity else { return }
-        self.publicResposLabel.text = String(format: NSLocalizedString("Public Repos: %d", comment: ""), userEntity.publicRepos)
-        self.followingLabel.text = String(format: NSLocalizedString("Following: %d", comment: ""), userEntity.following)
+    public func update() {
+        self.publicResposLabel.text = viewModel.publisRepos
+        self.followingLabel.text = viewModel.following
         
-        self.nameLabel.text = String(format: NSLocalizedString("Name: %@", comment: ""), userEntity.name ?? "")
-        self.organisationLabel.text = String(format: NSLocalizedString("Organisation: %@", comment: ""), userEntity.company ?? "")
-        self.blogLabel.text = String(format: NSLocalizedString("Blog: %@", comment: ""), userEntity.blog ?? "")
+        self.nameLabel.text = viewModel.name
+        self.organisationLabel.text = viewModel.organisation
+        self.blogLabel.text = viewModel.blog
         
     }
     

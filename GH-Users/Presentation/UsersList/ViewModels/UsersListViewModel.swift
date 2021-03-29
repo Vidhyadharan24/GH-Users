@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import Reachability
 
 struct UsersListViewModelActions {
     let showUserDetails: (UserEntity, @escaping () -> Void) -> Void
@@ -55,6 +56,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
     let actions: UsersListViewModelActions
     
     private var usersLoadTask: Cancellable? { willSet { usersLoadTask?.cancel() } }
+    private var cancellableSet = Set<AnyCancellable>()
 
     private var pages: [UsersSince] = []
     private var users: [UserEntity] = []
@@ -68,14 +70,34 @@ class UsersListViewModel: UsersListViewModelProtocol {
     let errorTitle = NSLocalizedString("Error", comment: "")
     let searchBarPlaceholder = NSLocalizedString("Search Users", comment: "")
     
-    init(usersListRepository: UsersListRepositoryProtocol, imageRepository: ImageRepositoryProtocol, actions: UsersListViewModelActions) {
-        self.respository = usersListRepository
+    init(repository: UsersListRepositoryProtocol, imageRepository: ImageRepositoryProtocol, actions: UsersListViewModelActions) {
+        self.respository = repository
         self.actions = actions
         self.imageRepository = imageRepository
     }
     
+    private func reloadIfRequired() {
+        guard isEmpty else { return }
+        load(since: 0, loading: .fullScreen)
+    }
+    
     func viewDidLoad() {
-        load(since: 0, loading: .nextPage)
+        load(since: 0, loading: .fullScreen)
+        setupObservers()
+    }
+    
+    func setupObservers() {
+        NotificationCenter.default.publisher(for: .reachabilityChanged, object: nil)
+            .sink {[weak self] (note) in
+                let reachability = note.object as! Reachability
+
+                switch reachability.connection {
+                case .wifi, .cellular:
+                    self?.reloadIfRequired()
+                case .unavailable, .none:
+                  print("Network not reachable")
+                }
+            }.store(in: &cancellableSet)
     }
     
     func didLoadNextPage() {
@@ -94,6 +116,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
     func didSelectItem(at index: Int) {
         let users = pages.flatMap { $0.users }
         actions.showUserDetails(users[index]) {[weak self] in
+            // Reloading on return from User Details Page
             guard let self = self else { return }
             self.userViewModels.send(self.userViewModels.value)
         }

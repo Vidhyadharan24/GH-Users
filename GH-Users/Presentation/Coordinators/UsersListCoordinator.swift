@@ -37,11 +37,13 @@ final class UsersListCoordinator {
         usersListViewController = vc
     }
 
+    // MARK: UserDetails
     private func showUserDetails(user: UserEntity, completion: @escaping () -> Void) {
         let vc = diContainer.makeUserDetailsViewController(user: user, completion: completion)
         navigationController?.pushViewController(vc, animated: true)
     }
     
+    // MARK: LocalUserSearch
     private func showLocalUserSearch() {
         guard let usersListViewController = usersListViewController, usersLocalSearchViewController == nil,
             let container = usersListViewController.usersSearchContainer else { return }

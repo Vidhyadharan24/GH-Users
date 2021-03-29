@@ -9,8 +9,8 @@ import Foundation
 
 public protocol UsersListRepositoryProtocol {
     func fetchUsersList(since: Int,
-                         cached: @escaping (Result<[UserEntity], Error>) -> Void,
-                         completion: @escaping (Result<[UserEntity], Error>) -> Void) -> Cancellable?
+                        cached: @escaping (Result<[UserEntity], Error>) -> Void,
+                        completion: @escaping (Result<[UserEntity], Error>) -> Void) -> Cancellable?
 }
 
 final class UsersListRepository: UsersListRepositoryProtocol {
@@ -22,7 +22,6 @@ final class UsersListRepository: UsersListRepositoryProtocol {
         self.networkDecodableService = networkDecodableService
         self.persistantStorageService = persistantStorageService
     }
-    
     
     public func fetchUsersList(since: Int, cached: @escaping (Result<[UserEntity], Error>) -> Void, completion: @escaping (Result<[UserEntity], Error>) -> Void) -> Cancellable? {
         let request = UsersListRequest(since: since)

@@ -13,7 +13,7 @@ protocol UsersListStorageServiceProtocol {
     func save(response: UsersListResponse, completion: @escaping (PersistanceError?) -> Void)
 }
 
-final class UsersListStorageService: UsersListStorageServiceProtocol {
+public final class UsersListStorageService: UsersListStorageServiceProtocol {
     private let persistenceManager: PersistenceManager
     private let fetchLimit: Int
 
@@ -23,7 +23,6 @@ final class UsersListStorageService: UsersListStorageServiceProtocol {
     }
 
     // MARK: - Private
-
     private func getFetchRequest(for request: UsersListRequest) -> NSFetchRequest<UserEntity> {
         let fetchRequest: NSFetchRequest = UserEntity.fetchRequest()
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]

@@ -123,7 +123,7 @@ extension NetworkDataService {
     }
     
     private func getDelay(for n: Int) -> Int {
-        let maxDelay = 60000 // 1 minute
+        let maxDelay = 15000 // 15 secs
         let delay = Int(pow(2.0, Double(n))) * 1000
         let jitter = Int.random(in: 0...1000)
         return min(delay + jitter, maxDelay)

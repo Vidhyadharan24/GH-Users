@@ -14,7 +14,6 @@ public enum ImagePersistanceError: Error {
 
 public protocol ImagePersistanceManagerProtocol {
     func getImageFor(fileName: String) -> Result<Data?, ImagePersistanceError>
-    
     func write(data: Data, fileName: String) -> ImagePersistanceError?
 }
 

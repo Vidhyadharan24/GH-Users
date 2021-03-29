@@ -49,7 +49,7 @@ final class UsersSceneDIContainer {
     }
 
     func makeUsersListViewModel(actions: UsersListViewModelActions) -> UsersListViewModel {
-        return UsersListViewModel(usersListRepository: makeUsersListRepository(), imageRepository: makeImageRepository(), actions: actions)
+        return UsersListViewModel(repository: makeUsersListRepository(), imageRepository: makeImageRepository(), actions: actions)
     }
     
     // MARK: Local User Search
@@ -59,7 +59,7 @@ final class UsersSceneDIContainer {
     }
     
     func makeLocalUsersSearchViewModel(actions: LocalUsersSearchViewModelActions) -> LocalUsersSearchViewModel {
-        return LocalUsersSearchViewModel(localUsersSearchRepository: makeLocalUsersSearchRepository(),
+        return LocalUsersSearchViewModel(repository: makeLocalUsersSearchRepository(),
                                          imageRepository: makeImageRepository(),
                                          actions: actions)
     }
@@ -77,7 +77,7 @@ final class UsersSceneDIContainer {
 
     func makeUserDetailsViewModel(user: UserEntity) -> UserDetailsViewModel {
         return UserDetailsViewModel(user: user,
-                                    userDetailsRepository: makeUserDetailsRepository(),
+                                    repository: makeUserDetailsRepository(),
                                     imageRespository: makeImageRepository())
     }
 

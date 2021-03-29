@@ -30,23 +30,6 @@ class UsersSearchTableViewController: UITableViewController {
         bind(to: viewModel)
     }
     
-    private func bind(to viewModel: LocalUsersSearchViewModelProtocol) {
-        viewModel.userViewModels.sink { [weak self] _ in self?.reload() }.store(in: &cancellableSet)
-        viewModel.error.sink { [weak self] in self?.showError($0) }.store(in: &cancellableSet)
-    }
-
-    func reload() {
-        tableView.reloadData()
-    }
-    
-    func didSearch(query: String) {
-        viewModel.didSearch(query: query)
-    }
-    
-    func didCancelSearch() {
-        viewModel.didCancel()
-    }
-
     // MARK: - Private
 
     private func setupViews() {
@@ -60,10 +43,30 @@ class UsersSearchTableViewController: UITableViewController {
         tableView.separatorStyle = .none
     }
     
+    private func bind(to viewModel: LocalUsersSearchViewModelProtocol) {
+        viewModel.userViewModels.sink { [weak self] _ in self?.reload() }.store(in: &cancellableSet)
+        viewModel.error.sink { [weak self] in self?.showError($0) }.store(in: &cancellableSet)
+    }
+    
     private func showError(_ error: String?) {
         guard let error = error, !error.isEmpty else { return }
 //        showAlert(title: viewModel.errorTitle, message: error)
     }
+    
+    func reload() {
+        tableView.reloadData()
+    }
+    
+    // MARK: - Event calls from parent view controller
+
+    func didSearch(query: String) {
+        viewModel.didSearch(query: query)
+    }
+    
+    func didCancelSearch() {
+        viewModel.didCancel()
+    }
+
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate

@@ -23,4 +23,5 @@ final class AppCoordinator {
         let coordinator = usersSceneDIContainer.makeUsersListCoordinator(navigationController: navigationController)
         coordinator.start()
     }
+
 }

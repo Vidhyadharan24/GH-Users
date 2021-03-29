@@ -28,6 +28,8 @@ class UsersListTableViewController: UITableViewController {
         setupViews()
     }
 
+    // MARK: - Event calls from parent view controller
+    
     func reload() {
         tableView.reloadData()
     }

@@ -7,6 +7,7 @@
 
 import UIKit
 import CoreData
+import Reachability
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

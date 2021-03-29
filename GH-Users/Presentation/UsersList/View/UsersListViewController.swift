@@ -143,14 +143,6 @@ extension UsersListViewController {
         usersTableViewController.updateLoading(loading)
     }
     
-    private func updateLocalSearch() {
-        guard searchController.searchBar.isFirstResponder else {
-            viewModel.closeLocalUserSearch()
-            return
-        }
-        viewModel.showLocalUserSearch()
-    }
-    
     private func showError(_ error: String?) {
         guard let error = error, !error.isEmpty else { return }
 //        showAlert(title: viewModel.errorTitle, message: error)
@@ -187,6 +179,14 @@ extension UsersListViewController: UISearchBarDelegate {
 }
 
 extension UsersListViewController: UISearchControllerDelegate {
+    private func updateLocalSearch() {
+        guard searchController.searchBar.isFirstResponder else {
+            viewModel.closeLocalUserSearch()
+            return
+        }
+        viewModel.showLocalUserSearch()
+    }
+    
     public func willPresentSearchController(_ searchController: UISearchController) {
         updateLocalSearch()
     }

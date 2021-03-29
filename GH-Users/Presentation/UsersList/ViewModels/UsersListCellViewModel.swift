@@ -44,6 +44,7 @@ public class UserListCellViewModel {
             .sink {[weak self] (newNote) in
             self?.note = newNote
         }.store(in: &cancellableSet)
+        
         user.publisher(for: \.viewed)
             .sink {[weak self] (newVal) in
             self?.viewed = newVal

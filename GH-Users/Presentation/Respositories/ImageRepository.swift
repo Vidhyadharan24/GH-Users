@@ -44,6 +44,7 @@ extension ImageRepository: ImageRepositoryProtocol {
                 switch result {
                 case .success(let response):
                     self.imageCacheService.write(imageData: response, for: urlString, completion: { (result) in
+                        guard !task.isCancelled else { return }
                         completion(.success(response))
                     })
                 case .failure(let error):

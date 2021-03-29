@@ -40,9 +40,9 @@ extension UserDetailsPersistanceService {
                 let fetchRequest = self.getFetchRequest(for: request)
                 let userEntity = try context.fetch(fetchRequest).first
 
-                completion(.success(userEntity))
+                DispatchQueue.main.async { return completion(.success(userEntity)) }
             } catch {
-                completion(.failure(PersistanceError.readError(error)))
+                DispatchQueue.main.async { return completion(.failure(PersistanceError.readError(error))) }
             }
         }
     }
@@ -58,10 +58,10 @@ extension UserDetailsPersistanceService {
 
                 try context.save()
     
-                completion(nil)
+                DispatchQueue.main.async { return completion(nil) }
             } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
-                completion(PersistanceError.saveError(error))
+                DispatchQueue.main.async { return completion(PersistanceError.saveError(error)) }
             }
         }
     }

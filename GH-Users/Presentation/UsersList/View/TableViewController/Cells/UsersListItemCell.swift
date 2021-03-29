@@ -11,7 +11,7 @@ import Combine
 class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
     private let cornerRadius: CGFloat = 8
     private let borderWidth: CGFloat = 2
-    let borderColor: UIColor = UIColor.black
+    private let borderColor: UIColor = UIColor.black
 
     private lazy var mainBackgroundView : UIView = {
         let view = UIView()
@@ -114,11 +114,7 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
         _ = self.cancellableSet.map { $0.cancel() }
         self.cancellableSet.removeAll()
     }
-    
-    func set(image: UIImage?) {
-        self.userImageView.image = image?.resize(targetSize: self.userImageView.frame.size)
-    }
-    
+        
     public func configure(with viewModel: UserListCellViewModel) {
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.typeText
@@ -131,9 +127,16 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
             mainBackgroundView.backgroundColor = UIColor.tertiarySystemBackground
         }
         
-        viewModel.image
-            .sink {[weak self] (image) in
+        setupObservers(viewModel: viewModel)
+    }
+    
+    func setupObservers(viewModel: UserListCellViewModel) {
+        viewModel.image.sink {[weak self] (image) in
             self?.set(image: image)
         }.store(in: &cancellableSet)
+    }
+
+    func set(image: UIImage?) {
+        self.userImageView.image = image?.resize(targetSize: self.userImageView.frame.size)
     }
 }

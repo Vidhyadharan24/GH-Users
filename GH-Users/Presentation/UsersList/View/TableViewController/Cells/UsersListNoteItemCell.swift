@@ -8,17 +8,11 @@
 import UIKit
 import Combine
 
-class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
-    static let reuseIdentifier = String(describing: UsersListNoteItemCell.self)
-    static let height = CGFloat(100)
-    
+class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {    
     private let cornerRadius: CGFloat = 8
     private let borderWidth: CGFloat = 2
     private let borderColor: UIColor = UIColor.black
     
-    private var viewModel: UserListCellViewModel? { willSet {viewModel?.cancelTasks() } }
-    private var cancellableSet = Set<AnyCancellable>()
-
     private lazy var mainBackgroundView : UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -58,6 +52,9 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
         lbl.numberOfLines = 0
         return lbl
     }()
+    
+    private var viewModel: UserListCellViewModel? { willSet {viewModel?.cancelTasks() } }
+    private var cancellableSet = Set<AnyCancellable>()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -132,10 +129,6 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
         _ = self.cancellableSet.map { $0.cancel() }
         self.cancellableSet.removeAll()
     }
-    
-    func set(image: UIImage?) {
-        self.userImageView.image = image?.resize(targetSize: self.userImageView.frame.size)
-    }
 
     public func configure(with viewModel: UserListCellViewModel) {
         self.usernameLabel.text = viewModel.username
@@ -147,8 +140,16 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
             mainBackgroundView.backgroundColor = UIColor.tertiarySystemBackground
         }
         
+        setupObservers(viewModel: viewModel)
+    }
+    
+    func setupObservers(viewModel: UserListCellViewModel) {
         viewModel.image.sink {[weak self] (image) in
             self?.set(image: image)
         }.store(in: &cancellableSet)
+    }
+
+    func set(image: UIImage?) {
+        self.userImageView.image = image?.resize(targetSize: self.userImageView.frame.size)
     }
 }
