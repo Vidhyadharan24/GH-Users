@@ -38,8 +38,9 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
     }()
     
     private lazy var noteImageView : UIImageView = {
-        let imgView = RoundedImageView(borderWidth: borderWidth, borderColor: borderColor)
+        let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
+        imgView.image = UIImage(systemName: "note.text")
         return imgView
     }()
     

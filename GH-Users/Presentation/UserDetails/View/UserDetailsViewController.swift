@@ -69,8 +69,8 @@ class UserDetailsViewController: UIViewController {
     
     public func update(userEntity: UserEntity?) {
         guard let userEntity = userEntity else { return }
-        self.publicResposLabel.text = String(format: NSLocalizedString("Public Repos %d", comment: ""), userEntity.publicRepos)
-        self.followingLabel.text = String(format: NSLocalizedString("Following %d", comment: ""), userEntity.following)
+        self.publicResposLabel.text = String(format: NSLocalizedString("Public Repos: %d", comment: ""), userEntity.publicRepos)
+        self.followingLabel.text = String(format: NSLocalizedString("Following: %d", comment: ""), userEntity.following)
         
         self.nameLabel.text = String(format: NSLocalizedString("Name: %@", comment: ""), userEntity.name ?? "")
         self.organisationLabel.text = String(format: NSLocalizedString("Organisation: %@", comment: ""), userEntity.company ?? "")
