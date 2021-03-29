@@ -36,7 +36,7 @@ public class UserListCellViewModel {
         self.viewed = user.viewed
         self.imageRepository = imageRepository
 
-        setupObservers(user: UserEntity)
+        setupObservers(user: user)
     }
     
     func setupObservers(user: UserEntity) {
