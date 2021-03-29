@@ -9,7 +9,7 @@ import UIKit
 
 protocol UsersListDIContainerProtocol  {
     func makeUsersListViewController(actions: UsersListViewModelActions) -> UsersListViewController
-//    func makeUsersDetailsViewController(user: UserEntity) -> UserDetailsViewController
+    func makeUserDetailsViewController(user: UserEntity, completion: @escaping () -> Void) -> UserDetailsViewController
     func makeLocalUserSearchListViewController(actions: LocalUsersSearchViewModelActions) -> UsersSearchTableViewController
 }
 
@@ -37,8 +37,9 @@ final class UsersListCoordinator {
         usersListViewController = vc
     }
 
-    private func showUserDetails(user: UserEntity, completion: (UserEntity) -> Void) {
-        
+    private func showUserDetails(user: UserEntity, completion: @escaping () -> Void) {
+        let vc = diContainer.makeUserDetailsViewController(user: user, completion: completion)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     private func showLocalUserSearch() {

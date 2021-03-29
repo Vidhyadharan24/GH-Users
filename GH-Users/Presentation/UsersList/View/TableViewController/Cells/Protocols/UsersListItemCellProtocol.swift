@@ -8,5 +8,5 @@
 import UIKit
 
 public protocol UsersListItemCellProtocol: UITableViewCell {
-    func configure(with viewModel: UserListCellViewModel, imageRepository: ImageRepositoryProtocol)
+    func configure(with viewModel: UserListCellViewModel)
 }

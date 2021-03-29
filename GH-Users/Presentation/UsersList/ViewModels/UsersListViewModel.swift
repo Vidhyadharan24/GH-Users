@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 struct UsersListViewModelActions {
-    let showUserDetails: (UserEntity, @escaping (_ updated: UserEntity) -> Void) -> Void
+    let showUserDetails: (UserEntity, @escaping () -> Void) -> Void
     let showLocalUserSearch: () -> Void
     let closeLocalUserSearch: () -> Void
 }
@@ -93,7 +93,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
     
     func didSelectItem(at index: Int) {
         let users = pages.flatMap { $0.users }
-        actions.showUserDetails(users[index]) {[weak self] _ in
+        actions.showUserDetails(users[index]) {[weak self] in
             guard let self = self else { return }
             self.userViewModels.send(self.userViewModels.value)
         }
@@ -127,6 +127,7 @@ extension UsersListViewModel {
             switch result {
             case .success(let page):
                 self.appendPage(since: since, response: page)
+                self.loading.send(.none)
             case .failure(let error):
                 print(error.localizedDescription)
             }

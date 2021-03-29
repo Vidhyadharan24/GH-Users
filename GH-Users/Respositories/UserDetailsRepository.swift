@@ -11,6 +11,8 @@ public protocol UserDetailsRepositoryProtocol {
     func fetchUserDetails(username: String,
                          cached: @escaping (Result<UserEntity?, Error>) -> Void,
                          completion: @escaping (Result<UserEntity?, Error>) -> Void) -> Cancellable?
+    
+    func save(note: String, username: String?)
 }
 
 final class UserDetailsRepository: UserDetailsRepositoryProtocol {
@@ -44,7 +46,7 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
 
                 switch result {
                 case .success(let response):
-                    self.persistantStorageService.save(response: response) { (error) in
+                    self.persistantStorageService.save(request: request, response: response) { (error) in
                         if let error = error {
                             completion(.failure(error))
                         } else {
@@ -67,5 +69,11 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
         
         return task
     }
+    
+    func save(note: String, username: String?) {
+        guard let name = username else { return }
+        let request = UserDetailsRequest(username: name)
 
+        persistantStorageService.save(note: note, request: request)
+    }
 }

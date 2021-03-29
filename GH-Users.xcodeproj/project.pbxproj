@@ -64,6 +64,9 @@
 		188BF275260EF67A00EB2CC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */; };
 		188BF280260EF67A00EB2CC6 /* GH_UsersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF27F260EF67A00EB2CC6 /* GH_UsersTests.swift */; };
 		188BF28B260EF67A00EB2CC6 /* GH_UsersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF28A260EF67A00EB2CC6 /* GH_UsersUITests.swift */; };
+		18C33ECD26119A42008282B4 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C33ECC26119A42008282B4 /* UserDetailsViewController.swift */; };
+		18C33ED526119A51008282B4 /* UserDetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C33ED426119A51008282B4 /* UserDetailsViewController.storyboard */; };
+		18C33EE526119CD4008282B4 /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C33EE426119CD4008282B4 /* UserDetailsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +151,9 @@
 		188BF28A260EF67A00EB2CC6 /* GH_UsersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GH_UsersUITests.swift; sourceTree = "<group>"; };
 		188BF28C260EF67A00EB2CC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188BF2A1260EF6BA00EB2CC6 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
+		18C33ECC26119A42008282B4 /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
+		18C33ED426119A51008282B4 /* UserDetailsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserDetailsViewController.storyboard; sourceTree = "<group>"; };
+		18C33EE426119CD4008282B4 /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -303,6 +309,7 @@
 		180D2F052610365200508F21 /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				18C33ECB26119A24008282B4 /* UserDetails */,
 				180D2FF726115D2300508F21 /* LocalUsersSearch */,
 				180D2F422610672B00508F21 /* Utils */,
 				180D2F2D261046EE00508F21 /* Coordinators */,
@@ -501,6 +508,32 @@
 			path = "GH-UsersUITests";
 			sourceTree = "<group>";
 		};
+		18C33ECB26119A24008282B4 /* UserDetails */ = {
+			isa = PBXGroup;
+			children = (
+				18C33EE326119CB6008282B4 /* ViewModel */,
+				18C33EDC26119CAE008282B4 /* View */,
+			);
+			path = UserDetails;
+			sourceTree = "<group>";
+		};
+		18C33EDC26119CAE008282B4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				18C33ECC26119A42008282B4 /* UserDetailsViewController.swift */,
+				18C33ED426119A51008282B4 /* UserDetailsViewController.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		18C33EE326119CB6008282B4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				18C33EE426119CD4008282B4 /* UserDetailsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -604,6 +637,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18C33ED526119A51008282B4 /* UserDetailsViewController.storyboard in Resources */,
 				188BF275260EF67A00EB2CC6 /* LaunchScreen.storyboard in Resources */,
 				188BF272260EF67A00EB2CC6 /* Assets.xcassets in Resources */,
 			);
@@ -656,6 +690,7 @@
 				180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */,
 				180D2EC8260F9AE800508F21 /* UserDetailsResponse.swift in Sources */,
 				180D301826116C3700508F21 /* LocalUserSearchRepository.swift in Sources */,
+				18C33ECD26119A42008282B4 /* UserDetailsViewController.swift in Sources */,
 				180D2FB02610AEE000508F21 /* UIViewController+Embed.swift in Sources */,
 				180D2F1A261036E000508F21 /* UsersListViewModel.swift in Sources */,
 				180D2F01260FB8C100508F21 /* ImageRepository.swift in Sources */,
@@ -670,6 +705,7 @@
 				180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */,
 				180D2FD82610E9CF00508F21 /* UsersListNoteItemCell.swift in Sources */,
 				180D2F932610971A00508F21 /* UsersSearchTableViewController.swift in Sources */,
+				18C33EE526119CD4008282B4 /* UserDetailsViewModel.swift in Sources */,
 				188BF270260EF67900EB2CC6 /* GH_Users.xcdatamodeld in Sources */,
 				180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */,
 				188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */,

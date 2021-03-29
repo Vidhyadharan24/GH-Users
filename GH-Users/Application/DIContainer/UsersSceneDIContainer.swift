@@ -18,6 +18,8 @@ final class UsersSceneDIContainer {
     
     lazy var localUserSearchPersistanceService: LocalUsersSearchPersistanceServiceProtocol = LocalUsersSearchPersistanceService(persistenceManager: PersistenceManager.shared)
     
+    lazy var userDetailsPersistanceService: UserDetailsPersistanceServiceProtocol = UserDetailsPersistanceService(persistenceManager: PersistenceManager.shared)
+    
     // MARK: - Image Cache Service
     lazy var imageCacheService: ImageCacheServiceProtocol = ImageCacheService(imagePersistanceManager: ImagePersistanceManager())
 
@@ -36,6 +38,9 @@ final class UsersSceneDIContainer {
     }
     func makeImageRepository() -> ImageRepositoryProtocol {
         return ImageRepository(networkDecodableService: imageDecodableService, imageCacheService: imageCacheService)
+    }
+    func makeUserDetailsRepository() -> UserDetailsRepositoryProtocol {
+        return UserDetailsRepository(networkDecodableService: apiDecodableService, persistantStorageService: userDetailsPersistanceService)
     }
 
     // MARK: - Users List
@@ -58,15 +63,23 @@ final class UsersSceneDIContainer {
                                          imageRepository: makeImageRepository(),
                                          actions: actions)
     }
-//    // MARK: - User Details
-//    func makeUsersDetailsViewController(user: UserEntity) -> UserDetailsViewController {
-//        return UserDetailsViewController.create(with: makeUsersDetailsViewModel(user: user))
-//    }
-//
-//    func makeUsersDetailsViewModel(user: UserEntity) -> UserDetailsViewModelProtocol {
-//        return UserDetailsViewModel(user: user,
-//                                     posterImagesRepository: makePosterImagesRepository())
-//    }
+    // MARK: - User Details
+    func makeUserDetailsViewController(user: UserEntity, completion: @escaping () -> Void) -> UserDetailsViewController {
+        let storyboardName = "UserDetailsViewController"
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        guard let vc = storyboard.instantiateInitialViewController() as? UserDetailsViewController else {
+            fatalError("Cannot instantiate initial view controller \(Self.self) from storyboard with name \(storyboardName)")
+        }
+        vc.viewModel = makeUserDetailsViewModel(user: user)
+        vc.completion = completion
+        return vc
+    }
+
+    func makeUserDetailsViewModel(user: UserEntity) -> UserDetailsViewModel {
+        return UserDetailsViewModel(user: user,
+                                    userDetailsRepository: makeUserDetailsRepository(),
+                                    imageRespository: makeImageRepository())
+    }
 
     // MARK: - Coordinators
     func makeUsersListCoordinator(navigationController: UINavigationController) -> UsersListCoordinator {

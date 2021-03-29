@@ -21,7 +21,6 @@ struct UserDetailsResponse: Codable {
     let siteAdmin: Bool?
     let name, company, blog: String?
     let publicRepos, publicGists, followers, following: Int?
-    let createdAt, updatedAt: Date?
 
     enum CodingKeys: String, CodingKey {
         case login, id
@@ -45,7 +44,5 @@ struct UserDetailsResponse: Codable {
         case publicRepos = "public_repos"
         case publicGists = "public_gists"
         case followers, following
-        case createdAt = "created_at"
-        case updatedAt = "updated_at"
     }
 }

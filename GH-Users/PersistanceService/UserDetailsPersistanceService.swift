@@ -10,7 +10,8 @@ import CoreData
 
 protocol UserDetailsPersistanceServiceProtocol {
     func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, PersistanceError>) -> Void)
-    func save(response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void)
+    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void)
+    func save(note: String, request: UserDetailsRequest)
 
 }
 
@@ -46,11 +47,15 @@ extension UserDetailsPersistanceService {
         }
     }
     
-    func save(response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void) {
+    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void) {
         let context = persistenceManager.backgroundContext
         context.performAndWait {
             do {
-                let _ = UserEntity(user: response, insertInto: context)
+                let fetchRequest = self.getFetchRequest(for: request)
+                let userEntity = try context.fetch(fetchRequest).first
+                
+                userEntity?.update(user: response)
+
                 try context.save()
     
                 completion(nil)
@@ -61,6 +66,18 @@ extension UserDetailsPersistanceService {
         }
     }
     
+    func save(note: String, request: UserDetailsRequest) {
+        let context = persistenceManager.backgroundContext
+        context.performAndWait {
+            do {
+                let fetchRequest = self.getFetchRequest(for: request)
+                let userEntity = try context.fetch(fetchRequest).first
+                userEntity?.note = note
+                try context.save()
     
-    
+            } catch (let error) {
+                debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
+            }
+        }
+    }
 }

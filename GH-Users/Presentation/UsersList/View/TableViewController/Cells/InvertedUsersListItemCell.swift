@@ -8,8 +8,8 @@
 import UIKit
 
 class InvertedUsersListItemCell: UsersListItemCell {
-    override func set(image: UIImage) {
-        let newImage = image.invertImage()
+    override func set(image: UIImage?) {
+        let newImage = image?.invertImage()
         
         super.set(image: newImage)
     }

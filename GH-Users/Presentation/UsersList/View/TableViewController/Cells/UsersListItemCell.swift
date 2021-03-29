@@ -6,13 +6,12 @@
 //
 
 import UIKit
+import Combine
 
 class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
     private let cornerRadius: CGFloat = 8
     private let borderWidth: CGFloat = 2
     let borderColor: UIColor = UIColor.black
-
-    private var imageFetchTask: Cancellable?
 
     private lazy var mainBackgroundView : UIView = {
         let view = UIView()
@@ -34,7 +33,6 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
     
     private lazy var usernameLabel : UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .black
         lbl.font = UIFont.boldSystemFont(ofSize: 16)
         lbl.textAlignment = .left
         return lbl
@@ -42,15 +40,19 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
     
     private lazy var descriptionLabel : UILabel = {
         let lbl = UILabel()
-        lbl.textColor = .black
         lbl.font = UIFont.systemFont(ofSize: 16)
         lbl.textAlignment = .left
         lbl.numberOfLines = 0
         return lbl
     }()
     
+    private var viewModel: UserListCellViewModel? { willSet {viewModel?.cancelTasks() } }
+    
+    private var cancellableSet = Set<AnyCancellable>()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        selectionStyle = .none
         
         contentView.addSubview(shadowView)
         contentView.addSubview(mainBackgroundView)
@@ -109,36 +111,29 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
     
     override func prepareForReuse() {
         self.userImageView.image = nil
-
-        imageFetchTask?.cancel()
-        imageFetchTask = nil
+        _ = self.cancellableSet.map { $0.cancel() }
+        self.cancellableSet.removeAll()
     }
     
-    func set(image: UIImage) {
-        self.userImageView.image = image.resize(targetSize: self.userImageView.frame.size)
+    func set(image: UIImage?) {
+        self.userImageView.image = image?.resize(targetSize: self.userImageView.frame.size)
     }
     
-    public func configure(with viewModel: UserListCellViewModel, imageRepository: ImageRepositoryProtocol) {
+    public func configure(with viewModel: UserListCellViewModel) {
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.typeText
+        
+        self.viewModel = viewModel
         
         if (viewModel.viewed) {
             mainBackgroundView.backgroundColor = UIColor.systemGray6
         } else {
-            mainBackgroundView.backgroundColor = UIColor.systemBackground
+            mainBackgroundView.backgroundColor = UIColor.tertiarySystemBackground
         }
         
-        if let url = viewModel.imagePath {
-            imageFetchTask = imageRepository.fetchImage(with: url) {[weak self] (result) in
-                switch result {
-                case .success(let data):
-                    if let data = data, let image = UIImage(data: data) {
-                        self?.set(image: image)
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-        }
+        viewModel.image
+            .sink {[weak self] (image) in
+            self?.set(image: image)
+        }.store(in: &cancellableSet)
     }
 }

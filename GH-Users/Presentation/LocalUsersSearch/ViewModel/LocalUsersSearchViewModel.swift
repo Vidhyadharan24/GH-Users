@@ -9,7 +9,7 @@ import UIKit
 import Combine
 
 struct LocalUsersSearchViewModelActions {
-    let showUserDetails: (UserEntity, @escaping (_ updated: UserEntity) -> Void) -> Void
+    let showUserDetails: (UserEntity, @escaping () -> Void) -> Void
 }
 
 protocol LocalUsersSearchViewModelInputProtocol {
@@ -60,7 +60,9 @@ class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
     }
     
     func didSelectItem(at index: Int) {
-        actions.showUserDetails(users[index]) { _ in
+        actions.showUserDetails(users[index]) {[weak self] in
+            guard let self = self else { return }
+            self.userViewModels.send(self.userViewModels.value)
         }
     }
 }

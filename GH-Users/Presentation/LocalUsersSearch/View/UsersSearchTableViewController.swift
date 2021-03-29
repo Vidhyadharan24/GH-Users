@@ -76,7 +76,6 @@ extension UsersSearchTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let vm = viewModel.userViewModels.value[indexPath.row]
-        
         return vm.cellFor(tableView: tableView, at: indexPath)
     }
 

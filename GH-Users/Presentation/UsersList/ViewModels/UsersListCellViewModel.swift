@@ -6,20 +6,26 @@
 //
 
 import UIKit
+import Combine
 
 public protocol UserListCellViewModelProtocol {
     func cellFor(tableView: UITableView, at indexPath: IndexPath) -> UsersListItemCellProtocol
+    func cancelTasks()
 }
 
 public class UserListCellViewModel {
     let id: String
     let username: String?
-    let imagePath: String?
+    private let imagePath: String?
+    let image = CurrentValueSubject<UIImage?, Never>(nil)
     let typeText: String?
-    let note: String?
-    let viewed: Bool
+    private(set) var note: String?
+    private(set) var viewed: Bool
     
-    let imageRepository: ImageRepositoryProtocol
+    private let imageRepository: ImageRepositoryProtocol
+
+    private var imageFetchTask: Cancellable? { willSet { imageFetchTask?.cancel() } }
+    private var cancellableSet = Set<AnyCancellable>()
 
     init(user: UserEntity, imageRepository: ImageRepositoryProtocol) {
         self.id = user.idString!
@@ -28,8 +34,20 @@ public class UserListCellViewModel {
         self.typeText = String(format: NSLocalizedString("Account type: %@", comment: ""), user.type ?? "User")
         self.note = user.note
         self.viewed = user.viewed
-        
         self.imageRepository = imageRepository
+
+        setupObservers()
+    }
+    
+    func setupObservers() {
+        user.publisher(for: \.note)
+            .sink {[weak self] (newNote) in
+            self?.note = newNote
+        }.store(in: &cancellableSet)
+        user.publisher(for: \.viewed)
+            .sink {[weak self] (newVal) in
+            self?.viewed = newVal
+        }.store(in: &cancellableSet)
     }
 }
 
@@ -38,7 +56,7 @@ extension UserListCellViewModel: UserListCellViewModelProtocol {
         let cell: UsersListItemCellProtocol
         
         let isInvertedCell = (indexPath.row + 1) % 4 == 0
-        let isNoteAvailable = note != nil
+        let isNoteAvailable = note != nil && (note?.count ?? 0) > 0
         
         switch (isInvertedCell, isNoteAvailable) {
         case (false, false):
@@ -51,7 +69,25 @@ extension UserListCellViewModel: UserListCellViewModelProtocol {
             cell = tableView.dequeueReusableCell(withIdentifier: String(describing: InvertedUsersNoteListItemCell.self)) as! UsersListItemCellProtocol
         }
         
-        cell.configure(with: self, imageRepository: imageRepository)
+        cell.configure(with: self)
+        
+        if let url = imagePath {
+            imageFetchTask = imageRepository.fetchImage(with: url) {[weak self] (result) in
+                switch result {
+                case .success(let data):
+                    if let data = data, let image = UIImage(data: data) {
+                        self?.image.send(image)
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+        
         return cell
+    }
+    
+    public func cancelTasks() {
+        self.imageFetchTask?.cancel()
     }
 }
