@@ -36,10 +36,10 @@ public class UserListCellViewModel {
         self.viewed = user.viewed
         self.imageRepository = imageRepository
 
-        setupObservers()
+        setupObservers(user: UserEntity)
     }
     
-    func setupObservers() {
+    func setupObservers(user: UserEntity) {
         user.publisher(for: \.note)
             .sink {[weak self] (newNote) in
             self?.note = newNote
