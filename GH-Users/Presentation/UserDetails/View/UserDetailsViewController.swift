@@ -97,6 +97,7 @@ extension UserDetailsViewController {
             view.showAnimatedSkeleton()
         } else {
             view.hideSkeleton()
+            update()
         }
     }
     
@@ -121,7 +122,7 @@ extension UserDetailsViewController {
     }
     
     private func showError(_ message: String?) {
-        guard let msg = message else { return }
+        guard let msg = message, !viewModel.viewed else { return }
         self.errorLabel.text = msg
         self.scrollView.isHidden = true
     }
