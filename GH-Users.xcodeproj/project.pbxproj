@@ -56,14 +56,15 @@
 		180D300D261160D200508F21 /* LocalUsersSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */; };
 		180D301826116C3700508F21 /* LocalUserSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D301726116C3700508F21 /* LocalUserSearchRepository.swift */; };
 		18163C53261293280007ABCE /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 18163C52261293280007ABCE /* SkeletonView */; };
+		18163C66261338670007ABCE /* UserListPersistanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18163C65261338670007ABCE /* UserListPersistanceTest.swift */; };
 		181F54962611FE7900F1546A /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 181F54952611FE7900F1546A /* Reachability */; };
+		183E3BFA26136A2100F7587C /* ModelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3BF926136A2100F7587C /* ModelGenerator.swift */; };
+		183E3C0426136F6B00F7587C /* Encodable+getData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3C0326136F6B00F7587C /* Encodable+getData.swift */; };
 		188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF265260EF67900EB2CC6 /* AppDelegate.swift */; };
 		188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF267260EF67900EB2CC6 /* SceneDelegate.swift */; };
 		188BF270260EF67900EB2CC6 /* GH_Users.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 188BF26E260EF67900EB2CC6 /* GH_Users.xcdatamodeld */; };
 		188BF272260EF67A00EB2CC6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 188BF271260EF67A00EB2CC6 /* Assets.xcassets */; };
 		188BF275260EF67A00EB2CC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */; };
-		188BF280260EF67A00EB2CC6 /* GH_UsersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF27F260EF67A00EB2CC6 /* GH_UsersTests.swift */; };
-		188BF28B260EF67A00EB2CC6 /* GH_UsersUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF28A260EF67A00EB2CC6 /* GH_UsersUITests.swift */; };
 		18C33ECD26119A42008282B4 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C33ECC26119A42008282B4 /* UserDetailsViewController.swift */; };
 		18C33ED526119A51008282B4 /* UserDetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C33ED426119A51008282B4 /* UserDetailsViewController.storyboard */; };
 		18C33EE526119CD4008282B4 /* UserDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C33EE426119CD4008282B4 /* UserDetailsViewModel.swift */; };
@@ -71,13 +72,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		188BF27C260EF67A00EB2CC6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 188BF25A260EF67900EB2CC6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 188BF261260EF67900EB2CC6;
-			remoteInfo = "GH-Users";
-		};
-		188BF287260EF67A00EB2CC6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 188BF25A260EF67900EB2CC6 /* Project object */;
 			proxyType = 1;
@@ -135,6 +129,9 @@
 		180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchPersistanceService.swift; sourceTree = "<group>"; };
 		180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchQuery.swift; sourceTree = "<group>"; };
 		180D301726116C3700508F21 /* LocalUserSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUserSearchRepository.swift; sourceTree = "<group>"; };
+		18163C65261338670007ABCE /* UserListPersistanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserListPersistanceTest.swift; sourceTree = "<group>"; };
+		183E3BF926136A2100F7587C /* ModelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelGenerator.swift; sourceTree = "<group>"; };
+		183E3C0326136F6B00F7587C /* Encodable+getData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+getData.swift"; sourceTree = "<group>"; };
 		188BF262260EF67900EB2CC6 /* GH-Users.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GH-Users.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		188BF265260EF67900EB2CC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		188BF267260EF67900EB2CC6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -143,11 +140,7 @@
 		188BF274260EF67A00EB2CC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		188BF276260EF67A00EB2CC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		188BF27B260EF67A00EB2CC6 /* GH-UsersTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GH-UsersTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		188BF27F260EF67A00EB2CC6 /* GH_UsersTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GH_UsersTests.swift; sourceTree = "<group>"; };
 		188BF281260EF67A00EB2CC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		188BF286260EF67A00EB2CC6 /* GH-UsersUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GH-UsersUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		188BF28A260EF67A00EB2CC6 /* GH_UsersUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GH_UsersUITests.swift; sourceTree = "<group>"; };
-		188BF28C260EF67A00EB2CC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18C33ECC26119A42008282B4 /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		18C33ED426119A51008282B4 /* UserDetailsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserDetailsViewController.storyboard; sourceTree = "<group>"; };
 		18C33EE426119CD4008282B4 /* UserDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewModel.swift; sourceTree = "<group>"; };
@@ -164,13 +157,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		188BF278260EF67A00EB2CC6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		188BF283260EF67A00EB2CC6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -440,12 +426,35 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		18163C64261338390007ABCE /* PersistanceService */ = {
+			isa = PBXGroup;
+			children = (
+				18163C65261338670007ABCE /* UserListPersistanceTest.swift */,
+			);
+			path = PersistanceService;
+			sourceTree = "<group>";
+		};
+		183E3BFD26136F3500F7587C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				183E3BF926136A2100F7587C /* ModelGenerator.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		183E3C0226136F4500F7587C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				183E3C0326136F6B00F7587C /* Encodable+getData.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		188BF259260EF67900EB2CC6 = {
 			isa = PBXGroup;
 			children = (
 				188BF264260EF67900EB2CC6 /* GH-Users */,
 				188BF27E260EF67A00EB2CC6 /* GH-UsersTests */,
-				188BF289260EF67A00EB2CC6 /* GH-UsersUITests */,
 				188BF263260EF67900EB2CC6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -455,7 +464,6 @@
 			children = (
 				188BF262260EF67900EB2CC6 /* GH-Users.app */,
 				188BF27B260EF67A00EB2CC6 /* GH-UsersTests.xctest */,
-				188BF286260EF67A00EB2CC6 /* GH-UsersUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -481,19 +489,12 @@
 		188BF27E260EF67A00EB2CC6 /* GH-UsersTests */ = {
 			isa = PBXGroup;
 			children = (
-				188BF27F260EF67A00EB2CC6 /* GH_UsersTests.swift */,
+				183E3C0226136F4500F7587C /* Extensions */,
+				18163C64261338390007ABCE /* PersistanceService */,
 				188BF281260EF67A00EB2CC6 /* Info.plist */,
+				183E3BFD26136F3500F7587C /* Helpers */,
 			);
 			path = "GH-UsersTests";
-			sourceTree = "<group>";
-		};
-		188BF289260EF67A00EB2CC6 /* GH-UsersUITests */ = {
-			isa = PBXGroup;
-			children = (
-				188BF28A260EF67A00EB2CC6 /* GH_UsersUITests.swift */,
-				188BF28C260EF67A00EB2CC6 /* Info.plist */,
-			);
-			path = "GH-UsersUITests";
 			sourceTree = "<group>";
 		};
 		18C33ECB26119A24008282B4 /* UserDetails */ = {
@@ -564,24 +565,6 @@
 			productReference = 188BF27B260EF67A00EB2CC6 /* GH-UsersTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		188BF285260EF67A00EB2CC6 /* GH-UsersUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 188BF295260EF67A00EB2CC6 /* Build configuration list for PBXNativeTarget "GH-UsersUITests" */;
-			buildPhases = (
-				188BF282260EF67A00EB2CC6 /* Sources */,
-				188BF283260EF67A00EB2CC6 /* Frameworks */,
-				188BF284260EF67A00EB2CC6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				188BF288260EF67A00EB2CC6 /* PBXTargetDependency */,
-			);
-			name = "GH-UsersUITests";
-			productName = "GH-UsersUITests";
-			productReference = 188BF286260EF67A00EB2CC6 /* GH-UsersUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -595,10 +578,6 @@
 						CreatedOnToolsVersion = 12.4;
 					};
 					188BF27A260EF67A00EB2CC6 = {
-						CreatedOnToolsVersion = 12.4;
-						TestTargetID = 188BF261260EF67900EB2CC6;
-					};
-					188BF285260EF67A00EB2CC6 = {
 						CreatedOnToolsVersion = 12.4;
 						TestTargetID = 188BF261260EF67900EB2CC6;
 					};
@@ -623,7 +602,6 @@
 			targets = (
 				188BF261260EF67900EB2CC6 /* GH-Users */,
 				188BF27A260EF67A00EB2CC6 /* GH-UsersTests */,
-				188BF285260EF67A00EB2CC6 /* GH-UsersUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -640,13 +618,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		188BF279260EF67A00EB2CC6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		188BF284260EF67A00EB2CC6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -720,15 +691,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				188BF280260EF67A00EB2CC6 /* GH_UsersTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		188BF282260EF67A00EB2CC6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				188BF28B260EF67A00EB2CC6 /* GH_UsersUITests.swift in Sources */,
+				183E3C0426136F6B00F7587C /* Encodable+getData.swift in Sources */,
+				183E3BFA26136A2100F7587C /* ModelGenerator.swift in Sources */,
+				18163C66261338670007ABCE /* UserListPersistanceTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -739,11 +704,6 @@
 			isa = PBXTargetDependency;
 			target = 188BF261260EF67900EB2CC6 /* GH-Users */;
 			targetProxy = 188BF27C260EF67A00EB2CC6 /* PBXContainerItemProxy */;
-		};
-		188BF288260EF67A00EB2CC6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 188BF261260EF67900EB2CC6 /* GH-Users */;
-			targetProxy = 188BF287260EF67A00EB2CC6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -957,44 +917,6 @@
 			};
 			name = Release;
 		};
-		188BF296260EF67A00EB2CC6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "GH-UsersUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vid.GH-UsersUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "GH-Users";
-			};
-			name = Debug;
-		};
-		188BF297260EF67A00EB2CC6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = "GH-UsersUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.vid.GH-UsersUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = "GH-Users";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1021,15 +943,6 @@
 			buildConfigurations = (
 				188BF293260EF67A00EB2CC6 /* Debug */,
 				188BF294260EF67A00EB2CC6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		188BF295260EF67A00EB2CC6 /* Build configuration list for PBXNativeTarget "GH-UsersUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				188BF296260EF67A00EB2CC6 /* Debug */,
-				188BF297260EF67A00EB2CC6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
