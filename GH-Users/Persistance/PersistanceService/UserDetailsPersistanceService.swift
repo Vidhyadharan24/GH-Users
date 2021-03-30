@@ -11,8 +11,7 @@ import CoreData
 protocol UserDetailsPersistanceServiceProtocol {
     func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, PersistanceError>) -> Void)
     func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void)
-    func save(note: String, request: UserDetailsRequest)
-
+    func save(note: String, request: UserDetailsRequest, completion: @escaping (PersistanceError?) -> Void)
 }
 
 class UserDetailsPersistanceService: UserDetailsPersistanceServiceProtocol {
@@ -66,7 +65,7 @@ extension UserDetailsPersistanceService {
         }
     }
     
-    func save(note: String, request: UserDetailsRequest) {
+    func save(note: String, request: UserDetailsRequest, completion: @escaping (PersistanceError?) -> Void) {
         let context = persistenceManager.backgroundContext
         context.performAndWait {
             do {
@@ -75,8 +74,10 @@ extension UserDetailsPersistanceService {
                 userEntity?.note = note
                 try context.save()
     
+                completion(nil)
             } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
+                completion(PersistanceError.saveError(error))
             }
         }
     }

@@ -7,11 +7,11 @@
 
 import CoreData
 
-enum PersistanceError: Error {
+public enum PersistanceError: Error {
     case noData
-    case readError(Error)
-    case saveError(Error)
-    case deleteError(Error)
+    case readError(Error?)
+    case saveError(Error?)
+    case deleteError(Error?)
 }
 
 struct PersistenceManager {

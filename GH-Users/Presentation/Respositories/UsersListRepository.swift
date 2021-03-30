@@ -16,11 +16,11 @@ public protocol UsersListRepositoryProtocol {
 final class UsersListRepository: UsersListRepositoryProtocol {
     
     private let networkDecodableService: NetworkDecodableServiceProtocol
-    private let persistantPersistanceService: UsersListPersistanceServiceProtocol
+    private let persistenceService: UsersListPersistanceServiceProtocol
 
-    init(networkDecodableService: NetworkDecodableServiceProtocol, persistantPersistanceService: UsersListPersistanceServiceProtocol) {
+    init(networkDecodableService: NetworkDecodableServiceProtocol, persistenceService: UsersListPersistanceServiceProtocol) {
         self.networkDecodableService = networkDecodableService
-        self.persistantPersistanceService = persistantPersistanceService
+        self.persistenceService = persistenceService
     }
     
     public func fetchUsersList(since: Int, cached: @escaping (Result<[UserEntity], Error>) -> Void, completion: @escaping (Result<[UserEntity], Error>) -> Void) -> Cancellable? {
@@ -28,7 +28,7 @@ final class UsersListRepository: UsersListRepositoryProtocol {
         
         let task = RepositoryTask()
         
-        persistantPersistanceService.getResponse(for: request) { (result) in
+        persistenceService.getResponse(for: request) { (result) in
             guard !task.isCancelled else { return }
 
             switch result {
@@ -44,12 +44,12 @@ final class UsersListRepository: UsersListRepositoryProtocol {
                 
                 switch result {
                 case .success(let response):
-                    self.persistantPersistanceService.save(response: response) { (error) in
+                    self.persistenceService.save(response: response) { (error) in
                         guard !task.isCancelled else { return }
                         if let error = error {
                             completion(.failure(error))
                         } else {
-                            self.persistantPersistanceService.getResponse(for: request) { (result) in
+                            self.persistenceService.getResponse(for: request) { (result) in
                                 guard !task.isCancelled else { return }
                                 switch result {
                                 case .success(let response):

@@ -49,7 +49,11 @@ extension LocalUsersSearchPersistanceService: LocalUsersSearchPersistanceService
                 let fetchRequest = self.getFetchRequest(for: query)
                 let userList = try context.fetch(fetchRequest)
 
-                DispatchQueue.main.async { return completion(.success(userList)) }
+                if (userList.count > 0) {
+                    DispatchQueue.main.async { return completion(.success(userList)) }
+                } else {
+                    DispatchQueue.main.async { return completion(.failure(.noData)) }
+                }
             } catch {
                 DispatchQueue.main.async { return completion(.failure(PersistanceError.readError(error))) }
             }

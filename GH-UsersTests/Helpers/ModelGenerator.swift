@@ -16,8 +16,8 @@ class ModelGenerator {
         Int.random(in: 1..<1000)
     }
 
-    static func generateUserListResponse(userCount: Int) -> UsersListResponse {
-        return (1...userCount).map { generateUserElement(id: $0)}
+    static func generateUserListResponse(_ count: Int) -> UsersListResponse {
+        return (1...count).map { generateUserElement(id: $0)}
     }
 
     static func generateUserElement(id: Int) -> UsersListResponseElement {
@@ -28,6 +28,10 @@ class ModelGenerator {
         return UserDetailsResponse(login: UUID().uuidString, id: id, avatarURL: avatarURL, type: .user,
                                    name: UUID().uuidString, company: UUID().uuidString, blog: UUID().uuidString,
                                    publicRepos: randomInt(), following: randomInt())
+    }
+    
+    static func generateUserEntityList(_ count: Int, in context: NSManagedObjectContext) -> [UserEntity] {
+        return (1...count).map { generateUserEntity(id: $0, in: context) }
     }
 
     static func generateUserEntity(id: Int, in context: NSManagedObjectContext) -> UserEntity {
@@ -59,4 +63,5 @@ class ModelGenerator {
 
         return entity
     }
+    
 }

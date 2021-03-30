@@ -14,7 +14,7 @@ final class UsersSceneDIContainer {
     private let imageDecodableService: NetworkDecodableServiceProtocol
 
     // MARK: - Persistent Storage
-    lazy var persistantPersistanceService: UsersListPersistanceServiceProtocol = UsersListPersistanceService(persistenceManager: PersistenceManager.shared, fetchLimit: appConfig.persistantStorageFetchLimit)
+    lazy var persistenceService: UsersListPersistanceServiceProtocol = UsersListPersistanceService(persistenceManager: PersistenceManager.shared, fetchLimit: appConfig.persistantStorageFetchLimit)
     
     lazy var localUserSearchPersistanceService: LocalUsersSearchPersistanceServiceProtocol = LocalUsersSearchPersistanceService(persistenceManager: PersistenceManager.shared)
     
@@ -31,16 +31,16 @@ final class UsersSceneDIContainer {
 
     // MARK: - Repositories
     func makeUsersListRepository() -> UsersListRepositoryProtocol {
-        return UsersListRepository(networkDecodableService: apiDecodableService, persistantPersistanceService: persistantPersistanceService)
+        return UsersListRepository(networkDecodableService: apiDecodableService, persistenceService: persistenceService)
     }
     func makeLocalUsersSearchRepository() -> LocalUsersSearchRepositoryProtocol {
-        return LocalUsersSearchRepository(persistantPersistanceService: localUserSearchPersistanceService)
+        return LocalUsersSearchRepository(persistenceService: localUserSearchPersistanceService)
     }
     func makeImageRepository() -> ImageRepositoryProtocol {
         return ImageRepository(networkDecodableService: imageDecodableService, imageCacheService: imageCacheService)
     }
     func makeUserDetailsRepository() -> UserDetailsRepositoryProtocol {
-        return UserDetailsRepository(networkDecodableService: apiDecodableService, persistantPersistanceService: userDetailsPersistanceService)
+        return UserDetailsRepository(networkDecodableService: apiDecodableService, persistenceService: userDetailsPersistanceService)
     }
 
     // MARK: - Users List

@@ -152,7 +152,9 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     }
     
     func save(note: String) {
-        repository.save(note: note, username: user.login)
+        repository.save(note: note, username: user.login) { (error) in
+            self.error.send(NSLocalizedString("Unable to save note", comment: ""))
+        }
     }
     
     func cancelTasks() {

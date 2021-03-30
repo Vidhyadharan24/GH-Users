@@ -13,10 +13,10 @@ public protocol LocalUsersSearchRepositoryProtocol {
 }
 
 final class LocalUsersSearchRepository: LocalUsersSearchRepositoryProtocol {
-    private let persistantPersistanceService: LocalUsersSearchPersistanceServiceProtocol
+    private let persistenceService: LocalUsersSearchPersistanceServiceProtocol
 
-    init(persistantPersistanceService: LocalUsersSearchPersistanceServiceProtocol) {
-        self.persistantPersistanceService = persistantPersistanceService
+    init(persistenceService: LocalUsersSearchPersistanceServiceProtocol) {
+        self.persistenceService = persistenceService
     }
     
     func fetchUsers(for queryString: String, cached: @escaping (Result<[UserEntity]?, Error>) -> Void) -> Cancellable? {
@@ -24,7 +24,7 @@ final class LocalUsersSearchRepository: LocalUsersSearchRepositoryProtocol {
         
         let task = RepositoryTask()
         
-        persistantPersistanceService.getResponse(for: request) { (result) in
+        persistenceService.getResponse(for: request) { (result) in
             guard !task.isCancelled else { return }
 
             switch result {
