@@ -37,12 +37,14 @@ protocol UsersListViewModelOutputProtocol {
     var userViewModels: CurrentValueSubject<[UserListCellViewModelProtocol], Never> { get }
     var loading: CurrentValueSubject<UsersListViewModelLoading?, Never> { get }
     var error: CurrentValueSubject<String?, Never> { get }
-    var isCached: CurrentValueSubject<Bool, Never> { get }
+    var offline: CurrentValueSubject<Bool, Never> { get }
     var isEmpty: Bool { get }
     var screenTitle: String { get }
     var emptyDataTitle: String { get }
     var errorTitle: String { get }
     var searchBarPlaceholder: String { get }
+    var offlineErrorMessage: String { get }
+
 }
 
 protocol UsersListViewModelProtocol: UsersListViewModelInputProtocol, UsersListViewModelOutputProtocol {}
@@ -63,17 +65,22 @@ class UsersListViewModel: UsersListViewModelProtocol {
     private(set) var userViewModels = CurrentValueSubject<[UserListCellViewModelProtocol], Never>([])
     private(set) var loading = CurrentValueSubject<UsersListViewModelLoading?, Never>(.none)
     private(set) var error = CurrentValueSubject<String?, Never>(nil)
-    private(set) var isCached = CurrentValueSubject<Bool, Never>(false)
+    private(set) var offline = CurrentValueSubject<Bool, Never>(false)
     var isEmpty: Bool { return userViewModels.value.isEmpty }
     let screenTitle = NSLocalizedString("Users", comment: "")
     let emptyDataTitle = NSLocalizedString("Unable to retrive users", comment: "")
     let errorTitle = NSLocalizedString("Error", comment: "")
     let searchBarPlaceholder = NSLocalizedString("Search Users", comment: "")
-    
+    let offlineErrorMessage = NSLocalizedString("Offline", comment: "")
+
     init(repository: UsersListRepositoryProtocol, imageRepository: ImageRepositoryProtocol, actions: UsersListViewModelActions) {
         self.respository = repository
         self.actions = actions
         self.imageRepository = imageRepository
+    }
+    
+    deinit {
+        usersLoadTask?.cancel()
     }
     
     private func reloadIfRequired() {
@@ -157,12 +164,9 @@ extension UsersListViewModel {
         }, completion: { (result) in
             switch result {
             case .success(let page):
-                self.isCached.send(false)
+                self.offline.send(false)
                 self.appendPage(since: since, response: page)
             case .failure(let error):
-                if (self.pages.filter { $0.since == since }.count > 0) {
-                    self.isCached.send(true)
-                }
                 self.handle(error: error)
             }
             self.loading.send(.none)
@@ -170,8 +174,11 @@ extension UsersListViewModel {
     }
 
     private func handle(error: Error) {
-        self.error.send(error.isInternetConnectionError ?
-            NSLocalizedString("No internet connection", comment: "") :
-            NSLocalizedString("Failed loading movies", comment: ""))
+        if (error.isInternetConnectionError) {
+            self.offline.send(true)
+            self.error.send(NSLocalizedString("No internet connection", comment: ""))
+            return
+        }
+        self.error.send(NSLocalizedString("Failed loading movies", comment: ""))
     }
 }

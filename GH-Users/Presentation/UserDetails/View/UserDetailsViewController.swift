@@ -9,9 +9,14 @@ import UIKit
 import Combine
 
 class UserDetailsViewController: UIViewController {
-    var viewModel: UserDetailsViewModel!
+    var viewModel: UserDetailsViewModelProtocol!
     var completion: (() -> Void)?
 
+    @IBOutlet private var offlineView: UIView!
+    @IBOutlet private var offlineLabel: UILabel!
+    
+    @IBOutlet private var offlineViewTopConstraint: NSLayoutConstraint!
+    
     @IBOutlet private var imageView: UIImageView!
     
     @IBOutlet private var nameLabel: UILabel!
@@ -36,6 +41,8 @@ class UserDetailsViewController: UIViewController {
     
     public override func viewDidLoad() {
         super.viewDidLoad()
+        view.layoutIfNeeded()
+
         setupViews()
         bind(to: viewModel)
         viewModel.viewDidLoad()
@@ -54,25 +61,34 @@ class UserDetailsViewController: UIViewController {
 extension UserDetailsViewController {
     func setupViews() {
         self.title = viewModel.title
+        self.offlineLabel.text = viewModel.offlineErrorMessage
         notesTextView.layer.borderWidth = 2
         notesTextView.layer.borderColor = UIColor.systemGray.cgColor
     }
     
-    func bind(to viewModel: UserDetailsViewModel) {
+    func bind(to viewModel: UserDetailsViewModelProtocol) {
         let size = imageView.bounds.size
         
         viewModel.image.sink {[weak self] (image) in
             self?.imageView.image = image?.resize(targetSize: size)
         }.store(in: &cancellableSet)
         
-        viewModel.userDetails.sink { (userEntity) in
-            self.update()
+        viewModel.loading.sink {[weak self] (loading) in
+            self?.updateLoading(loading)
         }.store(in: &cancellableSet)
         
-        viewModel.note
-            .sink { (string) in
-            self.notesTextView.text = string
-        }.store(in: &cancellableSet)
+        viewModel.note.sink {[weak self] in self?.notesTextView.text = $0 }.store(in: &cancellableSet)
+        
+        viewModel.offline.sink { [weak self] in self?.showHideOfflineView($0) }.store(in: &cancellableSet)
+    }
+    
+    public func updateLoading(_ loading: Bool) {
+        if !viewModel.viewed {
+            LoadingView.show()
+        } else {
+            LoadingView.hide()
+        }
+        update()
     }
     
     public func update() {
@@ -82,7 +98,17 @@ extension UserDetailsViewController {
         self.nameLabel.text = viewModel.name
         self.organisationLabel.text = viewModel.organisation
         self.blogLabel.text = viewModel.blog
-        
+    }
+    
+    private func showHideOfflineView(_ offline: Bool)  {
+        if (offline) {
+            offlineViewTopConstraint?.priority = UILayoutPriority(999)
+        } else {
+            offlineViewTopConstraint?.priority = .defaultLow
+        }
+        UIView.animate(withDuration: 0.3) {[weak self] in
+            self?.view.layoutIfNeeded()
+        }
     }
     
     @IBAction func saveTapped(button: UIButton) {

@@ -12,24 +12,24 @@ import Reachability
 protocol UserDetailsViewModelInputProtocol {
     func viewDidLoad()
     func save(note: String)
-    func cancelTasks()
 }
 
 protocol UserDetailsViewModelOutputProtocol {
-    var userDetails: CurrentValueSubject<UserEntity?, Never> { get }
     var image: CurrentValueSubject<UIImage?, Never> { get }
     var publisRepos: String { get }
     var following: String { get }
     var name: String { get }
     var organisation: String { get }
     var blog: String { get }
-
+    var viewed: Bool { get }
     var note:  NSObject.KeyValueObservingPublisher<UserEntity, String?> { get }
-    var isCached: CurrentValueSubject<Bool, Never> { get }
+    var loading: CurrentValueSubject<Bool, Never> { get }
+    var offline: CurrentValueSubject<Bool, Never> { get }
     var error: CurrentValueSubject<String?, Never> { get }
     var title: String { get }
     var emptyDataTitle: String { get }
     var errorTitle: String { get }
+    var offlineErrorMessage: String { get }
 }
 
 protocol UserDetailsViewModelProtocol: UserDetailsViewModelInputProtocol, UserDetailsViewModelOutputProtocol {}
@@ -39,32 +39,35 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     private let repository: UserDetailsRepositoryProtocol
     let imageRepository: ImageRepositoryProtocol
 
-    var userDetails = CurrentValueSubject<UserEntity?, Never>(nil)
-    var image = CurrentValueSubject<UIImage?, Never>(nil)
+    private(set) var image = CurrentValueSubject<UIImage?, Never>(nil)
     var publisRepos: String {
-        String(format: NSLocalizedString("Public Repos: %d", comment: ""), Int(userDetails.value?.publicRepos ?? 0))
+        String(format: NSLocalizedString("Public Repos: %d", comment: ""), Int(user.publicRepos))
     }
     var following: String {
-        String(format: NSLocalizedString("Following: %d", comment: ""), Int(userDetails.value?.following ?? 0))
+        String(format: NSLocalizedString("Following: %d", comment: ""), Int(user.following))
     }
     var name: String {
-        String(format: NSLocalizedString("Name: %@", comment: ""), userDetails.value?.name ?? "")
+        String(format: NSLocalizedString("Name: %@", comment: ""), user.name ?? "")
     }
     var organisation: String {
-        String(format: NSLocalizedString("Organisation: %@", comment: ""), userDetails.value?.company ?? "")
+        String(format: NSLocalizedString("Organisation: %@", comment: ""), user.company ?? "")
     }
     var blog: String {
-        String(format: NSLocalizedString("Blog: %@", comment: ""), userDetails.value?.blog ?? "")
+        String(format: NSLocalizedString("Blog: %@", comment: ""), user.blog ?? "")
     }
-    lazy var note = self.user.publisher(for: \.note)
+    var viewed: Bool {
+        user.viewed
+    }
+    private(set) lazy var note = self.user.publisher(for: \.note)
 
-    
     let title = NSLocalizedString("Details", comment: "")
-    var isCached = CurrentValueSubject<Bool, Never>(false)
+    var loading = CurrentValueSubject<Bool, Never>(false)
+    var offline = CurrentValueSubject<Bool, Never>(false)
     var error = CurrentValueSubject<String?, Never>(nil)
     var emptyDataTitle = NSLocalizedString("Unable to load user details", comment: "")
     var errorTitle = NSLocalizedString("Error", comment: "")
-    
+    let offlineErrorMessage = NSLocalizedString("Offline", comment: "")
+
     private var repositoryTask: Cancellable? { willSet { repositoryTask?.cancel() }}
     private var imageTask: Cancellable? { willSet { imageTask?.cancel() }}
     private var cancellableSet = Set<AnyCancellable>()
@@ -75,10 +78,13 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
         self.imageRepository = imageRespository
     }
     
+    deinit {
+        cancelTasks()
+    }
+    
     func viewDidLoad() {
         setupObservers()
-
-        loadUserDetails()
+        loadUserDetails(username: self.user.login)
     }
     
     func setupObservers() {
@@ -93,54 +99,59 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
                   print("Network not reachable")
                 }
             }.store(in: &cancellableSet)
-        
-        userDetails.sink {[weak self] (userEntity) in
-            guard let url = userEntity?.avatarURL else { return }
-            self?.imageTask = self?.imageRepository.fetchImage(with: url) {[weak self] (result) in
-                switch result {
-                case .success(let data):
-                    if let data = data, let image = UIImage(data: data) {
-                        self?.image.send(image)
-                    }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                }
-            }
-        }.store(in: &cancellableSet)
     }
     
-    private func reloadIfRequired() {
-        loadUserDetails()
-    }
-        
-    private func loadUserDetails() {
-        guard let username = user.login else { return }
-        repositoryTask = repository.fetchUserDetails(username: username, cached: {[weak self] (result) in
-            guard let self = self else { return }
+    func loadImage() {
+        guard let url = user.avatarURL else { return }
+        imageTask = imageRepository.fetchImage(with: url) {[weak self] (result) in
             switch result {
-            case .success(let user):
-                self.userDetails.send(user)
+            case .success(let data):
+                if let data = data, let image = UIImage(data: data) {
+                    self?.image.send(image)
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
-        }, completion: { (result) in
+        }
+    }
+    
+    private func reloadIfRequired() {
+        // The viewed key when false denotes that the user details api has not been called, hence reloading
+        guard user.viewed else { return }
+        loadUserDetails(username: user.login)
+    }
+        
+    private func loadUserDetails(username: String?) {
+        guard let username = username else { return }
+        self.loading.send(true)
+        repositoryTask = repository.fetchUserDetails(username: username, cached: {[weak self] (result) in
+            guard let self = self else { return }
             switch result {
-            case .success(let user):
-                self.isCached.send(false)
-                self.userDetails.send(user)
+            case .success(_):
+                self.loadImage()
             case .failure(let error):
-                if (self.userDetails.value != nil) {
-                    self.isCached.send(true)
-                }
+                print(error.localizedDescription)
+            }
+        }, completion: { [weak self] (result) in
+            guard let self = self else { return }
+            self.loading.send(false)
+            switch result {
+            case .success(_):
+                self.offline.send(false)
+                self.loadImage()
+            case .failure(let error):
                 self.handle(error: error)
             }
         })
     }
     
     private func handle(error: Error) {
-        self.error.send(error.isInternetConnectionError ?
-            NSLocalizedString("No internet connection", comment: "") :
-            NSLocalizedString("Failed loading movies", comment: ""))
+        if (error.isInternetConnectionError) {
+            self.offline.send(true)
+            self.error.send(NSLocalizedString("No internet connection", comment: ""))
+            return
+        }
+        self.error.send(NSLocalizedString("Failed loading movies", comment: ""))
     }
     
     func save(note: String) {

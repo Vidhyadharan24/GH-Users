@@ -55,6 +55,7 @@
 		180D300426115F4100508F21 /* LocalUsersSearchPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */; };
 		180D300D261160D200508F21 /* LocalUsersSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */; };
 		180D301826116C3700508F21 /* LocalUserSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D301726116C3700508F21 /* LocalUserSearchRepository.swift */; };
+		18163C53261293280007ABCE /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 18163C52261293280007ABCE /* SkeletonView */; };
 		181F54962611FE7900F1546A /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 181F54952611FE7900F1546A /* Reachability */; };
 		188BF266260EF67900EB2CC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF265260EF67900EB2CC6 /* AppDelegate.swift */; };
 		188BF268260EF67900EB2CC6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188BF267260EF67900EB2CC6 /* SceneDelegate.swift */; };
@@ -157,6 +158,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18163C53261293280007ABCE /* SkeletonView in Frameworks */,
 				181F54962611FE7900F1546A /* Reachability in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,6 +540,7 @@
 			name = "GH-Users";
 			packageProductDependencies = (
 				181F54952611FE7900F1546A /* Reachability */,
+				18163C52261293280007ABCE /* SkeletonView */,
 			);
 			productName = "GH-Users";
 			productReference = 188BF262260EF67900EB2CC6 /* GH-Users.app */;
@@ -612,6 +615,7 @@
 			mainGroup = 188BF259260EF67900EB2CC6;
 			packageReferences = (
 				181F54942611FE7900F1546A /* XCRemoteSwiftPackageReference "Reachability" */,
+				18163C51261293280007ABCE /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 188BF263260EF67900EB2CC6 /* Products */;
 			projectDirPath = "";
@@ -1033,6 +1037,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		18163C51261293280007ABCE /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.13.0;
+			};
+		};
 		181F54942611FE7900F1546A /* XCRemoteSwiftPackageReference "Reachability" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ashleymills/Reachability.swift";
@@ -1044,6 +1056,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		18163C52261293280007ABCE /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 18163C51261293280007ABCE /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
+		};
 		181F54952611FE7900F1546A /* Reachability */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 181F54942611FE7900F1546A /* XCRemoteSwiftPackageReference "Reachability" */;

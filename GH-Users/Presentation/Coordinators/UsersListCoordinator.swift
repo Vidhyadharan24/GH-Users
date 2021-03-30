@@ -45,8 +45,8 @@ final class UsersListCoordinator {
     
     // MARK: LocalUserSearch
     private func showLocalUserSearch() {
-        guard let usersListViewController = usersListViewController, usersLocalSearchViewController == nil,
-            let container = usersListViewController.usersSearchContainer else { return }
+        guard let usersListViewController = usersListViewController, usersLocalSearchViewController == nil else { return }
+        let container = usersListViewController.usersSearchContainer
 
         let actions = LocalUsersSearchViewModelActions(showUserDetails: showUserDetails)
         let vc = diContainer.makeLocalUserSearchListViewController(actions: actions)

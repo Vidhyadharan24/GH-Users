@@ -51,6 +51,10 @@ class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
         self.actions = actions
     }
     
+    deinit {
+        usersLoadTask?.cancel()
+    }
+    
     func didSearch(query: String) {
         load(query: query)
     }

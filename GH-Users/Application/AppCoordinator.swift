@@ -16,6 +16,8 @@ final class AppCoordinator {
          appDIContainer: AppDIContainer) {
         self.navigationController = navigationController
         self.appDIContainer = appDIContainer
+        
+        navigationController.navigationBar.isTranslucent = false
     }
 
     func start() {

@@ -12,19 +12,46 @@ class UsersListViewController: UIViewController {
 
     private let viewModel: UsersListViewModelProtocol
     
-    private var searchBarContainer: UIView!
-    private var usersListContainer: UIView!
-    private(set) var usersSearchContainer: UIView!
+    private var searchBarContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.systemBackground
+        view.clipsToBounds = true
+        return view
+    }()
+    
+    private lazy var offlineView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.systemRed
+        return view
+    }()
+    
+    private lazy var offlineLabel: UILabel = {
+        let view = UILabel()
+        view.text = viewModel.offlineErrorMessage
+        view.textColor = UIColor.white
+        view.textAlignment = .center
+        return view
+    }()
+
+    private var offlineViewTopConstraint: NSLayoutConstraint?
+    
+    private lazy var usersListContainer: UIView = {
+        return UIView()
+    }()
+    private(set) lazy var usersSearchContainer: UIView = {
+        return UIView()
+    }()
 
     private lazy var usersTableViewController = UsersListTableViewController(viewModel: viewModel)
     var usersSearchTableViewController: UsersSearchTableViewController?
     private var searchController = UISearchController(searchResultsController: nil)
     
-    private var emptyDataLabel: UILabel! {
-        didSet {
-            emptyDataLabel.textAlignment = .center
-        }
-    }
+    private lazy var emptyDataLabel: UILabel = {
+        let view = UILabel()
+        view.textAlignment = .center
+        view.text = viewModel.emptyDataTitle
+        return view
+    }()
     
     private var cancellableSet: Set<AnyCancellable> = []
 
@@ -45,14 +72,20 @@ class UsersListViewController: UIViewController {
     
     override func loadView() {
         self.view = setUpRootView()
+        self.view.layoutIfNeeded()
     }
     
     private func setUpRootView() -> UIView {
         let rootView = UIView();
         rootView.backgroundColor = UIColor.systemBackground
-        
-        searchBarContainer = UIView()
+
+        offlineView.addSubview(offlineLabel)
+        rootView.addSubview(offlineView)
         rootView.addSubview(searchBarContainer)
+        rootView.addSubview(usersListContainer)
+        rootView.addSubview(emptyDataLabel)
+        rootView.addSubview(usersSearchContainer)
+
         
         searchBarContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -62,20 +95,45 @@ class UsersListViewController: UIViewController {
             searchBarContainer.heightAnchor.constraint(equalToConstant: 56)
         ])
         
-        usersListContainer = UIView()
-        rootView.addSubview(usersListContainer)
-        
-        usersListContainer.translatesAutoresizingMaskIntoConstraints = false
+        offlineLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            usersListContainer.topAnchor.constraint(equalTo: searchBarContainer.bottomAnchor),
+            offlineLabel.topAnchor.constraint(equalTo: offlineView.topAnchor),
+            offlineLabel.leadingAnchor.constraint(equalTo: offlineView.leadingAnchor),
+            offlineLabel.trailingAnchor.constraint(equalTo: offlineView.trailingAnchor),
+            offlineLabel.bottomAnchor.constraint(equalTo: offlineView.bottomAnchor)
+        ])
+        
+        offlineView.translatesAutoresizingMaskIntoConstraints = false
+        let topConstraint = offlineView.topAnchor.constraint(equalTo: searchBarContainer.bottomAnchor)
+        topConstraint.priority = .defaultLow
+        offlineViewTopConstraint = topConstraint
+        
+        NSLayoutConstraint.activate([
+            topConstraint,
+            offlineView.leadingAnchor.constraint(equalTo: rootView.leadingAnchor),
+            offlineView.trailingAnchor.constraint(equalTo: rootView.trailingAnchor),
+            offlineView.heightAnchor.constraint(equalToConstant: 30),
+        ])
+        
+        searchBarContainer.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            searchBarContainer.topAnchor.constraint(equalTo: rootView.safeAreaLayoutGuide.topAnchor),
+            searchBarContainer.leadingAnchor.constraint(equalTo: rootView.leadingAnchor),
+            searchBarContainer.trailingAnchor.constraint(equalTo: rootView.trailingAnchor),
+            searchBarContainer.heightAnchor.constraint(equalToConstant: 56)
+        ])
+                
+        usersListContainer.translatesAutoresizingMaskIntoConstraints = false
+        let topAnchor = usersListContainer.topAnchor.constraint(equalTo: searchBarContainer.bottomAnchor)
+        topAnchor.priority = .defaultHigh
+        NSLayoutConstraint.activate([
+            topAnchor,
+            usersListContainer.topAnchor.constraint(equalTo: offlineView.bottomAnchor),
             usersListContainer.leadingAnchor.constraint(equalTo: rootView.leadingAnchor),
             usersListContainer.trailingAnchor.constraint(equalTo: rootView.trailingAnchor),
             usersListContainer.bottomAnchor.constraint(equalTo: rootView.bottomAnchor)
         ])
         add(child: usersTableViewController, container: usersListContainer)
-        
-        emptyDataLabel = UILabel()
-        rootView.addSubview(emptyDataLabel)
         
         emptyDataLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -83,9 +141,6 @@ class UsersListViewController: UIViewController {
             emptyDataLabel.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 8),
             emptyDataLabel.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: 8),
         ])
-        
-        usersSearchContainer = UIView()
-        rootView.addSubview(usersSearchContainer)
         
         usersSearchContainer.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -106,6 +161,8 @@ extension UsersListViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.extendedLayoutIncludesOpaqueBars = !(self.navigationController?.navigationBar.isTranslucent ?? false);
+
         setupViews()
         bind(to: viewModel)
         viewModel.viewDidLoad()
@@ -114,6 +171,8 @@ extension UsersListViewController {
     private func setupViews() {
         title = viewModel.screenTitle
         emptyDataLabel.text = viewModel.emptyDataTitle
+        offlineLabel.text = viewModel.offlineErrorMessage
+        
         setupSearchController()
     }
 
@@ -121,6 +180,7 @@ extension UsersListViewController {
         viewModel.userViewModels.sink { [weak self] _ in self?.updateItems() }.store(in: &cancellableSet)
         viewModel.loading.sink { [weak self] in self?.updateLoading($0) }.store(in: &cancellableSet)
         viewModel.error.sink { [weak self] in self?.showError($0) }.store(in: &cancellableSet)
+        viewModel.offline.sink { [weak self] in self?.showHideOfflineView($0) }.store(in: &cancellableSet)
     }
     
     private func updateItems() {
@@ -146,6 +206,17 @@ extension UsersListViewController {
     private func showError(_ error: String?) {
         guard let error = error, !error.isEmpty else { return }
 //        showAlert(title: viewModel.errorTitle, message: error)
+    }
+    
+    private func showHideOfflineView(_ offline: Bool)  {
+        if (offline) {
+            offlineViewTopConstraint?.priority = UILayoutPriority(999)
+        } else {
+            offlineViewTopConstraint?.priority = .defaultLow
+        }
+        UIView.animate(withDuration: 0.3) {[weak self] in
+            self?.view.layoutIfNeeded()
+        }
     }
 }
 

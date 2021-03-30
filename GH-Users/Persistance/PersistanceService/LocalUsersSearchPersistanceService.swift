@@ -32,6 +32,7 @@ final class LocalUsersSearchPersistanceService {
         
         let compoundPredicates = NSCompoundPredicate(orPredicateWithSubpredicates: [loginContainsPredicate, loginMatchesPredicate, noteContainsPredicate, noteMatchesPredicate])
 
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
         fetchRequest.predicate = compoundPredicates
         return fetchRequest
     }

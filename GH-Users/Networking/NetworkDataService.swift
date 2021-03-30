@@ -23,9 +23,10 @@ public protocol NetworkDataServiceProtocol {
 
 public class NetworkDataServiceTask: Cancellable {
     var isCancelled = false
-    var networkCancellable: Cancellable?
+    var networkCancellable: Cancellable? { willSet { networkCancellable?.cancel() } }
     
     public func cancel() {
+        isCancelled = true
         networkCancellable?.cancel()
     }
 }
@@ -74,7 +75,7 @@ extension NetworkDataService: NetworkDataServiceProtocol {
     private func resolve(error: Error) -> NetworkDataServiceError {
         let code = URLError.Code(rawValue: (error as NSError).code)
         switch code {
-        case .notConnectedToInternet: return .notConnected
+        case .notConnectedToInternet, .dataNotAllowed: return .notConnected
         case .cancelled: return .cancelled
         default: return .generic(error)
         }
@@ -107,15 +108,14 @@ extension NetworkDataService {
             guard !networkDataServiceTask.isCancelled else { return }
             networkDataServiceTask.networkCancellable = self?.request(request: request) {[weak self] result in
                 guard !networkDataServiceTask.isCancelled else { return }
-                do {
-                    _ = try result.get()
+                switch result {
+                case .success(_):
                     completion(result)
-                } catch (let error) {
-                    if retryCount < maxRetryCount - 1 {
+                case .failure(let error):
+                    if case .notConnected = error, retryCount < maxRetryCount - 1 {
                         self?.requestWithRetry(request: request, networkDataServiceTask: networkDataServiceTask, retryCount: retryCount + 1, completion: completion)
-                    } else if let self = self {
-                        let err = self.resolve(error: error)
-                        return completion(.failure(err))
+                    } else {
+                        return completion(.failure(error))
                     }
                 }
             }
@@ -123,7 +123,7 @@ extension NetworkDataService {
     }
     
     private func getDelay(for n: Int) -> Int {
-        let maxDelay = 15000 // 15 secs
+        let maxDelay = 5000 // 5 secs
         let delay = Int(pow(2.0, Double(n))) * 1000
         let jitter = Int.random(in: 0...1000)
         return min(delay + jitter, maxDelay)
