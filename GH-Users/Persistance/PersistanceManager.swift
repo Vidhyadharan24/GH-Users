@@ -19,8 +19,12 @@ struct PersistenceManager {
 
     let container: NSPersistentContainer
     
+    // BONUS TASK: CoreData stack implementation must use ​two managed contexts​ - 1.​main context​ to
+    // be used for reading data and feeding into UI 2. write (​background) context​ - that is used for writing data
     let viewContext: NSManagedObjectContext
     
+    // BONUS TASK: All CoreData ​write​ queries must be ​queued​ while allowing one concurrent query at any time.
+    // The backgroundContext is initialized from `container.newBackgroundContext()`, the queries to the bacground context are executed in serial by default. All the write tasks in the app are done in this context.
     var backgroundContext: NSManagedObjectContext
     
     private init() {

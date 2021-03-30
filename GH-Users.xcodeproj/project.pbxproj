@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E37260EF83800508F21 /* PersistenceManager.swift */; };
+		180D2E38260EF83800508F21 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E37260EF83800508F21 /* PersistanceManager.swift */; };
 		180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E40260EF86E00508F21 /* EndPoint.swift */; };
 		180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E41260EF86E00508F21 /* NetworkOperationsManager.swift */; };
 		180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */; };
@@ -87,7 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		180D2E37260EF83800508F21 /* PersistenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
+		180D2E37260EF83800508F21 /* PersistanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 		180D2E40260EF86E00508F21 /* EndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		180D2E41260EF86E00508F21 /* NetworkOperationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperationsManager.swift; sourceTree = "<group>"; };
 		180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDecodableService.swift; sourceTree = "<group>"; };
@@ -183,7 +183,7 @@
 		180D2E3C260EF83B00508F21 /* Persistance */ = {
 			isa = PBXGroup;
 			children = (
-				180D2E37260EF83800508F21 /* PersistenceManager.swift */,
+				180D2E37260EF83800508F21 /* PersistanceManager.swift */,
 				180D2EBE260F832400508F21 /* Entity+Mapping */,
 				188BF26E260EF67900EB2CC6 /* GH_Users.xcdatamodeld */,
 				180D2E9D260F74F200508F21 /* PersistanceService */,
@@ -696,7 +696,7 @@
 				180D300D261160D200508F21 /* LocalUsersSearchQuery.swift in Sources */,
 				180D2F6826107A2600508F21 /* AppCoordinator.swift in Sources */,
 				180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */,
-				180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */,
+				180D2E38260EF83800508F21 /* PersistanceManager.swift in Sources */,
 				180D2FD82610E9CF00508F21 /* UsersListNoteItemCell.swift in Sources */,
 				180D2F932610971A00508F21 /* UsersSearchTableViewController.swift in Sources */,
 				18C33EE526119CD4008282B4 /* UserDetailsViewModel.swift in Sources */,

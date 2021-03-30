@@ -21,6 +21,9 @@ final class LocalUsersSearchPersistanceService {
 
     // MARK: - Private
 
+    // REQUIRED TASK: Users list has to be searchable - local search only; in ​search mode,​ there is no
+    // pagination; username and note (see Profile section) fields should be used when
+    // searching; precise match as well as ​contains s​ hould be used.
     private func getFetchRequest(for request: LocalUsersSearchQuery) -> NSFetchRequest<UserEntity> {
         let fetchRequest: NSFetchRequest = UserEntity.fetchRequest()
         

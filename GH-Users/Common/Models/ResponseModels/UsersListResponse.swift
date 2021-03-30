@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - UsersListResponseElement
+// REQUIRED TASK: Use Codable to inflate models fetched from api.
 struct UsersListResponseElement: Codable {
     let login: String?
     let id: Int

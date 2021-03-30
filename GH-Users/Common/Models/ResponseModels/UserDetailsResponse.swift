@@ -6,6 +6,7 @@
 import Foundation
 
 // MARK: - UserDetailsResponse
+// REQUIRED TASK: Use Codable to inflate models fetched from api.
 struct UserDetailsResponse: Codable {
     let login: String?
     let id: Int

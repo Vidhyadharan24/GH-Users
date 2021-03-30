@@ -38,6 +38,7 @@ class ShadowView: UIView {
         self.layer.rasterizationScale = UIScreen.main.scale
     }
     
+    // BONUS TASK: The app has to support ​dark mode​.
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
         let shadowColor = UIColor(named: "ShadowColor") ?? UIColor.systemGray

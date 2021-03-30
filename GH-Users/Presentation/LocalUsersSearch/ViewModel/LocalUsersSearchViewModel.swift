@@ -28,6 +28,7 @@ protocol LocalUsersSearchViewModelOutputProtocol {
 
 protocol LocalUsersSearchViewModelProtocol: LocalUsersSearchViewModelInputProtocol, LocalUsersSearchViewModelOutputProtocol {}
 
+// BONUS TASK: Coordinator and/or MVVM patterns are used.
 class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
     let respository: LocalUsersSearchRepositoryProtocol
     let imageRepository: ImageRepositoryProtocol

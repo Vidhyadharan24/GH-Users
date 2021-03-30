@@ -24,7 +24,7 @@ public class NetworkOperationsManager: NetworkOperationsManagerProtocol {
     }()
     
     public init() {}
-    
+// REQUIRED TASK: For GitHub api requests, for image loading & caching and for CoreData integration only Apple's apis are allowed (no 3rd party libraries).
     public func request(urlRequest: URLRequest, completion: @escaping CompletionHandler) -> Cancellable {
         let blockOperation = BlockOperation.init {
             let task = URLSession.shared.dataTask(with: urlRequest, completionHandler: completion)

@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 
+// BONUS TASK: Users list UI must be done in code and Profile - with Interface Builder.
 class UserDetailsViewController: UIViewController {
     var viewModel: UserDetailsViewModelProtocol!
     var completion: (() -> Void)?
@@ -60,11 +61,6 @@ class UserDetailsViewController: UIViewController {
     public override func viewWillDisappear(_ animated: Bool) {
         completion?()
     }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        self.notesTextView.layer.shadowColor = UIColor.systemGray.cgColor
-    }
 }
 
 extension UserDetailsViewController {
@@ -94,6 +90,8 @@ extension UserDetailsViewController {
     public func updateLoading(_ loading: Bool) {
         if loading, !viewModel.viewed {
             self.scrollView.isHidden = false
+            // BONUS TASK: Empty views such as list items (while data is still loading) should have Loading Shimmer aka ​Skeletons
+            // Users SkeletonView from https://github.com/Juanpe/SkeletonView to display shimmering effect when there is no user data.
             view.showAnimatedSkeleton()
         } else {
             view.hideSkeleton()
@@ -110,6 +108,7 @@ extension UserDetailsViewController {
         self.blogLabel.text = viewModel.blog
     }
     
+    // REQUIRED TASK: The app must handle ​no internet ​scenario, show appropriate UI indicators.
     private func showHideOfflineView(_ offline: Bool)  {
         if (offline) {
             offlineViewTopConstraint?.priority = UILayoutPriority(999)

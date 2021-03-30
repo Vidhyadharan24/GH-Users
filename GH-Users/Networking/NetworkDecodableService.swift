@@ -15,6 +15,7 @@ public enum NetworkDecodableServiceError: Error {
 }
 
 public protocol NetworkDecodableServiceProtocol {
+    // BONUS TASK: Any data fetch should utilize ​Result types.
     typealias CompletionHandler<T> = (Result<T, NetworkDecodableServiceError>) -> Void
     
     @discardableResult
@@ -95,6 +96,7 @@ public protocol ResponseDecoder {
 public class JSONResponseDecoder: ResponseDecoder {
     private let jsonDecoder = JSONDecoder()
     public init() { }
+    // REQUIRED TASK: Use Codable to inflate models fetched from api.
     public func decode<T: Decodable>(_ data: Data) throws -> T {
         return try jsonDecoder.decode(T.self, from: data)
     }

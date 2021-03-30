@@ -7,6 +7,7 @@
 
 import UIKit
 
+// BONUS TASK: Coordinator and/or MVVM patterns are used.
 final class AppCoordinator {
 
     var navigationController: UINavigationController

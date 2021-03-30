@@ -134,6 +134,7 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.typeText
         
+        // BONUS TASK: Items in users list are greyed out a bit for seen profiles (seen status being saved to db).
         if (viewModel.viewed) {
             mainBackgroundView.backgroundColor = UIColor.systemGray6
         } else {

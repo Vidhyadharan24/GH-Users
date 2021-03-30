@@ -75,6 +75,7 @@ class UsersListViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
     
+    // BONUS TASK: Users list UI must be done in code and Profile - with Interface Builder.
     private func setUpRootView() -> UIView {
         let rootView = UIView();
         rootView.backgroundColor = UIColor.systemBackground
@@ -206,6 +207,7 @@ extension UsersListViewController {
 //        showAlert(title: viewModel.errorTitle, message: error)
     }
     
+    // REQUIRED TASK: The app must handle ​no internet ​scenario, show appropriate UI indicators.
     private func showHideOfflineView(_ offline: Bool)  {
         if (offline) {
             offlineViewTopConstraint?.priority = UILayoutPriority(999)

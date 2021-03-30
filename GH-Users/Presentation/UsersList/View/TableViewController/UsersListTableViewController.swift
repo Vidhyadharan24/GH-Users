@@ -43,6 +43,8 @@ class UsersListTableViewController: UITableViewController {
             tableView.tableFooterView = nextPageLoadingSpinner
         case .fullScreen:
             tableView.tableFooterView = nil
+            // BONUS TASK: Empty views such as list items (while data is still loading) should have Loading Shimmer aka ​Skeletons
+            // Users SkeletonView from https://github.com/Juanpe/SkeletonView to display shimmering effect when there is no user data.
             tableView.showAnimatedSkeleton()
         case .none:
             tableView.tableFooterView = nil
@@ -52,6 +54,7 @@ class UsersListTableViewController: UITableViewController {
 
     // MARK: - Private
 
+    // BONUS TASK: Users list UI must be done in code and Profile - with Interface Builder.
     private func setupViews() {
         tableView.register(UsersListItemCell.self, forCellReuseIdentifier: String(describing: UsersListItemCell.self))
         tableView.register(InvertedUsersListItemCell.self, forCellReuseIdentifier: String(describing: InvertedUsersListItemCell.self))
@@ -83,7 +86,9 @@ extension UsersListTableViewController {
             viewModel.didLoadNextPage()
         }
 
-        return vm.cellFor(tableView: tableView, at: indexPath)
+        let cell = vm.cellFor(tableView: tableView, at: indexPath)
+        cell.hideSkeleton()
+        return cell
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

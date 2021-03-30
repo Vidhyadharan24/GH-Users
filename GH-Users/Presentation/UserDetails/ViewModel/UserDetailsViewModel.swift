@@ -35,6 +35,7 @@ protocol UserDetailsViewModelOutputProtocol {
 
 protocol UserDetailsViewModelProtocol: UserDetailsViewModelInputProtocol, UserDetailsViewModelOutputProtocol {}
 
+// BONUS TASK: Coordinator and/or MVVM patterns are used.
 public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     private let user: UserEntity
     private let repository: UserDetailsRepositoryProtocol
@@ -83,6 +84,7 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     }
     
     func setupObservers() {
+        // REQUIRED TASK: The app must ​automatically​ retry loading data once the connection is available.
         NotificationCenter.default.publisher(for: .reachabilityChanged, object: nil)
             .sink {[weak self] (note) in
                 let reachability = note.object as! Reachability

@@ -16,6 +16,7 @@ public enum NetworkDataServiceError: Error {
 }
 
 public protocol NetworkDataServiceProtocol {
+    // BONUS TASK: Any data fetch should utilize ​Result types.
     typealias CompletionHandler = (Result<Data?, NetworkDataServiceError>) -> Void
     
     func request(endpoint: APIRequest, completion: @escaping CompletionHandler) -> Cancellable?
@@ -97,15 +98,23 @@ extension NetworkDataService {
     
     // BONUS TASK: Exponential backoff ​must be used​ ​when trying to reload the data.
     // Exponential back off for retrying api call failure with increasing delay.
-
+    
+    /// Fuction for performing exponential backoff when the api call fails due to network unavailability
+    /// - Parameters:
+    ///   - request: the url request to perform
+    ///   - networkDataServiceTask: class object conforming to Cancellable protocol, holds the current network task for cancelling when api data is not required.
+    ///   - retryCount: the current retry count
+    ///   - completion: a completion handler for passing api data or error the caller.
     private func requestWithRetry(request: URLRequest, networkDataServiceTask: NetworkDataServiceTask, retryCount: Int = 0, completion: @escaping CompletionHandler) {
         guard !networkDataServiceTask.isCancelled else { return }
         let maxRetryCount = self.config.maxRetryCount
 
         let delay = getDelay(for: retryCount)
         let deadline: DispatchTime = .now() + .milliseconds(delay)
+        
         DispatchQueue.main.asyncAfter(deadline: deadline) {[weak self] in
             guard !networkDataServiceTask.isCancelled else { return }
+            
             networkDataServiceTask.networkCancellable = self?.request(request: request) {[weak self] result in
                 guard !networkDataServiceTask.isCancelled else { return }
                 switch result {

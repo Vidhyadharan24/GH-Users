@@ -18,6 +18,8 @@ public protocol ImagePersistanceManagerProtocol {
 }
 
 
+/// ImagePersistanceManager writes the image data to the file system
+// REQUIRED TASK: All ​media​ has to be ​cached​ on disk.
 public class ImagePersistanceManager: ImagePersistanceManagerProtocol {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         

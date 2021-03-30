@@ -28,6 +28,11 @@ class RoundedImageView: UIImageView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    internal override func layoutSubviews() {
+        super.layoutSubviews()
+        setupView()
+    }
+    
     private func setupView() {
         self.layer.masksToBounds = true
         self.layer.cornerRadius = self.bounds.height / 2

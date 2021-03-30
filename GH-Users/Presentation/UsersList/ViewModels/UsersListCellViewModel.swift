@@ -40,11 +40,13 @@ public class UserListCellViewModel {
     }
     
     func setupObservers(user: UserEntity) {
+        // Monitoring the changes to the note value, when the note value changes the tableview is reloaded but the viewmodel still has the old value, to sync the data monitoring and updating the note value here
         user.publisher(for: \.note)
             .sink {[weak self] (newNote) in
             self?.note = newNote
         }.store(in: &cancellableSet)
         
+        // Monitoring the changes to the viewed value, when the viewed value changes the tableview is reloaded but the viewmodel still has the old value, to sync the data monitoring and updating the viewed value here
         user.publisher(for: \.viewed)
             .sink {[weak self] (newVal) in
             self?.viewed = newVal
@@ -52,6 +54,7 @@ public class UserListCellViewModel {
     }
 }
 
+// BONUS TASK: Coordinator and/or MVVM patterns are used.
 extension UserListCellViewModel: UserListCellViewModelProtocol {
     public func cellFor(tableView: UITableView, at indexPath: IndexPath) -> UsersListItemCellProtocol {
         let cell: UsersListItemCellProtocol

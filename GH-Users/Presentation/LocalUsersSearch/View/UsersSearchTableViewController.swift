@@ -8,6 +8,9 @@
 import UIKit
 import Combine
 
+// REQUIRED TASK: Users list has to be searchable - local search only; in ​search mode,​ there is no
+// pagination; username and note (see Profile section) fields should be used when
+// searching; precise match as well as ​contains s​ hould be used.
 class UsersSearchTableViewController: UITableViewController {
     var viewModel: LocalUsersSearchViewModelProtocol!
     
@@ -32,6 +35,7 @@ class UsersSearchTableViewController: UITableViewController {
     
     // MARK: - Private
 
+    // BONUS TASK: Users list UI must be done in code and Profile - with Interface Builder.
     private func setupViews() {
         tableView.register(UsersListItemCell.self, forCellReuseIdentifier: String(describing: UsersListItemCell.self))
         tableView.register(InvertedUsersListItemCell.self, forCellReuseIdentifier: String(describing: InvertedUsersListItemCell.self))

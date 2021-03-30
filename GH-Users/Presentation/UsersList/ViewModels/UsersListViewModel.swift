@@ -49,6 +49,7 @@ protocol UsersListViewModelOutputProtocol {
 
 protocol UsersListViewModelProtocol: UsersListViewModelInputProtocol, UsersListViewModelOutputProtocol {}
 
+// BONUS TASK: Coordinator and/or MVVM patterns are used.
 class UsersListViewModel: UsersListViewModelProtocol {
 
     
@@ -94,6 +95,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
     }
     
     func setupObservers() {
+        // REQUIRED TASK: The app must ​automatically​ retry loading data once the connection is available.
         NotificationCenter.default.publisher(for: .reachabilityChanged, object: nil)
             .sink {[weak self] (note) in
                 let reachability = note.object as! Reachability
@@ -107,6 +109,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
             }.store(in: &cancellableSet)
     }
     
+    // REQUIRED TASK: The list must support pagination (​scroll to load more​) utilizing ​since p​ arameter as the integer ID of the last User loaded.
     func didLoadNextPage() {
         let lastUserId = Int(users.last?.id ?? 0)
         load(since: lastUserId, loading: .nextPage)

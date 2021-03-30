@@ -20,8 +20,10 @@ public protocol ImageCacheServiceProtocol {
     func write(imageData: Data, for url: String, completion: @escaping (Error?) -> Void)
 }
 
+/// Responsible for caching images in memory, if no image is available retrive image from persistance manager
 public class ImageCacheService: ImageCacheServiceProtocol {
     
+    /// Image retrival, write and clearing on memory warning is done in an operation queue to prevent readers wriiters problem
     private lazy var imageQueue: OperationQueue = {
         let networkQueue = OperationQueue()
         networkQueue.maxConcurrentOperationCount = 1
@@ -29,6 +31,7 @@ public class ImageCacheService: ImageCacheServiceProtocol {
     }()
     
     private var imagePersistanceManager: ImagePersistanceManagerProtocol
+    
     
     private var imageMemoryCache: [String: Data] = [:]
         
@@ -51,14 +54,18 @@ public class ImageCacheService: ImageCacheServiceProtocol {
             guard let self = self else { return }
             let fileName = self.md5(string: url)
             
+            // If image data is in memory, the image data is returned in main thread
             if let data = self.imageMemoryCache[fileName] {
                 return DispatchQueue.main.async { return completion(.success(data)) }
             }
             
+            // Getting image from persitance manger
             let result = self.imagePersistanceManager.getImageFor(fileName: fileName)
             switch result {
             case .success(let data):
+                // Adding image data to memory cache on success full return of image
                 self.imageMemoryCache[fileName] = data
+                // Returning image data in main thread
                 DispatchQueue.main.async { return completion(.success(data)) }
             case .failure(let error):
                 print(error.localizedDescription)
@@ -75,15 +82,18 @@ public class ImageCacheService: ImageCacheServiceProtocol {
         let blockOperation = BlockOperation.init { [weak self] in
             guard let self = self else { return }
             let fileName = self.md5(string: url)
-            self.imageMemoryCache[fileName] = imageData
             
+            // Storing image data to file using persistance manager
             let error = self.imagePersistanceManager.write(data: imageData, fileName: fileName)
             
             if let error = error {
                 print(error.localizedDescription)
+                // Returning error data in main thread
                 DispatchQueue.main.async { return completion(error) }
             } else {
+                // Adding retrived image data to memory cache
                 self.imageMemoryCache[fileName] = imageData
+                // Returning in main thread
                 DispatchQueue.main.async { return completion(nil) }
             }
         }

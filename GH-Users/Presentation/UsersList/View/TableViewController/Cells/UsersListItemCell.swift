@@ -128,6 +128,7 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
         
         self.viewModel = viewModel
         
+        // BONUS TASK: Items in users list are greyed out a bit for seen profiles (seen status being saved to db).
         if (viewModel.viewed) {
             mainBackgroundView.backgroundColor = UIColor.systemGray6
         } else {
