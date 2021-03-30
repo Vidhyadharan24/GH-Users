@@ -46,18 +46,11 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     var following: String {
         String(format: NSLocalizedString("Following: %d", comment: ""), Int(user.following))
     }
-    var name: String {
-        String(format: NSLocalizedString("Name: %@", comment: ""), user.name ?? "")
-    }
-    var organisation: String {
-        String(format: NSLocalizedString("Organisation: %@", comment: ""), user.company ?? "")
-    }
-    var blog: String {
-        String(format: NSLocalizedString("Blog: %@", comment: ""), user.blog ?? "")
-    }
-    var viewed: Bool {
-        user.viewed
-    }
+    var name: String { user.name ?? ""}
+    var organisation: String { String(user.company ?? "") }
+    var blog: String { String(user.blog ?? "") }
+    var viewed: Bool { user.viewed }
+    
     private(set) lazy var note = self.user.publisher(for: \.note)
 
     let title = NSLocalizedString("Details", comment: "")
