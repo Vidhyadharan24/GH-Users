@@ -18,18 +18,18 @@ public protocol UserDetailsRepositoryProtocol {
 final class UserDetailsRepository: UserDetailsRepositoryProtocol {
     
     private let networkDecodableService: NetworkDecodableServiceProtocol
-    private let persistantStorageService: UserDetailsPersistanceServiceProtocol
+    private let persistantPersistanceService: UserDetailsPersistanceServiceProtocol
 
-    init(networkDecodableService: NetworkDecodableServiceProtocol, persistantStorageService: UserDetailsPersistanceServiceProtocol) {
+    init(networkDecodableService: NetworkDecodableServiceProtocol, persistantPersistanceService: UserDetailsPersistanceServiceProtocol) {
         self.networkDecodableService = networkDecodableService
-        self.persistantStorageService = persistantStorageService
+        self.persistantPersistanceService = persistantPersistanceService
     }
     
     func fetchUserDetails(username: String, cached: @escaping (Result<UserEntity?, Error>) -> Void, completion: @escaping (Result<UserEntity?, Error>) -> Void) -> Cancellable? {
         let request = UserDetailsRequest(username: username)
         let task = RepositoryTask()
         
-        persistantStorageService.getResponse(for: request) { (result) in
+        persistantPersistanceService.getResponse(for: request) { (result) in
             guard !task.isCancelled else { return }
             
             switch result {
@@ -46,11 +46,11 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
 
                 switch result {
                 case .success(let response):
-                    self.persistantStorageService.save(request: request, response: response) { (error) in
+                    self.persistantPersistanceService.save(request: request, response: response) { (error) in
                         if let error = error {
                             completion(.failure(error))
                         } else {
-                            self.persistantStorageService.getResponse(for: request) { (result) in
+                            self.persistantPersistanceService.getResponse(for: request) { (result) in
                                 switch result {
                                 case .success(let response):
                                     completion(.success(response!))
@@ -74,6 +74,6 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
         guard let name = username else { return }
         let request = UserDetailsRequest(username: name)
 
-        persistantStorageService.save(note: note, request: request)
+        persistantPersistanceService.save(note: note, request: request)
     }
 }

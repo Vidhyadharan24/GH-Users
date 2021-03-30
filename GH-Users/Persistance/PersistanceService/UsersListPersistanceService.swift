@@ -8,12 +8,12 @@
 import Foundation
 import CoreData
 
-protocol UsersListStorageServiceProtocol {
+protocol UsersListPersistanceServiceProtocol {
     func getResponse(for request: UsersListRequest, completion: @escaping (Result<[UserEntity]?, PersistanceError>) -> Void)
     func save(response: UsersListResponse, completion: @escaping (PersistanceError?) -> Void)
 }
 
-public final class UsersListStorageService: UsersListStorageServiceProtocol {
+public final class UsersListPersistanceService: UsersListPersistanceServiceProtocol {
     private let persistenceManager: PersistenceManager
     private let fetchLimit: Int
 
@@ -33,7 +33,7 @@ public final class UsersListStorageService: UsersListStorageServiceProtocol {
     }
 }
 
-extension UsersListStorageService {
+extension UsersListPersistanceService {
     func getResponse(for request: UsersListRequest, completion: @escaping (Result<[UserEntity]?, PersistanceError>) -> Void) {
         let context = persistenceManager.viewContext
         context.perform {
