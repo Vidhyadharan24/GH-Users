@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class UsersListTableViewController: UITableViewController {
     var viewModel: UsersListViewModelProtocol!
@@ -40,8 +41,12 @@ class UsersListTableViewController: UITableViewController {
             nextPageLoadingSpinner?.removeFromSuperview()
             nextPageLoadingSpinner = makeActivityIndicator(size: .init(width: tableView.frame.width, height: 44))
             tableView.tableFooterView = nextPageLoadingSpinner
-        case .fullScreen, .none:
+        case .fullScreen:
             tableView.tableFooterView = nil
+            tableView.showAnimatedSkeleton()
+        case .none:
+            tableView.tableFooterView = nil
+            tableView.hideSkeleton()
         }
     }
 
@@ -53,9 +58,13 @@ class UsersListTableViewController: UITableViewController {
         tableView.register(UsersListNoteItemCell.self, forCellReuseIdentifier: String(describing: UsersListNoteItemCell.self))
         tableView.register(InvertedUsersNoteListItemCell.self, forCellReuseIdentifier: String(describing: InvertedUsersNoteListItemCell.self))
         
+        tableView.dataSource = self
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.separatorStyle = .none
+        
+        tableView.isSkeletonable = true
     }
 }
 
@@ -69,16 +78,22 @@ extension UsersListTableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let vm = viewModel.userViewModels.value[indexPath.row]
-        
+
         if indexPath.row == viewModel.userViewModels.value.count - 1 {
             viewModel.didLoadNextPage()
         }
-        
+
         return vm.cellFor(tableView: tableView, at: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.didSelectItem(at: indexPath.row)
+    }
+}
+
+extension UsersListTableViewController: SkeletonTableViewDataSource {
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return String(describing: UsersListItemCell.self)
     }
 }
 

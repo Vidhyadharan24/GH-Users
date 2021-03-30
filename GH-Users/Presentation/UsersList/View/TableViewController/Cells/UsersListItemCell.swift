@@ -18,6 +18,7 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
         view.backgroundColor = .white
         view.layer.masksToBounds = true
         view.layer.cornerRadius = cornerRadius
+        view.isSkeletonable = true
         return view
     }()
     
@@ -28,6 +29,7 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
     private lazy var userImageView : UIImageView = {
         let imgView = RoundedImageView(borderWidth: borderWidth, borderColor: borderColor)
         imgView.contentMode = .scaleAspectFit
+        imgView.isSkeletonable = true
         return imgView
     }()
     
@@ -35,6 +37,8 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
         let lbl = UILabel()
         lbl.font = UIFont.boldSystemFont(ofSize: 16)
         lbl.textAlignment = .left
+        lbl.text = " "
+        lbl.isSkeletonable = true
         return lbl
     }()
     
@@ -43,6 +47,8 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
         lbl.font = UIFont.systemFont(ofSize: 16)
         lbl.textAlignment = .left
         lbl.numberOfLines = 0
+        lbl.text = " "
+        lbl.isSkeletonable = true
         return lbl
     }()
     
@@ -53,6 +59,7 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
+        isSkeletonable = true
         
         contentView.addSubview(shadowView)
         contentView.addSubview(mainBackgroundView)

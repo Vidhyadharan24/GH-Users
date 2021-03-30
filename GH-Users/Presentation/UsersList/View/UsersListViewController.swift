@@ -46,7 +46,7 @@ class UsersListViewController: UIViewController {
     var usersSearchTableViewController: UsersSearchTableViewController?
     private var searchController = UISearchController(searchResultsController: nil)
     
-    private lazy var emptyDataLabel: UILabel = {
+    private lazy var errorLabel: UILabel = {
         let view = UILabel()
         view.textAlignment = .center
         view.text = viewModel.emptyDataTitle
@@ -83,7 +83,7 @@ class UsersListViewController: UIViewController {
         rootView.addSubview(offlineView)
         rootView.addSubview(searchBarContainer)
         rootView.addSubview(usersListContainer)
-        rootView.addSubview(emptyDataLabel)
+        rootView.addSubview(errorLabel)
         rootView.addSubview(usersSearchContainer)
 
         
@@ -135,11 +135,11 @@ class UsersListViewController: UIViewController {
         ])
         add(child: usersTableViewController, container: usersListContainer)
         
-        emptyDataLabel.translatesAutoresizingMaskIntoConstraints = false
+        errorLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            emptyDataLabel.centerYAnchor.constraint(equalTo: usersListContainer.centerYAnchor),
-            emptyDataLabel.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 8),
-            emptyDataLabel.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: 8),
+            errorLabel.centerYAnchor.constraint(equalTo: usersListContainer.centerYAnchor),
+            errorLabel.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 8),
+            errorLabel.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: 8),
         ])
         
         usersSearchContainer.translatesAutoresizingMaskIntoConstraints = false
@@ -170,7 +170,6 @@ extension UsersListViewController {
     
     private func setupViews() {
         title = viewModel.screenTitle
-        emptyDataLabel.text = viewModel.emptyDataTitle
         offlineLabel.text = viewModel.offlineErrorMessage
         
         setupSearchController()
@@ -188,23 +187,22 @@ extension UsersListViewController {
     }
     
     private func updateLoading(_ loading: UsersListViewModelLoading?) {
-        emptyDataLabel.isHidden = true
-        usersListContainer.isHidden = true
-        LoadingView.hide()
+        errorLabel.isHidden = true
 
         switch loading {
-        case .fullScreen: LoadingView.show()
+        case .fullScreen: usersListContainer.isHidden = false
         case .nextPage: usersListContainer.isHidden = false
         case .none:
             usersListContainer.isHidden = viewModel.isEmpty
-            emptyDataLabel.isHidden = !viewModel.isEmpty
+            errorLabel.isHidden = !viewModel.isEmpty
         }
 
         usersTableViewController.updateLoading(loading)
     }
     
     private func showError(_ error: String?) {
-        guard let error = error, !error.isEmpty else { return }
+        guard let error = error, !error.isEmpty, viewModel.userViewModels.value.count == 0 else { return }
+        self.errorLabel.text = error
 //        showAlert(title: viewModel.errorTitle, message: error)
     }
     
