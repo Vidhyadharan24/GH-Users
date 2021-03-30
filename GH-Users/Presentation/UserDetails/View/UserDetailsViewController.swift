@@ -11,6 +11,8 @@ import Combine
 class UserDetailsViewController: UIViewController {
     var viewModel: UserDetailsViewModelProtocol!
     var completion: (() -> Void)?
+    
+    @IBOutlet private var scrollView: UIScrollView!
 
     @IBOutlet private var offlineView: UIView!
     @IBOutlet private var offlineLabel: UILabel!
@@ -26,7 +28,12 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet private var publicResposLabel: UILabel!
     @IBOutlet private var followingLabel: UILabel!
     
-    @IBOutlet private var notesTextView: UITextView!
+    @IBOutlet private var notesTextView: UITextView! {
+        didSet {
+            notesTextView.layer.borderWidth = 2
+            notesTextView.layer.borderColor = UIColor.systemGray.cgColor
+        }
+    }
 
     @IBOutlet private var saveButton: UIButton! {
         didSet {
@@ -36,6 +43,8 @@ class UserDetailsViewController: UIViewController {
             saveButton.layer.borderColor = saveButton.titleColor(for: UIControl.State.normal)?.cgColor ?? UIColor.systemBlue.cgColor
         }
     }
+
+    @IBOutlet private var errorLabel: UILabel!
 
     private var cancellableSet: Set<AnyCancellable> = []
     
@@ -62,8 +71,6 @@ extension UserDetailsViewController {
     func setupViews() {
         self.title = viewModel.title
         self.offlineLabel.text = viewModel.offlineErrorMessage
-        notesTextView.layer.borderWidth = 2
-        notesTextView.layer.borderColor = UIColor.systemGray.cgColor
     }
     
     func bind(to viewModel: UserDetailsViewModelProtocol) {
@@ -80,15 +87,17 @@ extension UserDetailsViewController {
         viewModel.note.sink {[weak self] in self?.notesTextView.text = $0 }.store(in: &cancellableSet)
         
         viewModel.offline.sink { [weak self] in self?.showHideOfflineView($0) }.store(in: &cancellableSet)
+        
+        viewModel.error.sink { [weak self] in self?.showError($0) }.store(in: &cancellableSet)
     }
     
     public func updateLoading(_ loading: Bool) {
-        if !viewModel.viewed {
-            LoadingView.show()
+        if loading, !viewModel.viewed {
+            self.scrollView.isHidden = false
+            view.showAnimatedSkeleton()
         } else {
-            LoadingView.hide()
+            view.hideSkeleton()
         }
-        update()
     }
     
     public func update() {
@@ -109,6 +118,12 @@ extension UserDetailsViewController {
         UIView.animate(withDuration: 0.3) {[weak self] in
             self?.view.layoutIfNeeded()
         }
+    }
+    
+    private func showError(_ message: String?) {
+        guard let msg = message else { return }
+        self.errorLabel.text = msg
+        self.scrollView.isHidden = true
     }
     
     @IBAction func saveTapped(button: UIButton) {

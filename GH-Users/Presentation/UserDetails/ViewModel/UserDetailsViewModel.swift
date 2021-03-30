@@ -8,6 +8,7 @@
 import UIKit
 import Combine
 import Reachability
+import SkeletonView
 
 protocol UserDetailsViewModelInputProtocol {
     func viewDidLoad()
@@ -46,9 +47,9 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     var following: String {
         String(format: NSLocalizedString("Following: %d", comment: ""), Int(user.following))
     }
-    var name: String { user.name ?? ""}
-    var organisation: String { String(user.company ?? "") }
-    var blog: String { String(user.blog ?? "") }
+    var name: String { user.name ?? " "}
+    var organisation: String { String(user.company ?? " ") }
+    var blog: String { String(user.blog ?? " ") }
     var viewed: Bool { user.viewed }
     
     private(set) lazy var note = self.user.publisher(for: \.note)
@@ -69,6 +70,9 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
         self.user = user
         self.repository = repository
         self.imageRepository = imageRespository
+        
+        setupObservers()
+        loadUserDetails(username: self.user.login)
     }
     
     deinit {
@@ -76,8 +80,6 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     }
     
     func viewDidLoad() {
-        setupObservers()
-        loadUserDetails(username: self.user.login)
     }
     
     func setupObservers() {
