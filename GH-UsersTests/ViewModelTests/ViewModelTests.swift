@@ -6,7 +6,10 @@
 //
 
 import XCTest
+import Combine
+
 @testable import GH_Users
+
 
 class ViewModelTests: XCTestCase {
     var persistanceManager: PersistenceManager!
@@ -20,6 +23,8 @@ class ViewModelTests: XCTestCase {
     var userListViewModel: UsersListViewModel!
     var usersSearchViewModel: LocalUsersSearchViewModel!
     var userDetailsViewModel: UserDetailsViewModel!
+    
+    var cancellableSet = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
         persistanceManager = PersistenceManager(inMemory: true)
@@ -42,6 +47,8 @@ class ViewModelTests: XCTestCase {
         userListViewModel = nil
         usersSearchViewModel = nil
         userDetailsViewModel = nil
+        
+        cancellableSet.removeAll()
     }
     
     // MARK: - UsersListViewModel tests
@@ -60,6 +67,22 @@ class ViewModelTests: XCTestCase {
         let actions = UsersListViewModelActions(showUserDetails: showUserDetails, showLocalUserSearch: showLocalUserSearch, closeLocalUserSearch: closeLocalUserSearch)
         
         userListViewModel = UsersListViewModel(repository: mockUsersListRepository, imageRepository: mockImageRepository, actions: actions)
+        
+        mockUsersListRepository.cacheError = PersistanceError.noData
+        mockUsersListRepository.liveError = NetworkDecodableServiceError.networkFailure(.notConnected)
+        
+        userListViewModel.viewDidLoad()
+        
+        let expectation = self.expectation(description: "View model values are valid when not data from cache and network")
+        
+        userListViewModel.loading.sink {[weak self] (loading) in
+            guard case .none = loading else { return }
+            guard self?.userListViewModel.isEmpty == true else { return }
+            guard self?.userListViewModel.offline.value == true else { return }
+            expectation.fulfill()
+        }.store(in: &cancellableSet)
+        
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
     // MARK: - UsersSearchViewModel tests

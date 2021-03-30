@@ -90,8 +90,8 @@ class UsersListViewModel: UsersListViewModelProtocol {
     }
     
     func viewDidLoad() {
-        load(since: 0, loading: .fullScreen)
         setupObservers()
+        load(since: 0, loading: .fullScreen)
     }
     
     func setupObservers() {
