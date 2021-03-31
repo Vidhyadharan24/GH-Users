@@ -1,5 +1,5 @@
 //
-//  RoundedImageView.swift
+//  RoundedView.swift
 //  GH-Users
 //
 //  Created by Vidhyadharan on 28/03/21.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RoundedImageView: UIImageView {
+class RoundedView: UIView {
     override var bounds: CGRect {
         didSet {
             setupView()
@@ -26,11 +26,6 @@ class RoundedImageView: UIImageView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    internal override func layoutSubviews() {
-        super.layoutSubviews()
-        setupView()
     }
     
     private func setupView() {

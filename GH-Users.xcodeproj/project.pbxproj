@@ -45,7 +45,7 @@
 		180D2FB02610AEE000508F21 /* UIViewController+Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FAF2610AEE000508F21 /* UIViewController+Embed.swift */; };
 		180D2FB82610D73400508F21 /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FB72610D73400508F21 /* ShadowView.swift */; };
 		180D2FC92610DBF000508F21 /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FC82610DBF000508F21 /* UIImage+Resize.swift */; };
-		180D2FCE2610DD3600508F21 /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FCD2610DD3600508F21 /* RoundedImageView.swift */; };
+		180D2FCE2610DD3600508F21 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FCD2610DD3600508F21 /* RoundedView.swift */; };
 		180D2FD32610E95400508F21 /* InvertedUsersListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FD22610E95400508F21 /* InvertedUsersListItemCell.swift */; };
 		180D2FD82610E9CF00508F21 /* UsersListNoteItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FD72610E9CF00508F21 /* UsersListNoteItemCell.swift */; };
 		180D2FDD2610EA7100508F21 /* UIIMage+InvertImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FDC2610EA7100508F21 /* UIIMage+InvertImage.swift */; };
@@ -130,7 +130,7 @@
 		180D2FAF2610AEE000508F21 /* UIViewController+Embed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Embed.swift"; sourceTree = "<group>"; };
 		180D2FB72610D73400508F21 /* ShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
 		180D2FC82610DBF000508F21 /* UIImage+Resize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Resize.swift"; sourceTree = "<group>"; };
-		180D2FCD2610DD3600508F21 /* RoundedImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		180D2FCD2610DD3600508F21 /* RoundedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedView.swift; sourceTree = "<group>"; };
 		180D2FD22610E95400508F21 /* InvertedUsersListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertedUsersListItemCell.swift; sourceTree = "<group>"; };
 		180D2FD72610E9CF00508F21 /* UsersListNoteItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListNoteItemCell.swift; sourceTree = "<group>"; };
 		180D2FDC2610EA7100508F21 /* UIIMage+InvertImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIIMage+InvertImage.swift"; sourceTree = "<group>"; };
@@ -417,7 +417,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2FB72610D73400508F21 /* ShadowView.swift */,
-				180D2FCD2610DD3600508F21 /* RoundedImageView.swift */,
+				180D2FCD2610DD3600508F21 /* RoundedView.swift */,
 				180D2FF226111B5200508F21 /* LoadingView.swift */,
 			);
 			path = CustomClasses;
@@ -680,7 +680,7 @@
 				180D2EF2260FAF7900508F21 /* UserDetailsRequest.swift in Sources */,
 				180D2FB82610D73400508F21 /* ShadowView.swift in Sources */,
 				180D2EE1260FAB7000508F21 /* APIEndpoints.swift in Sources */,
-				180D2FCE2610DD3600508F21 /* RoundedImageView.swift in Sources */,
+				180D2FCE2610DD3600508F21 /* RoundedView.swift in Sources */,
 				180D2EAB260F780500508F21 /* UsersListRequest.swift in Sources */,
 				180D2F3E261066E200508F21 /* ConnectionError.swift in Sources */,
 				180D2FF326111B5200508F21 /* LoadingView.swift in Sources */,

@@ -25,8 +25,12 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
         return ShadowView(cornerRadius: cornerRadius)
     }()
     
+    private lazy var roundedView : UIView = {
+        return RoundedView(borderWidth: borderWidth, borderColor: borderColor)
+    }()
+    
     private lazy var userImageView : UIImageView = {
-        let imgView = RoundedImageView(borderWidth: borderWidth, borderColor: borderColor)
+        let imgView = UIImageView()
         imgView.contentMode = .scaleAspectFit
         return imgView
     }()
@@ -62,7 +66,10 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
 
         contentView.addSubview(shadowView)
         contentView.addSubview(mainBackgroundView)
-        mainBackgroundView.addSubview(userImageView)
+        
+        roundedView.addSubview(userImageView)
+        
+        mainBackgroundView.addSubview(roundedView)
         mainBackgroundView.addSubview(noteImageView)
         mainBackgroundView.addSubview(usernameLabel)
         mainBackgroundView.addSubview(descriptionLabel)
@@ -86,29 +93,37 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
         ])
         
         userImageView.translatesAutoresizingMaskIntoConstraints = false
-        let heightConstraint = userImageView.heightAnchor.constraint(equalToConstant: 70)
+        NSLayoutConstraint.activate([
+            userImageView.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor),
+            userImageView.trailingAnchor.constraint(equalTo: roundedView.trailingAnchor),
+            userImageView.topAnchor.constraint(equalTo: roundedView.topAnchor),
+            userImageView.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor),
+        ])
+        
+        roundedView.translatesAutoresizingMaskIntoConstraints = false
+        let heightConstraint = roundedView.heightAnchor.constraint(equalToConstant: 70)
         heightConstraint.priority = .defaultHigh
         NSLayoutConstraint.activate([
-            userImageView.leadingAnchor.constraint(equalTo: mainBackgroundView.layoutMarginsGuide.leadingAnchor),
-            userImageView.topAnchor.constraint(equalTo: mainBackgroundView.layoutMarginsGuide.topAnchor),
-            userImageView.bottomAnchor.constraint(equalTo: mainBackgroundView.layoutMarginsGuide.bottomAnchor),
-            userImageView.heightAnchor.constraint(equalTo: userImageView.widthAnchor, multiplier: 1.0),
+            roundedView.leadingAnchor.constraint(equalTo: mainBackgroundView.layoutMarginsGuide.leadingAnchor),
+            roundedView.topAnchor.constraint(equalTo: mainBackgroundView.layoutMarginsGuide.topAnchor),
+            roundedView.bottomAnchor.constraint(equalTo: mainBackgroundView.layoutMarginsGuide.bottomAnchor),
+            roundedView.heightAnchor.constraint(equalTo: roundedView.widthAnchor, multiplier: 1.0),
             heightConstraint
         ])
         
         noteImageView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             noteImageView.trailingAnchor.constraint(equalTo: mainBackgroundView.layoutMarginsGuide.trailingAnchor),
-            noteImageView.centerYAnchor.constraint(equalTo: userImageView.centerYAnchor),
+            noteImageView.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor),
             noteImageView.heightAnchor.constraint(equalTo: noteImageView.widthAnchor, multiplier: 1.0),
             noteImageView.heightAnchor.constraint(equalToConstant: 30)
         ])
         
         usernameLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            usernameLabel.leadingAnchor.constraint(equalTo: userImageView.trailingAnchor, constant: 8),
+            usernameLabel.leadingAnchor.constraint(equalTo: roundedView.trailingAnchor, constant: 8),
             usernameLabel.trailingAnchor.constraint(equalTo: noteImageView.leadingAnchor, constant: 8),
-            usernameLabel.topAnchor.constraint(equalTo: userImageView.topAnchor)
+            usernameLabel.topAnchor.constraint(equalTo: roundedView.topAnchor)
         ])
 
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
