@@ -54,19 +54,7 @@ class ViewModelTests: XCTestCase {
     // MARK: - UsersListViewModel tests
     
     func testUserListViewModelNoData() throws {
-        func showUserDetails(user: UserEntity, completion: @escaping () -> Void) {
-        }
-
-        func showLocalUserSearch() {
-        }
-        
-        func closeLocalUserSearch() {
-            
-        }
-
-        let actions = UsersListViewModelActions(showUserDetails: showUserDetails, showLocalUserSearch: showLocalUserSearch, closeLocalUserSearch: closeLocalUserSearch)
-        
-        userListViewModel = UsersListViewModel(repository: mockUsersListRepository, imageRepository: mockImageRepository, actions: actions)
+        userListViewModel = UsersListViewModel(repository: mockUsersListRepository, imageRepository: mockImageRepository, actions: nil)
         
         mockUsersListRepository.cacheError = PersistanceError.noData
         mockUsersListRepository.liveError = NetworkDecodableServiceError.networkFailure(.notConnected)

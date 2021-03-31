@@ -33,7 +33,7 @@ class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
     let respository: LocalUsersSearchRepositoryProtocol
     let imageRepository: ImageRepositoryProtocol
 
-    let actions: LocalUsersSearchViewModelActions
+    let actions: LocalUsersSearchViewModelActions?
 
     private var users: [UserEntity] = []
     private(set) var userViewModels = CurrentValueSubject<[UserListCellViewModelProtocol], Never>([])
@@ -46,7 +46,7 @@ class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
 
     init(repository: LocalUsersSearchRepositoryProtocol,
          imageRepository: ImageRepositoryProtocol,
-         actions: LocalUsersSearchViewModelActions) {
+         actions: LocalUsersSearchViewModelActions?) {
         self.respository = repository
         self.imageRepository = imageRepository
         self.actions = actions
@@ -65,7 +65,7 @@ class LocalUsersSearchViewModel: LocalUsersSearchViewModelProtocol {
     }
     
     func didSelectItem(at index: Int) {
-        actions.showUserDetails(users[index]) {[weak self] in
+        actions?.showUserDetails(users[index]) {[weak self] in
             // Reloading on return from User Details Page
             guard let self = self else { return }
             self.userViewModels.send(self.userViewModels.value)

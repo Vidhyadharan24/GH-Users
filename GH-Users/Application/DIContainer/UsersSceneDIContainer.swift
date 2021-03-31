@@ -44,21 +44,21 @@ final class UsersSceneDIContainer {
     }
 
     // MARK: - Users List
-    func makeUsersListViewController(actions: UsersListViewModelActions) -> UsersListViewController {
+    func makeUsersListViewController(actions: UsersListViewModelActions?) -> UsersListViewController {
         return UsersListViewController.create(viewModel: makeUsersListViewModel(actions: actions))
     }
 
-    func makeUsersListViewModel(actions: UsersListViewModelActions) -> UsersListViewModel {
+    func makeUsersListViewModel(actions: UsersListViewModelActions?) -> UsersListViewModel {
         return UsersListViewModel(repository: makeUsersListRepository(), imageRepository: makeImageRepository(), actions: actions)
     }
     
     // MARK: Local User Search
     
-    func makeLocalUserSearchListViewController(actions: LocalUsersSearchViewModelActions) -> UsersSearchTableViewController {
+    func makeLocalUserSearchListViewController(actions: LocalUsersSearchViewModelActions?) -> UsersSearchTableViewController {
         return UsersSearchTableViewController(viewModel: makeLocalUsersSearchViewModel(actions: actions))
     }
     
-    func makeLocalUsersSearchViewModel(actions: LocalUsersSearchViewModelActions) -> LocalUsersSearchViewModel {
+    func makeLocalUsersSearchViewModel(actions: LocalUsersSearchViewModelActions?) -> LocalUsersSearchViewModel {
         return LocalUsersSearchViewModel(repository: makeLocalUsersSearchRepository(),
                                          imageRepository: makeImageRepository(),
                                          actions: actions)

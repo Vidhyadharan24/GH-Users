@@ -56,7 +56,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
     let respository: UsersListRepositoryProtocol
     let imageRepository: ImageRepositoryProtocol
 
-    let actions: UsersListViewModelActions
+    let actions: UsersListViewModelActions?
     
     private var usersLoadTask: Cancellable? { willSet { usersLoadTask?.cancel() } }
     private var cancellableSet = Set<AnyCancellable>()
@@ -74,7 +74,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
     let searchBarPlaceholder = NSLocalizedString("Search Users", comment: "")
     let offlineErrorMessage = NSLocalizedString("Offline", comment: "")
 
-    init(repository: UsersListRepositoryProtocol, imageRepository: ImageRepositoryProtocol, actions: UsersListViewModelActions) {
+    init(repository: UsersListRepositoryProtocol, imageRepository: ImageRepositoryProtocol, actions: UsersListViewModelActions?) {
         self.respository = repository
         self.actions = actions
         self.imageRepository = imageRepository
@@ -116,16 +116,16 @@ class UsersListViewModel: UsersListViewModelProtocol {
     }
     
     func showLocalUserSearch() {
-        actions.showLocalUserSearch()
+        actions?.showLocalUserSearch()
     }
     
     func closeLocalUserSearch() {
-        actions.closeLocalUserSearch()
+        actions?.closeLocalUserSearch()
     }
     
     func didSelectItem(at index: Int) {
         let users = pages.flatMap { $0.users }
-        actions.showUserDetails(users[index]) {[weak self] in
+        actions?.showUserDetails(users[index]) {[weak self] in
             // Reloading on return from User Details Page
             guard let self = self else { return }
             self.userViewModels.send(self.userViewModels.value)

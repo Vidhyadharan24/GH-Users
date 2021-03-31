@@ -8,9 +8,9 @@
 import UIKit
 
 protocol UsersListDIContainerProtocol  {
-    func makeUsersListViewController(actions: UsersListViewModelActions) -> UsersListViewController
+    func makeUsersListViewController(actions: UsersListViewModelActions?) -> UsersListViewController
     func makeUserDetailsViewController(user: UserEntity, completion: @escaping () -> Void) -> UserDetailsViewController
-    func makeLocalUserSearchListViewController(actions: LocalUsersSearchViewModelActions) -> UsersSearchTableViewController
+    func makeLocalUserSearchListViewController(actions: LocalUsersSearchViewModelActions?) -> UsersSearchTableViewController
 }
 
 final class UsersListCoordinator {
