@@ -38,32 +38,32 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
             case .failure(let error):
                 cached(.failure(error))
             }
+        }
         
-            let endpoint = APIEndpoints.getUserDetails(with: request)
-            
-            task.task = self.networkDecodableService.request(with: endpoint) { result in
-                guard !task.isCancelled else { return }
+        let endpoint = APIEndpoints.getUserDetails(with: request)
+        
+        task.task = self.networkDecodableService.request(with: endpoint) { result in
+            guard !task.isCancelled else { return }
 
-                switch result {
-                case .success(let response):
-                    self.persistenceService.save(request: request, response: response) { (error) in
-                        if let error = error {
-                            completion(.failure(error))
-                        } else {
-                            self.persistenceService.getResponse(for: request) { (result) in
-                                switch result {
-                                case .success(let response):
-                                    completion(.success(response!))
-                                case .failure(let error):
-                                    completion(.failure(error))
-                                }
+            switch result {
+            case .success(let response):
+                self.persistenceService.save(request: request, response: response) { (error) in
+                    if let error = error {
+                        completion(.failure(error))
+                    } else {
+                        self.persistenceService.getResponse(for: request) { (result) in
+                            switch result {
+                            case .success(let response):
+                                completion(.success(response!))
+                            case .failure(let error):
+                                completion(.failure(error))
                             }
                         }
                     }
-                    
-                case .failure(let error):
-                    completion(.failure(error))
                 }
+                
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
         
