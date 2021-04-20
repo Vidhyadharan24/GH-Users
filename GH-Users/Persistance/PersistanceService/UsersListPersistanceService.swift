@@ -53,8 +53,7 @@ extension UsersListPersistanceService {
     }
     
     func save(response: UsersListResponse, completion: @escaping (PersistanceError?) -> Void) {
-        let context = persistenceManager.backgroundContext
-        context.performAndWait {
+        persistenceManager.saveInBackgroundContext {(context) in
             do {
                 for user in response {
                     let _ = UserEntity(user: user, insertInto: context)

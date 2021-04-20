@@ -25,7 +25,9 @@ struct PersistenceManager {
     
     // BONUS TASK: All CoreData ​write​ queries must be ​queued​ while allowing one concurrent query at any time.
     // The backgroundContext is initialized from `container.newBackgroundContext()`, the queries to the bacground context are executed in serial by default. All the write tasks in the app are done in this context.
-    var backgroundContext: NSManagedObjectContext
+    private var backgroundContext: NSManagedObjectContext
+    
+    private let serialQueue = DispatchQueue(label: "cd.serial.queue")
     
     private init() {
         self.init(inMemory: false)
@@ -64,6 +66,16 @@ struct PersistenceManager {
         
         backgroundContext = container.newBackgroundContext()
         backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
+    }
+    
+    // MARK: BUGS - CD save shouldn't happend on the main thread: Saves the data to coredata using a thread from the systems thread pool except the main thread
+    func saveInBackgroundContext(task: @escaping (NSManagedObjectContext) -> Void) {
+        let context = backgroundContext
+        serialQueue.sync {
+            backgroundContext.performAndWait {
+                task(context)
+            }
+        }
     }
     
     func saveContext() {

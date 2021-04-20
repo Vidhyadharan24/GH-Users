@@ -47,8 +47,7 @@ extension UserDetailsPersistanceService {
     }
     
     func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void) {
-        let context = persistenceManager.backgroundContext
-        context.performAndWait {
+        persistenceManager.saveInBackgroundContext {(context) in
             do {
                 let fetchRequest = self.getFetchRequest(for: request)
                 let userEntity = try context.fetch(fetchRequest).first
@@ -66,8 +65,7 @@ extension UserDetailsPersistanceService {
     }
     
     func save(note: String, request: UserDetailsRequest, completion: @escaping (PersistanceError?) -> Void) {
-        let context = persistenceManager.backgroundContext
-        context.performAndWait {
+        persistenceManager.saveInBackgroundContext {(context) in
             do {
                 let fetchRequest = self.getFetchRequest(for: request)
                 let userEntity = try context.fetch(fetchRequest).first
