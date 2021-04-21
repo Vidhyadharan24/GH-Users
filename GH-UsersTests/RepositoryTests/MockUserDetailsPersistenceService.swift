@@ -8,12 +8,12 @@
 import Foundation
 @testable import GH_Users
 
-class MockUserDetailsPersistenceService: UserDetailsPersistanceServiceProtocol {
+class MockUserDetailsPersistenceService: UserDetailsPersistenceServiceProtocol {
     var userDetails: UserEntity?
-    var persistanceError: PersistanceError?
+    var persistenceError: Error?
     
-    func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, PersistanceError>) -> Void) {
-        if let error = persistanceError {
+    func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, Error>) -> Void) {
+        if let error = persistenceError {
             completion(.failure(error))
             return
         }
@@ -21,12 +21,12 @@ class MockUserDetailsPersistenceService: UserDetailsPersistanceServiceProtocol {
         completion(.success(userDetails))
     }
     
-    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void) {
-        completion(persistanceError)
+    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (Error?) -> Void) {
+        completion(persistenceError)
     }
     
-    func save(note: String, request: UserDetailsRequest, completion: @escaping (PersistanceError?) -> Void) {
-        completion(persistanceError)
+    func save(note: String, request: UserDetailsRequest, completion: @escaping (Error?) -> Void) {
+        completion(persistenceError)
     }
     
 

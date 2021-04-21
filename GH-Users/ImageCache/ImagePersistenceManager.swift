@@ -1,5 +1,5 @@
 //
-//  ImagePersistanceManager.swift
+//  ImagePersistenceManager.swift
 //  GH-Users
 //
 //  Created by Vidhyadharan on 27/03/21.
@@ -7,23 +7,23 @@
 
 import Foundation
 
-public enum ImagePersistanceError: Error {
+public enum ImagePersistenceError: Error {
     case noImage(Error)
     case writeError(Error)
 }
 
-public protocol ImagePersistanceManagerProtocol {
-    func getImageFor(fileName: String) -> Result<Data?, ImagePersistanceError>
-    func write(data: Data, fileName: String) -> ImagePersistanceError?
+public protocol ImagePersistenceManagerProtocol {
+    func getImageFor(fileName: String) -> Result<Data?, ImagePersistenceError>
+    func write(data: Data, fileName: String) -> ImagePersistenceError?
 }
 
 
-/// ImagePersistanceManager writes the image data to the file system
+/// ImagePersistenceManager writes the image data to the file system
 // REQUIRED TASK: All ​media​ has to be ​cached​ on disk.
-public class ImagePersistanceManager: ImagePersistanceManagerProtocol {
+public class ImagePersistenceManager: ImagePersistenceManagerProtocol {
     let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         
-    public func getImageFor(fileName: String) -> Result<Data?, ImagePersistanceError> {
+    public func getImageFor(fileName: String) -> Result<Data?, ImagePersistenceError> {
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         do {
             let data = try Data(contentsOf: fileURL)
@@ -33,7 +33,7 @@ public class ImagePersistanceManager: ImagePersistanceManagerProtocol {
         }
     }
     
-    public func write(data: Data, fileName: String) -> ImagePersistanceError? {
+    public func write(data: Data, fileName: String) -> ImagePersistenceError? {
         let fileURL = documentsDirectory.appendingPathComponent(fileName)
         do {
             try data.write(to: fileURL)

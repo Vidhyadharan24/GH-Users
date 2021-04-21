@@ -1,5 +1,5 @@
 //
-//  UserDetailsPersistanceService.swift
+//  UserDetailsPersistenceService.swift
 //  GH-Users
 //
 //  Created by Vidhyadharan on 27/03/21.
@@ -8,13 +8,17 @@
 import Foundation
 import CoreData
 
-protocol UserDetailsPersistanceServiceProtocol {
-    func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, PersistanceError>) -> Void)
-    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void)
-    func save(note: String, request: UserDetailsRequest, completion: @escaping (PersistanceError?) -> Void)
+enum UserDetailsPeristanceServiceError: Error {
+    case invalidNote
 }
 
-class UserDetailsPersistanceService: UserDetailsPersistanceServiceProtocol {
+protocol UserDetailsPersistenceServiceProtocol {
+    func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, Error>) -> Void)
+    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (Error?) -> Void)
+    func save(note: String, request: UserDetailsRequest, completion: @escaping (Error?) -> Void)
+}
+
+class UserDetailsPersistenceService: UserDetailsPersistenceServiceProtocol {
     private let persistenceManager: PersistenceManager
 
     init(persistenceManager: PersistenceManager = PersistenceManager.shared) {
@@ -31,8 +35,8 @@ class UserDetailsPersistanceService: UserDetailsPersistanceServiceProtocol {
     }
 }
 
-extension UserDetailsPersistanceService {
-    func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, PersistanceError>) -> Void) {
+extension UserDetailsPersistenceService {
+    func getResponse(for request: UserDetailsRequest, completion: @escaping (Result<UserEntity?, Error>) -> Void) {
         let context = persistenceManager.viewContext
         context.perform {
             do {
@@ -41,12 +45,12 @@ extension UserDetailsPersistanceService {
 
                 DispatchQueue.main.async { return completion(.success(userEntity)) }
             } catch {
-                DispatchQueue.main.async { return completion(.failure(PersistanceError.readError(error))) }
+                DispatchQueue.main.async { return completion(.failure(PersistenceError.readError(error))) }
             }
         }
     }
     
-    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (PersistanceError?) -> Void) {
+    func save(request: UserDetailsRequest, response: UserDetailsResponse, completion: @escaping (Error?) -> Void) {
         persistenceManager.saveInBackgroundContext {(context) in
             do {
                 let fetchRequest = self.getFetchRequest(for: request)
@@ -59,12 +63,13 @@ extension UserDetailsPersistanceService {
                 DispatchQueue.main.async { return completion(nil) }
             } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
-                DispatchQueue.main.async { return completion(PersistanceError.saveError(error)) }
+                DispatchQueue.main.async { return completion(PersistenceError.saveError(error)) }
             }
         }
     }
     
-    func save(note: String, request: UserDetailsRequest, completion: @escaping (PersistanceError?) -> Void) {
+    func save(note: String, request: UserDetailsRequest, completion: @escaping (Error?) -> Void) {
+        guard !note.isEmpty else { return completion(UserDetailsPeristanceServiceError.invalidNote) }
         persistenceManager.saveInBackgroundContext {(context) in
             do {
                 let fetchRequest = self.getFetchRequest(for: request)
@@ -75,8 +80,8 @@ extension UserDetailsPersistanceService {
                 completion(nil)
             } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
-                completion(PersistanceError.saveError(error))
+                completion(PersistenceError.saveError(error))
             }
         }
-    }
+    }    
 }

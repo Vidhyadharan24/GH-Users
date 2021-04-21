@@ -20,7 +20,7 @@ public protocol ImageCacheServiceProtocol {
     func write(imageData: Data, for url: String, completion: @escaping (Error?) -> Void)
 }
 
-/// Responsible for caching images in memory, if no image is available retrive image from persistance manager
+/// Responsible for caching images in memory, if no image is available retrive image from persistence manager
 public class ImageCacheService: ImageCacheServiceProtocol {
     
     /// Image retrival, write and clearing on memory warning is done in an operation queue to prevent readers wriiters problem
@@ -30,13 +30,13 @@ public class ImageCacheService: ImageCacheServiceProtocol {
         return networkQueue
     }()
     
-    private var imagePersistanceManager: ImagePersistanceManagerProtocol
+    private var imagePersistenceManager: ImagePersistenceManagerProtocol
     
     
     private var imageMemoryCache: [String: Data] = [:]
         
-    init(imagePersistanceManager: ImagePersistanceManagerProtocol) {
-        self.imagePersistanceManager = imagePersistanceManager
+    init(imagePersistenceManager: ImagePersistenceManagerProtocol) {
+        self.imagePersistenceManager = imagePersistenceManager
         
         setupObservers()
     }
@@ -60,7 +60,7 @@ public class ImageCacheService: ImageCacheServiceProtocol {
             }
             
             // Getting image from persitance manger
-            let result = self.imagePersistanceManager.getImageFor(fileName: fileName)
+            let result = self.imagePersistenceManager.getImageFor(fileName: fileName)
             switch result {
             case .success(let data):
                 // Adding image data to memory cache on success full return of image
@@ -83,8 +83,8 @@ public class ImageCacheService: ImageCacheServiceProtocol {
             guard let self = self else { return }
             let fileName = self.md5(string: url)
             
-            // Storing image data to file using persistance manager
-            let error = self.imagePersistanceManager.write(data: imageData, fileName: fileName)
+            // Storing image data to file using persistence manager
+            let error = self.imagePersistenceManager.write(data: imageData, fileName: fileName)
             
             if let error = error {
                 print(error.localizedDescription)

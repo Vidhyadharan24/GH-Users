@@ -18,9 +18,9 @@ public protocol UserDetailsRepositoryProtocol {
 final class UserDetailsRepository: UserDetailsRepositoryProtocol {
     
     private let networkDecodableService: NetworkDecodableServiceProtocol
-    private let persistenceService: UserDetailsPersistanceServiceProtocol
+    private let persistenceService: UserDetailsPersistenceServiceProtocol
 
-    init(networkDecodableService: NetworkDecodableServiceProtocol, persistenceService: UserDetailsPersistanceServiceProtocol) {
+    init(networkDecodableService: NetworkDecodableServiceProtocol, persistenceService: UserDetailsPersistenceServiceProtocol) {
         self.networkDecodableService = networkDecodableService
         self.persistenceService = persistenceService
     }

@@ -1,5 +1,5 @@
 //
-//  LocalUsersSearchPersistanceService.swift
+//  LocalUsersSearchPersistenceService.swift
 //  GH-Users
 //
 //  Created by Vidhyadharan on 29/03/21.
@@ -8,11 +8,11 @@
 import Foundation
 import CoreData
 
-protocol LocalUsersSearchPersistanceServiceProtocol {
-    func getResponse(for request: LocalUsersSearchQuery, completion: @escaping (Result<[UserEntity]?, PersistanceError>) -> Void)
+protocol LocalUsersSearchPersistenceServiceProtocol {
+    func getResponse(for request: LocalUsersSearchQuery, completion: @escaping (Result<[UserEntity]?, PersistenceError>) -> Void)
 }
 
-final class LocalUsersSearchPersistanceService {
+final class LocalUsersSearchPersistenceService {
     private let persistenceManager: PersistenceManager
 
     init(persistenceManager: PersistenceManager) {
@@ -41,8 +41,8 @@ final class LocalUsersSearchPersistanceService {
     }
 }
 
-extension LocalUsersSearchPersistanceService: LocalUsersSearchPersistanceServiceProtocol {
-    func getResponse(for query: LocalUsersSearchQuery, completion: @escaping (Result<[UserEntity]?, PersistanceError>) -> Void) {
+extension LocalUsersSearchPersistenceService: LocalUsersSearchPersistenceServiceProtocol {
+    func getResponse(for query: LocalUsersSearchQuery, completion: @escaping (Result<[UserEntity]?, PersistenceError>) -> Void) {
         let context = persistenceManager.viewContext
         context.perform {
             do {
@@ -55,7 +55,7 @@ extension LocalUsersSearchPersistanceService: LocalUsersSearchPersistanceService
                     DispatchQueue.main.async { return completion(.failure(.noData)) }
                 }
             } catch {
-                DispatchQueue.main.async { return completion(.failure(PersistanceError.readError(error))) }
+                DispatchQueue.main.async { return completion(.failure(PersistenceError.readError(error))) }
             }
         }
     }

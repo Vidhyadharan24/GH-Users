@@ -13,9 +13,9 @@ public protocol LocalUsersSearchRepositoryProtocol {
 }
 
 final class LocalUsersSearchRepository: LocalUsersSearchRepositoryProtocol {
-    private let persistenceService: LocalUsersSearchPersistanceServiceProtocol
+    private let persistenceService: LocalUsersSearchPersistenceServiceProtocol
 
-    init(persistenceService: LocalUsersSearchPersistanceServiceProtocol) {
+    init(persistenceService: LocalUsersSearchPersistenceServiceProtocol) {
         self.persistenceService = persistenceService
     }
     

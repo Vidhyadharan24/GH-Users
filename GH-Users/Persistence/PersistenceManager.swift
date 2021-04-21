@@ -7,7 +7,7 @@
 
 import CoreData
 
-public enum PersistanceError: Error {
+public enum PersistenceError: Error {
     case noData
     case readError(Error?)
     case saveError(Error?)
@@ -71,8 +71,8 @@ struct PersistenceManager {
     // MARK: BUGS - CD save shouldn't happend on the main thread: Saves the data to coredata using a thread from the systems thread pool except the main thread
     func saveInBackgroundContext(task: @escaping (NSManagedObjectContext) -> Void) {
         let context = backgroundContext
-        serialQueue.sync {
-            backgroundContext.performAndWait {
+        serialQueue.async {
+            backgroundContext.perform {
                 task(context)
             }
         }

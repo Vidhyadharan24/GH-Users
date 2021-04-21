@@ -14,14 +14,14 @@ final class UsersSceneDIContainer {
     private let imageDecodableService: NetworkDecodableServiceProtocol
 
     // MARK: - Persistent Storage
-    lazy var persistenceService: UsersListPersistanceServiceProtocol = UsersListPersistanceService(persistenceManager: PersistenceManager.shared, fetchLimit: appConfig.persistantStorageFetchLimit)
+    lazy var persistenceService: UsersListPersistenceServiceProtocol = UsersListPersistenceService(persistenceManager: PersistenceManager.shared, fetchLimit: appConfig.persistantStorageFetchLimit)
     
-    lazy var localUserSearchPersistanceService: LocalUsersSearchPersistanceServiceProtocol = LocalUsersSearchPersistanceService(persistenceManager: PersistenceManager.shared)
+    lazy var localUserSearchPersistenceService: LocalUsersSearchPersistenceServiceProtocol = LocalUsersSearchPersistenceService(persistenceManager: PersistenceManager.shared)
     
-    lazy var userDetailsPersistanceService: UserDetailsPersistanceServiceProtocol = UserDetailsPersistanceService(persistenceManager: PersistenceManager.shared)
+    lazy var userDetailsPersistenceService: UserDetailsPersistenceServiceProtocol = UserDetailsPersistenceService(persistenceManager: PersistenceManager.shared)
     
     // MARK: - Image Cache Service
-    lazy var imageCacheService: ImageCacheServiceProtocol = ImageCacheService(imagePersistanceManager: ImagePersistanceManager())
+    lazy var imageCacheService: ImageCacheServiceProtocol = ImageCacheService(imagePersistenceManager: ImagePersistenceManager())
 
     init(appConfig: AppConfig, apiDecodableService: NetworkDecodableServiceProtocol, imageDecodableService: NetworkDecodableServiceProtocol) {
         self.appConfig = appConfig
@@ -34,13 +34,13 @@ final class UsersSceneDIContainer {
         return UsersListRepository(networkDecodableService: apiDecodableService, persistenceService: persistenceService)
     }
     func makeLocalUsersSearchRepository() -> LocalUsersSearchRepositoryProtocol {
-        return LocalUsersSearchRepository(persistenceService: localUserSearchPersistanceService)
+        return LocalUsersSearchRepository(persistenceService: localUserSearchPersistenceService)
     }
     func makeImageRepository() -> ImageRepositoryProtocol {
         return ImageRepository(networkDecodableService: imageDecodableService, imageCacheService: imageCacheService)
     }
     func makeUserDetailsRepository() -> UserDetailsRepositoryProtocol {
-        return UserDetailsRepository(networkDecodableService: apiDecodableService, persistenceService: userDetailsPersistanceService)
+        return UserDetailsRepository(networkDecodableService: apiDecodableService, persistenceService: userDetailsPersistenceService)
     }
 
     // MARK: - Users List

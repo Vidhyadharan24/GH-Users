@@ -12,8 +12,8 @@ class RepositoryTests: XCTestCase {
     var persistenceManager: PersistenceManager!
     
     var networkDecodableService: MockNetworkDecodableService!
-    var usersListPersistenceService: MockUserListPersistanceService!
-    var localUsersSearchPersistanceService: MockLocalUsersSearchPersistanceService!
+    var usersListPersistenceService: MockUserListPersistenceService!
+    var localUsersSearchPersistenceService: MockLocalUsersSearchPersistenceService!
     var userDetailsPersistenceService: MockUserDetailsPersistenceService!
 
     var usersListRepository: UsersListRepositoryProtocol!
@@ -24,12 +24,12 @@ class RepositoryTests: XCTestCase {
         persistenceManager = PersistenceManager(inMemory: true)
         
         networkDecodableService = MockNetworkDecodableService()
-        usersListPersistenceService = MockUserListPersistanceService()
-        localUsersSearchPersistanceService = MockLocalUsersSearchPersistanceService()
+        usersListPersistenceService = MockUserListPersistenceService()
+        localUsersSearchPersistenceService = MockLocalUsersSearchPersistenceService()
         userDetailsPersistenceService = MockUserDetailsPersistenceService()
 
         usersListRepository = UsersListRepository(networkDecodableService: networkDecodableService, persistenceService: usersListPersistenceService)
-        localUserSearchRepository = LocalUsersSearchRepository(persistenceService: localUsersSearchPersistanceService)
+        localUserSearchRepository = LocalUsersSearchRepository(persistenceService: localUsersSearchPersistenceService)
         userDetailsRepository = UserDetailsRepository(networkDecodableService: networkDecodableService, persistenceService: userDetailsPersistenceService)
     }
 
@@ -38,7 +38,7 @@ class RepositoryTests: XCTestCase {
         
         networkDecodableService = nil
         usersListPersistenceService = nil
-        localUsersSearchPersistanceService = nil
+        localUsersSearchPersistenceService = nil
         userDetailsPersistenceService = nil
         
         usersListRepository = nil
@@ -50,7 +50,7 @@ class RepositoryTests: XCTestCase {
     
     func testUserSearchSuccess() throws {
         let userList = ModelGenerator.generateUserEntityList(10, in: persistenceManager.viewContext)
-        localUsersSearchPersistanceService.usersListResponse = userList
+        localUsersSearchPersistenceService.usersListResponse = userList
         
         let expectation = self.expectation(description: "fetch users result should be a success")
         
@@ -66,7 +66,7 @@ class RepositoryTests: XCTestCase {
     }
     
     func testUserSearchFailure() throws {
-        localUsersSearchPersistanceService.persistanceError = PersistanceError.readError(nil)
+        localUsersSearchPersistenceService.persistenceError = PersistenceError.readError(nil)
         
         let expectation = self.expectation(description: "fetch users result should be a failure")
         
@@ -84,7 +84,7 @@ class RepositoryTests: XCTestCase {
     // MARK: - UsersListRepositoryProtocol Tests
     func testFetchUserNoData() throws {
         networkDecodableService.error = NetworkDecodableServiceError.networkFailure(.notConnected)
-        usersListPersistenceService.persistanceError = .readError(nil)
+        usersListPersistenceService.persistenceError = .readError(nil)
         
         let cacheDataExpectation = self.expectation(description: "fetch users result should be a failure")
         let networkDataExpectation = self.expectation(description: "fetch users result should be a failure")
@@ -162,7 +162,7 @@ class RepositoryTests: XCTestCase {
     // MARK: - UserDetailsRepositoryProtocol Tests
     func testFetchUserDetailsNoData() throws {
         networkDecodableService.error = NetworkDecodableServiceError.networkFailure(.notConnected)
-        userDetailsPersistenceService.persistanceError = .readError(nil)
+        userDetailsPersistenceService.persistenceError = PersistenceError.readError(nil)
         
         let cacheDataExpectation = self.expectation(description: "fetch users result should be a failure")
         let networkDataExpectation = self.expectation(description: "fetch users result should be a failure")
@@ -249,7 +249,7 @@ class RepositoryTests: XCTestCase {
     }
     
     func testSaveNoteFailure() throws {
-        userDetailsPersistenceService.persistanceError = .readError(nil)
+        userDetailsPersistenceService.persistenceError = PersistenceError.readError(nil)
         
         let expectation = self.expectation(description: "save should return an error")
 

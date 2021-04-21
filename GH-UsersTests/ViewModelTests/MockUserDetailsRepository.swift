@@ -32,6 +32,6 @@ class MockUserDetailsRepository: UserDetailsRepositoryProtocol {
         return MockCancellable()
     }
     
-    func save(note: String, username: String?, completion: @escaping (PersistanceError?) -> Void) {
+    func save(note: String, username: String?, completion: @escaping (Error?) -> Void) {
     }
 }

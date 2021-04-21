@@ -7,18 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		180D2E38260EF83800508F21 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E37260EF83800508F21 /* PersistanceManager.swift */; };
+		180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E37260EF83800508F21 /* PersistenceManager.swift */; };
 		180D2E45260EF86F00508F21 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E40260EF86E00508F21 /* EndPoint.swift */; };
 		180D2E46260EF86F00508F21 /* NetworkOperationsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E41260EF86E00508F21 /* NetworkOperationsManager.swift */; };
 		180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */; };
 		180D2E48260EF86F00508F21 /* NetworkDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E43260EF86F00508F21 /* NetworkDataService.swift */; };
 		180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E44260EF86F00508F21 /* ApiConfig.swift */; };
-		180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */; };
+		180D2E6C260F029000508F21 /* ImagePersistenceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E6B260F029000508F21 /* ImagePersistenceManager.swift */; };
 		180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E81260F2E7F00508F21 /* Cancellable.swift */; };
 		180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E8F260F61E000508F21 /* ImageCacheService.swift */; };
 		180D2EAB260F780500508F21 /* UsersListRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EAA260F780500508F21 /* UsersListRequest.swift */; };
 		180D2EB6260F7DFD00508F21 /* UsersListResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */; };
-		180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */; };
+		180D2EBA260F7E0700508F21 /* UsersListPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2E9E260F751000508F21 /* UsersListPersistenceService.swift */; };
 		180D2EC0260F834500508F21 /* UserEntity+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */; };
 		180D2EC8260F9AE800508F21 /* UserDetailsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EC7260F9AE800508F21 /* UserDetailsResponse.swift */; };
 		180D2ECE260FA88B00508F21 /* UsersListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2ECD260FA88B00508F21 /* UsersListRepository.swift */; };
@@ -26,7 +26,7 @@
 		180D2EE1260FAB7000508F21 /* APIEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EDF260FAB7000508F21 /* APIEndpoints.swift */; };
 		180D2EF2260FAF7900508F21 /* UserDetailsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EF1260FAF7900508F21 /* UserDetailsRequest.swift */; };
 		180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */; };
-		180D2EFC260FB02C00508F21 /* UserDetailsPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */; };
+		180D2EFC260FB02C00508F21 /* UserDetailsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2EFB260FB02C00508F21 /* UserDetailsPersistenceService.swift */; };
 		180D2F01260FB8C100508F21 /* ImageRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F00260FB8C100508F21 /* ImageRepository.swift */; };
 		180D2F1A261036E000508F21 /* UsersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F19261036E000508F21 /* UsersListViewModel.swift */; };
 		180D2F3E261066E200508F21 /* ConnectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2F3D261066E200508F21 /* ConnectionError.swift */; };
@@ -52,11 +52,11 @@
 		180D2FE52610F2D500508F21 /* InvertedUsersNoteListItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FE42610F2D500508F21 /* InvertedUsersNoteListItemCell.swift */; };
 		180D2FF326111B5200508F21 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FF226111B5200508F21 /* LoadingView.swift */; };
 		180D2FFB26115D4D00508F21 /* LocalUsersSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D2FFA26115D4D00508F21 /* LocalUsersSearchViewModel.swift */; };
-		180D300426115F4100508F21 /* LocalUsersSearchPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */; };
+		180D300426115F4100508F21 /* LocalUsersSearchPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300326115F4100508F21 /* LocalUsersSearchPersistenceService.swift */; };
 		180D300D261160D200508F21 /* LocalUsersSearchQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */; };
 		180D301826116C3700508F21 /* LocalUserSearchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 180D301726116C3700508F21 /* LocalUserSearchRepository.swift */; };
 		18163C53261293280007ABCE /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 18163C52261293280007ABCE /* SkeletonView */; };
-		18163C66261338670007ABCE /* PersistanceServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18163C65261338670007ABCE /* PersistanceServicesTests.swift */; };
+		18163C66261338670007ABCE /* PersistenceServicesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18163C65261338670007ABCE /* PersistenceServicesTests.swift */; };
 		181F54962611FE7900F1546A /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 181F54952611FE7900F1546A /* Reachability */; };
 		183E3BFA26136A2100F7587C /* ModelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3BF926136A2100F7587C /* ModelGenerator.swift */; };
 		183E3C0426136F6B00F7587C /* Encodable+getData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3C0326136F6B00F7587C /* Encodable+getData.swift */; };
@@ -73,8 +73,8 @@
 		188BF275260EF67A00EB2CC6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */; };
 		18A3ECFF26138C0200E8AFF1 /* RepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ECFE26138C0200E8AFF1 /* RepositoryTests.swift */; };
 		18A3ED0426138C4900E8AFF1 /* MockNetworkDecodableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ED0326138C4900E8AFF1 /* MockNetworkDecodableService.swift */; };
-		18A3ED0A26138C6B00E8AFF1 /* MockUserListPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ED0926138C6B00E8AFF1 /* MockUserListPersistanceService.swift */; };
-		18A3ED0E2613902400E8AFF1 /* MockLocalUsersSearchPersistanceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ED0D2613902400E8AFF1 /* MockLocalUsersSearchPersistanceService.swift */; };
+		18A3ED0A26138C6B00E8AFF1 /* MockUserListPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ED0926138C6B00E8AFF1 /* MockUserListPersistenceService.swift */; };
+		18A3ED0E2613902400E8AFF1 /* MockLocalUsersSearchPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ED0D2613902400E8AFF1 /* MockLocalUsersSearchPersistenceService.swift */; };
 		18A3ED142613906600E8AFF1 /* MockUserDetailsPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A3ED132613906600E8AFF1 /* MockUserDetailsPersistenceService.swift */; };
 		18C33ECD26119A42008282B4 /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C33ECC26119A42008282B4 /* UserDetailsViewController.swift */; };
 		18C33ED526119A51008282B4 /* UserDetailsViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18C33ED426119A51008282B4 /* UserDetailsViewController.storyboard */; };
@@ -92,7 +92,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		180D2E37260EF83800508F21 /* PersistanceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
+		180D2E37260EF83800508F21 /* PersistenceManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistenceManager.swift; sourceTree = "<group>"; };
 		180D2E40260EF86E00508F21 /* EndPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		180D2E41260EF86E00508F21 /* NetworkOperationsManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkOperationsManager.swift; sourceTree = "<group>"; };
 		180D2E42260EF86E00508F21 /* NetworkDecodableService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkDecodableService.swift; sourceTree = "<group>"; };
@@ -102,10 +102,10 @@
 		180D2E54260EFBC600508F21 /* UsersSceneDIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UsersSceneDIContainer.swift; sourceTree = "<group>"; };
 		180D2E55260EFBC600508F21 /* AppDIContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDIContainer.swift; sourceTree = "<group>"; };
 		180D2E56260EFBC600508F21 /* AppConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
-		180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePersistanceManager.swift; sourceTree = "<group>"; };
+		180D2E6B260F029000508F21 /* ImagePersistenceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePersistenceManager.swift; sourceTree = "<group>"; };
 		180D2E81260F2E7F00508F21 /* Cancellable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cancellable.swift; sourceTree = "<group>"; };
 		180D2E8F260F61E000508F21 /* ImageCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheService.swift; sourceTree = "<group>"; };
-		180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListPersistanceService.swift; sourceTree = "<group>"; };
+		180D2E9E260F751000508F21 /* UsersListPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListPersistenceService.swift; sourceTree = "<group>"; };
 		180D2EAA260F780500508F21 /* UsersListRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListRequest.swift; sourceTree = "<group>"; };
 		180D2EB5260F7DFD00508F21 /* UsersListResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListResponse.swift; sourceTree = "<group>"; };
 		180D2EBF260F834500508F21 /* UserEntity+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+Mapping.swift"; sourceTree = "<group>"; };
@@ -115,7 +115,7 @@
 		180D2EDF260FAB7000508F21 /* APIEndpoints.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEndpoints.swift; sourceTree = "<group>"; };
 		180D2EF1260FAF7900508F21 /* UserDetailsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsRequest.swift; sourceTree = "<group>"; };
 		180D2EF6260FAFC100508F21 /* UserDetailsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsRepository.swift; sourceTree = "<group>"; };
-		180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsPersistanceService.swift; sourceTree = "<group>"; };
+		180D2EFB260FB02C00508F21 /* UserDetailsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsPersistenceService.swift; sourceTree = "<group>"; };
 		180D2F00260FB8C100508F21 /* ImageRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRepository.swift; sourceTree = "<group>"; };
 		180D2F132610369E00508F21 /* UsersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewController.swift; sourceTree = "<group>"; };
 		180D2F19261036E000508F21 /* UsersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersListViewModel.swift; sourceTree = "<group>"; };
@@ -137,10 +137,10 @@
 		180D2FE42610F2D500508F21 /* InvertedUsersNoteListItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvertedUsersNoteListItemCell.swift; sourceTree = "<group>"; };
 		180D2FF226111B5200508F21 /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		180D2FFA26115D4D00508F21 /* LocalUsersSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchViewModel.swift; sourceTree = "<group>"; };
-		180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchPersistanceService.swift; sourceTree = "<group>"; };
+		180D300326115F4100508F21 /* LocalUsersSearchPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchPersistenceService.swift; sourceTree = "<group>"; };
 		180D300C261160D200508F21 /* LocalUsersSearchQuery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUsersSearchQuery.swift; sourceTree = "<group>"; };
 		180D301726116C3700508F21 /* LocalUserSearchRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalUserSearchRepository.swift; sourceTree = "<group>"; };
-		18163C65261338670007ABCE /* PersistanceServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceServicesTests.swift; sourceTree = "<group>"; };
+		18163C65261338670007ABCE /* PersistenceServicesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceServicesTests.swift; sourceTree = "<group>"; };
 		183E3BF926136A2100F7587C /* ModelGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelGenerator.swift; sourceTree = "<group>"; };
 		183E3C0326136F6B00F7587C /* Encodable+getData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+getData.swift"; sourceTree = "<group>"; };
 		1864DB852613AAF3003D570B /* ViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelTests.swift; sourceTree = "<group>"; };
@@ -160,8 +160,8 @@
 		188BF281260EF67A00EB2CC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18A3ECFE26138C0200E8AFF1 /* RepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryTests.swift; sourceTree = "<group>"; };
 		18A3ED0326138C4900E8AFF1 /* MockNetworkDecodableService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNetworkDecodableService.swift; sourceTree = "<group>"; };
-		18A3ED0926138C6B00E8AFF1 /* MockUserListPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserListPersistanceService.swift; sourceTree = "<group>"; };
-		18A3ED0D2613902400E8AFF1 /* MockLocalUsersSearchPersistanceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalUsersSearchPersistanceService.swift; sourceTree = "<group>"; };
+		18A3ED0926138C6B00E8AFF1 /* MockUserListPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserListPersistenceService.swift; sourceTree = "<group>"; };
+		18A3ED0D2613902400E8AFF1 /* MockLocalUsersSearchPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockLocalUsersSearchPersistenceService.swift; sourceTree = "<group>"; };
 		18A3ED132613906600E8AFF1 /* MockUserDetailsPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUserDetailsPersistenceService.swift; sourceTree = "<group>"; };
 		18C33ECC26119A42008282B4 /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		18C33ED426119A51008282B4 /* UserDetailsViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = UserDetailsViewController.storyboard; sourceTree = "<group>"; };
@@ -188,15 +188,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		180D2E3C260EF83B00508F21 /* Persistance */ = {
+		180D2E3C260EF83B00508F21 /* Persistence */ = {
 			isa = PBXGroup;
 			children = (
-				180D2E37260EF83800508F21 /* PersistanceManager.swift */,
+				180D2E37260EF83800508F21 /* PersistenceManager.swift */,
 				180D2EBE260F832400508F21 /* Entity+Mapping */,
 				188BF26E260EF67900EB2CC6 /* GH_Users.xcdatamodeld */,
-				180D2E9D260F74F200508F21 /* PersistanceService */,
+				180D2E9D260F74F200508F21 /* PersistenceService */,
 			);
-			path = Persistance;
+			path = Persistence;
 			sourceTree = "<group>";
 		};
 		180D2E4D260EF87800508F21 /* Networking */ = {
@@ -235,7 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				180D2E8F260F61E000508F21 /* ImageCacheService.swift */,
-				180D2E6B260F029000508F21 /* ImagePersistanceManager.swift */,
+				180D2E6B260F029000508F21 /* ImagePersistenceManager.swift */,
 			);
 			path = ImageCache;
 			sourceTree = "<group>";
@@ -250,14 +250,14 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		180D2E9D260F74F200508F21 /* PersistanceService */ = {
+		180D2E9D260F74F200508F21 /* PersistenceService */ = {
 			isa = PBXGroup;
 			children = (
-				180D2E9E260F751000508F21 /* UsersListPersistanceService.swift */,
-				180D2EFB260FB02C00508F21 /* UserDetailsPersistanceService.swift */,
-				180D300326115F4100508F21 /* LocalUsersSearchPersistanceService.swift */,
+				180D2E9E260F751000508F21 /* UsersListPersistenceService.swift */,
+				180D2EFB260FB02C00508F21 /* UserDetailsPersistenceService.swift */,
+				180D300326115F4100508F21 /* LocalUsersSearchPersistenceService.swift */,
 			);
-			path = PersistanceService;
+			path = PersistenceService;
 			sourceTree = "<group>";
 		};
 		180D2EA7260F77DC00508F21 /* Models */ = {
@@ -507,7 +507,7 @@
 				180D2E6A260F026B00508F21 /* ImageCache */,
 				188BF273260EF67A00EB2CC6 /* LaunchScreen.storyboard */,
 				180D2E4D260EF87800508F21 /* Networking */,
-				180D2E3C260EF83B00508F21 /* Persistance */,
+				180D2E3C260EF83B00508F21 /* Persistence */,
 				180D2F052610365200508F21 /* Presentation */,
 			);
 			path = "GH-Users";
@@ -518,7 +518,7 @@
 			children = (
 				1864DB842613AACC003D570B /* ViewModelTests */,
 				188BF281260EF67A00EB2CC6 /* Info.plist */,
-				18163C65261338670007ABCE /* PersistanceServicesTests.swift */,
+				18163C65261338670007ABCE /* PersistenceServicesTests.swift */,
 				183E3C0226136F4500F7587C /* Extensions */,
 				183E3BFD26136F3500F7587C /* Helpers */,
 				18A3ED0226138C2600E8AFF1 /* RepositoryTests */,
@@ -531,8 +531,8 @@
 			children = (
 				18A3ECFE26138C0200E8AFF1 /* RepositoryTests.swift */,
 				18A3ED0326138C4900E8AFF1 /* MockNetworkDecodableService.swift */,
-				18A3ED0926138C6B00E8AFF1 /* MockUserListPersistanceService.swift */,
-				18A3ED0D2613902400E8AFF1 /* MockLocalUsersSearchPersistanceService.swift */,
+				18A3ED0926138C6B00E8AFF1 /* MockUserListPersistenceService.swift */,
+				18A3ED0D2613902400E8AFF1 /* MockLocalUsersSearchPersistenceService.swift */,
 				18A3ED132613906600E8AFF1 /* MockUserDetailsPersistenceService.swift */,
 			);
 			path = RepositoryTests;
@@ -675,7 +675,7 @@
 				180D2E82260F2E7F00508F21 /* Cancellable.swift in Sources */,
 				180D2FDD2610EA7100508F21 /* UIIMage+InvertImage.swift in Sources */,
 				180D2F6726107A2600508F21 /* UsersSceneDIContainer.swift in Sources */,
-				180D2E6C260F029000508F21 /* ImagePersistanceManager.swift in Sources */,
+				180D2E6C260F029000508F21 /* ImagePersistenceManager.swift in Sources */,
 				180D2E90260F61E000508F21 /* ImageCacheService.swift in Sources */,
 				180D2EF2260FAF7900508F21 /* UserDetailsRequest.swift in Sources */,
 				180D2FB82610D73400508F21 /* ShadowView.swift in Sources */,
@@ -687,9 +687,9 @@
 				180D2F6926107A2600508F21 /* UsersListViewController.swift in Sources */,
 				180D2F9926109AAC00508F21 /* UsersListItemCell.swift in Sources */,
 				180D2FD32610E95400508F21 /* InvertedUsersListItemCell.swift in Sources */,
-				180D300426115F4100508F21 /* LocalUsersSearchPersistanceService.swift in Sources */,
+				180D300426115F4100508F21 /* LocalUsersSearchPersistenceService.swift in Sources */,
 				180D2F5826106A3A00508F21 /* UsersListCellViewModel.swift in Sources */,
-				180D2EBA260F7E0700508F21 /* UsersListPersistanceService.swift in Sources */,
+				180D2EBA260F7E0700508F21 /* UsersListPersistenceService.swift in Sources */,
 				180D2F6626107A2600508F21 /* UsersListCoordinator.swift in Sources */,
 				180D2E49260EF86F00508F21 /* ApiConfig.swift in Sources */,
 				180D2ED7260FAA1A00508F21 /* RepositoryTask.swift in Sources */,
@@ -708,7 +708,7 @@
 				180D300D261160D200508F21 /* LocalUsersSearchQuery.swift in Sources */,
 				180D2F6826107A2600508F21 /* AppCoordinator.swift in Sources */,
 				180D2EF7260FAFC100508F21 /* UserDetailsRepository.swift in Sources */,
-				180D2E38260EF83800508F21 /* PersistanceManager.swift in Sources */,
+				180D2E38260EF83800508F21 /* PersistenceManager.swift in Sources */,
 				180D2FD82610E9CF00508F21 /* UsersListNoteItemCell.swift in Sources */,
 				180D2F932610971A00508F21 /* UsersSearchTableViewController.swift in Sources */,
 				18C33EE526119CD4008282B4 /* UserDetailsViewModel.swift in Sources */,
@@ -719,7 +719,7 @@
 				180D2ECE260FA88B00508F21 /* UsersListRepository.swift in Sources */,
 				180D2F8B2610970800508F21 /* UsersListTableViewController.swift in Sources */,
 				180D2FFB26115D4D00508F21 /* LocalUsersSearchViewModel.swift in Sources */,
-				180D2EFC260FB02C00508F21 /* UserDetailsPersistanceService.swift in Sources */,
+				180D2EFC260FB02C00508F21 /* UserDetailsPersistenceService.swift in Sources */,
 				180D2FE52610F2D500508F21 /* InvertedUsersNoteListItemCell.swift in Sources */,
 				180D2F6B26107A2600508F21 /* AppConfig.swift in Sources */,
 				180D2E47260EF86F00508F21 /* NetworkDecodableService.swift in Sources */,
@@ -735,12 +735,12 @@
 				18A3ED0426138C4900E8AFF1 /* MockNetworkDecodableService.swift in Sources */,
 				183E3C0426136F6B00F7587C /* Encodable+getData.swift in Sources */,
 				183E3BFA26136A2100F7587C /* ModelGenerator.swift in Sources */,
-				18163C66261338670007ABCE /* PersistanceServicesTests.swift in Sources */,
-				18A3ED0E2613902400E8AFF1 /* MockLocalUsersSearchPersistanceService.swift in Sources */,
+				18163C66261338670007ABCE /* PersistenceServicesTests.swift in Sources */,
+				18A3ED0E2613902400E8AFF1 /* MockLocalUsersSearchPersistenceService.swift in Sources */,
 				1864DB862613AAF3003D570B /* ViewModelTests.swift in Sources */,
 				1864DB8C2613AB23003D570B /* MockUsersListRepository.swift in Sources */,
 				1864DB982613ABCD003D570B /* MockCancellable.swift in Sources */,
-				18A3ED0A26138C6B00E8AFF1 /* MockUserListPersistanceService.swift in Sources */,
+				18A3ED0A26138C6B00E8AFF1 /* MockUserListPersistenceService.swift in Sources */,
 				18A3ECFF26138C0200E8AFF1 /* RepositoryTests.swift in Sources */,
 				1864DB922613AB53003D570B /* MockUserDetailsRepository.swift in Sources */,
 				1864DB9E2613B386003D570B /* MockImageRepository.swift in Sources */,

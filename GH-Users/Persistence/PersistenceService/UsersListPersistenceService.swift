@@ -1,5 +1,5 @@
 //
-//  UsersListPersistanceService.swift
+//  UsersListPersistenceService.swift
 //  GH-Users
 //
 //  Created by Vidhyadharan on 27/03/21.
@@ -8,12 +8,12 @@
 import Foundation
 import CoreData
 
-protocol UsersListPersistanceServiceProtocol {
-    func getResponse(for request: UsersListRequest, completion: @escaping (Result<[UserEntity]?, PersistanceError>) -> Void)
-    func save(response: UsersListResponse, completion: @escaping (PersistanceError?) -> Void)
+protocol UsersListPersistenceServiceProtocol {
+    func getResponse(for request: UsersListRequest, completion: @escaping (Result<[UserEntity]?, PersistenceError>) -> Void)
+    func save(response: UsersListResponse, completion: @escaping (PersistenceError?) -> Void)
 }
 
-public final class UsersListPersistanceService: UsersListPersistanceServiceProtocol {
+public final class UsersListPersistenceService: UsersListPersistenceServiceProtocol {
     private let persistenceManager: PersistenceManager
     private let fetchLimit: Int
 
@@ -33,8 +33,8 @@ public final class UsersListPersistanceService: UsersListPersistanceServiceProto
     }
 }
 
-extension UsersListPersistanceService {
-    func getResponse(for request: UsersListRequest, completion: @escaping (Result<[UserEntity]?, PersistanceError>) -> Void) {
+extension UsersListPersistenceService {
+    func getResponse(for request: UsersListRequest, completion: @escaping (Result<[UserEntity]?, PersistenceError>) -> Void) {
         let context = persistenceManager.viewContext
         context.perform {
             do {
@@ -47,12 +47,12 @@ extension UsersListPersistanceService {
                     DispatchQueue.main.async { return completion(.failure(.noData)) }
                 }
             } catch {
-                DispatchQueue.main.async { return completion(.failure(PersistanceError.readError(error))) }
+                DispatchQueue.main.async { return completion(.failure(PersistenceError.readError(error))) }
             }
         }
     }
     
-    func save(response: UsersListResponse, completion: @escaping (PersistanceError?) -> Void) {
+    func save(response: UsersListResponse, completion: @escaping (PersistenceError?) -> Void) {
         persistenceManager.saveInBackgroundContext {(context) in
             do {
                 for user in response {
@@ -63,7 +63,7 @@ extension UsersListPersistanceService {
                 DispatchQueue.main.async { return completion(nil) }
             } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
-                DispatchQueue.main.async { return completion(PersistanceError.saveError(error)) }
+                DispatchQueue.main.async { return completion(PersistenceError.saveError(error)) }
             }
         }
     }

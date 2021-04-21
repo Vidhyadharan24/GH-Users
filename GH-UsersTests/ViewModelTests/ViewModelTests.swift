@@ -7,12 +7,13 @@
 
 import XCTest
 import Combine
+import CoreData
 
 @testable import GH_Users
 
 
 class ViewModelTests: XCTestCase {
-    var persistanceManager: PersistenceManager!
+    var persistenceManager: PersistenceManager!
     
     var mockImageRepository: MockImageRepository!
     
@@ -27,18 +28,17 @@ class ViewModelTests: XCTestCase {
     var cancellableSet = Set<AnyCancellable>()
 
     override func setUpWithError() throws {
-        persistanceManager = PersistenceManager(inMemory: true)
+        persistenceManager = PersistenceManager(inMemory: true)
         
         mockImageRepository = MockImageRepository()
         
         mockUsersListRepository = MockUsersListRepository()
         mockSearchUsersRepository = MockSearchUsersRepository()
         mockUserDetailsRepository = MockUserDetailsRepository()
-        
     }
 
     override func tearDownWithError() throws {
-        persistanceManager = nil
+        persistenceManager = nil
 
         mockUsersListRepository = nil
         mockSearchUsersRepository = nil
@@ -56,7 +56,7 @@ class ViewModelTests: XCTestCase {
     func testUserListViewModelNoData() throws {
         userListViewModel = UsersListViewModel(repository: mockUsersListRepository, imageRepository: mockImageRepository, actions: nil)
         
-        mockUsersListRepository.cacheError = PersistanceError.noData
+        mockUsersListRepository.cacheError = PersistenceError.noData
         mockUsersListRepository.liveError = NetworkDecodableServiceError.networkFailure(.notConnected)
         
         userListViewModel.viewDidLoad()
@@ -86,10 +86,25 @@ class ViewModelTests: XCTestCase {
     // MARK: - UserDetailsViewModel tests
 
     func testUserDetailsViewModelNoData() throws {
-        let userEntity = ModelGenerator.generateUserDetailsEntity(id: 1, in: persistanceManager.backgroundContext)
-        try persistanceManager.backgroundContext.save()
+        let expectation = self.expectation(description: "User view model no data")
+
+        func execute(_ entity: UserEntity?, _ error: Error?) {
+            guard let entity = entity, error == nil else { return }
+            userDetailsViewModel = UserDetailsViewModel(user: entity, repository: mockUserDetailsRepository, imageRespository: mockImageRepository)
+            expectation.fulfill()
+        }
         
-        userDetailsViewModel = UserDetailsViewModel(user: userEntity, repository: mockUserDetailsRepository, imageRespository: mockImageRepository)
+        persistenceManager.saveInBackgroundContext { (context) in
+            let userEntity = ModelGenerator.generateUserDetailsEntity(id: 1, in: context)
+            do {
+                try context.save()
+                execute(userEntity, nil)
+            } catch (let error) {
+                execute(nil, error)
+            }
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
     }
 
 }
