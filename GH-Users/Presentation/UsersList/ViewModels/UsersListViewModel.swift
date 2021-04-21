@@ -102,6 +102,7 @@ class UsersListViewModel: UsersListViewModelProtocol {
 
                 switch reachability.connection {
                 case .wifi, .cellular:
+                    self?.offline.send(false)
                     self?.reloadIfRequired()
                 case .unavailable, .none:
                   print("Network not reachable")
@@ -167,7 +168,6 @@ extension UsersListViewModel {
         }, completion: { (result) in
             switch result {
             case .success(let page):
-                self.offline.send(false)
                 self.appendPage(since: since, response: page)
             case .failure(let error):
                 self.handle(error: error)

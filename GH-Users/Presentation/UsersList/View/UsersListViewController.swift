@@ -210,8 +210,12 @@ extension UsersListViewController {
     // REQUIRED TASK: The app must handle ​no internet ​scenario, show appropriate UI indicators.
     private func showHideOfflineView(_ offline: Bool)  {
         if (offline) {
+            let currentVal = offlineViewTopConstraint?.priority.rawValue ?? 0
+            guard currentVal != 999 else { return }
             offlineViewTopConstraint?.priority = UILayoutPriority(999)
         } else {
+            let currentVal = offlineViewTopConstraint?.priority ?? .defaultHigh
+            guard currentVal != .defaultLow else { return }
             offlineViewTopConstraint?.priority = .defaultLow
         }
         UIView.animate(withDuration: 0.3) {[weak self] in

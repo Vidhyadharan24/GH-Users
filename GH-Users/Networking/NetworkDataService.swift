@@ -121,11 +121,15 @@ extension NetworkDataService {
                 case .success(_):
                     completion(result)
                 case .failure(let error):
-                    if case .notConnected = error, retryCount < maxRetryCount - 1 {
-                        self?.requestWithRetry(request: request, networkDataServiceTask: networkDataServiceTask, retryCount: retryCount + 1, completion: completion)
-                    } else {
-                        return completion(.failure(error))
+                    switch error {
+                    case .notConnected, .cancelled: break
+                    default:
+                        if retryCount < maxRetryCount - 1 {
+                            self?.requestWithRetry(request: request, networkDataServiceTask: networkDataServiceTask, retryCount: retryCount + 1, completion: completion)
+                            return
+                        }
                     }
+                    return completion(.failure(error))
                 }
             }
         }

@@ -38,6 +38,7 @@ protocol UserDetailsViewModelProtocol: UserDetailsViewModelInputProtocol, UserDe
 // BONUS TASK: Coordinator and/or MVVM patterns are used.
 public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     private let user: UserEntity
+    private var userDetailsLoaded: Bool = false
     private let repository: UserDetailsRepositoryProtocol
     let imageRepository: ImageRepositoryProtocol
 
@@ -91,6 +92,7 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
 
                 switch reachability.connection {
                 case .wifi, .cellular:
+                    self?.offline.send(false)
                     self?.reloadIfRequired()
                 case .unavailable, .none:
                   print("Network not reachable")
@@ -114,7 +116,7 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     
     private func reloadIfRequired() {
         // The viewed key when false denotes that the user details api has not been called, hence reloading
-        guard user.viewed else { return }
+        guard userDetailsLoaded else { return }
         loadUserDetails(username: user.login)
     }
         
@@ -126,6 +128,7 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
             switch result {
             case .success(_):
                 self.loadImage()
+                self.userDetailsLoaded = true
             case .failure(let error):
                 print(error.localizedDescription)
             }
@@ -134,7 +137,6 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
             self.loading.send(false)
             switch result {
             case .success(_):
-                self.offline.send(false)
                 self.loadImage()
             case .failure(let error):
                 self.handle(error: error)
