@@ -42,7 +42,7 @@
                                     <constraint firstItem="XS5-LG-Wyv" firstAttribute="leading" secondItem="RX2-qf-Q3D" secondAttribute="leading" constant="8" id="Yp4-78-3rG"/>
                                 </constraints>
                             </view>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ls7-h4-pmi">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ls7-h4-pmi">
                                 <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qrf-hv-F94">
@@ -279,7 +279,7 @@
                                             <constraint firstItem="TjD-d3-F03" firstAttribute="centerX" secondItem="Qrf-hv-F94" secondAttribute="centerX" id="drU-ub-sfh"/>
                                             <constraint firstItem="TjD-d3-F03" firstAttribute="leading" secondItem="GOv-vj-t0G" secondAttribute="leading" id="ow6-Kb-KhX"/>
                                             <constraint firstItem="GOv-vj-t0G" firstAttribute="top" secondItem="DHd-Hg-5jG" secondAttribute="bottom" constant="20" id="vJk-yC-Urw"/>
-                                            <constraint firstAttribute="bottom" secondItem="TjD-d3-F03" secondAttribute="bottom" priority="999" constant="20" id="ylG-kg-8BO"/>
+                                            <constraint firstAttribute="bottom" secondItem="TjD-d3-F03" secondAttribute="bottom" constant="20" id="ylG-kg-8BO"/>
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="isSkeletonable" value="YES"/>
@@ -287,11 +287,11 @@
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="Qrf-hv-F94" firstAttribute="leading" secondItem="ls7-h4-pmi" secondAttribute="leading" id="2Ca-1F-leN"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qrf-hv-F94" secondAttribute="trailing" id="Gqy-hr-7Eu"/>
-                                    <constraint firstItem="Qrf-hv-F94" firstAttribute="width" secondItem="ls7-h4-pmi" secondAttribute="width" id="WXq-0o-wWU"/>
-                                    <constraint firstAttribute="bottom" secondItem="Qrf-hv-F94" secondAttribute="bottom" id="eVj-u3-H3r"/>
-                                    <constraint firstItem="Qrf-hv-F94" firstAttribute="top" secondItem="UFq-Sc-Xv6" secondAttribute="top" id="g4c-uc-Ply"/>
+                                    <constraint firstItem="Qrf-hv-F94" firstAttribute="width" secondItem="UFq-Sc-Xv6" secondAttribute="width" id="36P-QB-KgY"/>
+                                    <constraint firstItem="Qrf-hv-F94" firstAttribute="leading" secondItem="84z-OA-dw0" secondAttribute="leading" id="CS0-Co-Jv7"/>
+                                    <constraint firstItem="Qrf-hv-F94" firstAttribute="top" secondItem="84z-OA-dw0" secondAttribute="top" id="lvM-8m-7Cf"/>
+                                    <constraint firstItem="84z-OA-dw0" firstAttribute="bottom" secondItem="Qrf-hv-F94" secondAttribute="bottom" id="pRm-FJ-NGr"/>
+                                    <constraint firstItem="84z-OA-dw0" firstAttribute="trailing" secondItem="Qrf-hv-F94" secondAttribute="trailing" id="rYD-oA-YVV"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="84z-OA-dw0"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="UFq-Sc-Xv6"/>

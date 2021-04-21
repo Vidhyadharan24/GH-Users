@@ -60,7 +60,7 @@ extension UserListCellViewModel: UserListCellViewModelProtocol {
         let cell: UsersListItemCellProtocol
         
         let isInvertedCell = (indexPath.row + 1) % 4 == 0
-        let isNoteAvailable = note != nil && (note?.count ?? 0) > 0
+        let isNoteAvailable = note != nil && !note!.isEmpty
         
         switch (isInvertedCell, isNoteAvailable) {
         case (false, false):

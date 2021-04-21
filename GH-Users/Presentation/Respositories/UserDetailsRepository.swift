@@ -12,7 +12,7 @@ public protocol UserDetailsRepositoryProtocol {
                          cached: @escaping (Result<UserEntity?, Error>) -> Void,
                          completion: @escaping (Result<UserEntity?, Error>) -> Void) -> Cancellable?
     
-    func save(note: String, username: String?, completion: @escaping (PersistanceError?) -> Void)
+    func save(note: String, username: String?, completion: @escaping (Error?) -> Void)
 }
 
 final class UserDetailsRepository: UserDetailsRepositoryProtocol {
@@ -70,7 +70,7 @@ final class UserDetailsRepository: UserDetailsRepositoryProtocol {
         return task
     }
     
-    func save(note: String, username: String?, completion: @escaping (PersistanceError?) -> Void) {
+    func save(note: String, username: String?, completion: @escaping (Error?) -> Void) {
         guard let name = username else { return }
         let request = UserDetailsRequest(username: name)
 

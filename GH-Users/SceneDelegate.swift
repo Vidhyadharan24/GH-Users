@@ -7,6 +7,7 @@
 
 import UIKit
 import Reachability
+import IQKeyboardManagerSwift
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -39,6 +40,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         appCoordinator = AppCoordinator(navigationController: navigationController,
                                         appDIContainer: appDIContainer)
         appCoordinator?.start()
+        
+        IQKeyboardManager.shared.enable = true
         window?.makeKeyAndVisible()
     }
 

@@ -60,6 +60,7 @@
 		181F54962611FE7900F1546A /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 181F54952611FE7900F1546A /* Reachability */; };
 		183E3BFA26136A2100F7587C /* ModelGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3BF926136A2100F7587C /* ModelGenerator.swift */; };
 		183E3C0426136F6B00F7587C /* Encodable+getData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 183E3C0326136F6B00F7587C /* Encodable+getData.swift */; };
+		1849DD18262F25CB007637CE /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 1849DD17262F25CB007637CE /* IQKeyboardManagerSwift */; };
 		1864DB862613AAF3003D570B /* ViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864DB852613AAF3003D570B /* ViewModelTests.swift */; };
 		1864DB8C2613AB23003D570B /* MockUsersListRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864DB8B2613AB23003D570B /* MockUsersListRepository.swift */; };
 		1864DB912613AB53003D570B /* MockSearchUsersRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1864DB8F2613AB53003D570B /* MockSearchUsersRepository.swift */; };
@@ -175,6 +176,7 @@
 			files = (
 				18163C53261293280007ABCE /* SkeletonView in Frameworks */,
 				181F54962611FE7900F1546A /* Reachability in Frameworks */,
+				1849DD18262F25CB007637CE /* IQKeyboardManagerSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -583,6 +585,7 @@
 			packageProductDependencies = (
 				181F54952611FE7900F1546A /* Reachability */,
 				18163C52261293280007ABCE /* SkeletonView */,
+				1849DD17262F25CB007637CE /* IQKeyboardManagerSwift */,
 			);
 			productName = "GH-Users";
 			productReference = 188BF262260EF67900EB2CC6 /* GH-Users.app */;
@@ -636,6 +639,7 @@
 			packageReferences = (
 				181F54942611FE7900F1546A /* XCRemoteSwiftPackageReference "Reachability" */,
 				18163C51261293280007ABCE /* XCRemoteSwiftPackageReference "SkeletonView" */,
+				1849DD16262F25CB007637CE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 188BF263260EF67900EB2CC6 /* Products */;
 			projectDirPath = "";
@@ -1018,6 +1022,14 @@
 				minimumVersion = 5.1.0;
 			};
 		};
+		1849DD16262F25CB007637CE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.5.6;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -1030,6 +1042,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 181F54942611FE7900F1546A /* XCRemoteSwiftPackageReference "Reachability" */;
 			productName = Reachability;
+		};
+		1849DD17262F25CB007637CE /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1849DD16262F25CB007637CE /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 
