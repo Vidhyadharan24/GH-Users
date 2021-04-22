@@ -69,7 +69,8 @@ extension UserDetailsPersistenceService {
     }
     
     func save(note: String, request: UserDetailsRequest, completion: @escaping (Error?) -> Void) {
-        guard !note.isEmpty else { return completion(UserDetailsPeristanceServiceError.invalidNote) }
+        let text = note.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard note.isEmpty || !text.isEmpty else { return completion(UserDetailsPeristanceServiceError.invalidNote) }
         persistenceManager.saveInBackgroundContext {(context) in
             do {
                 let fetchRequest = self.getFetchRequest(for: request)

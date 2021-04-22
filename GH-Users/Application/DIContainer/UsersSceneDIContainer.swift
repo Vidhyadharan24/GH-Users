@@ -14,7 +14,7 @@ final class UsersSceneDIContainer {
     private let imageDecodableService: NetworkDecodableServiceProtocol
 
     // MARK: - Persistent Storage
-    lazy var persistenceService: UsersListPersistenceServiceProtocol = UsersListPersistenceService(persistenceManager: PersistenceManager.shared, fetchLimit: appConfig.persistantStorageFetchLimit)
+    lazy var persistenceService: UsersListPersistenceServiceProtocol = UsersListPersistenceService(persistenceManager: PersistenceManager.shared, fetchLimit: appConfig.persistentStorageFetchLimit)
     
     lazy var localUserSearchPersistenceService: LocalUsersSearchPersistenceServiceProtocol = LocalUsersSearchPersistenceService(persistenceManager: PersistenceManager.shared)
     

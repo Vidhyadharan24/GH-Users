@@ -15,5 +15,5 @@ public struct AppConfig {
         return apiBaseURL
     }()    
     let maxRequestRetryCount = 5
-    let persistantStorageFetchLimit = 30
+    let persistentStorageFetchLimit = 30
 }
