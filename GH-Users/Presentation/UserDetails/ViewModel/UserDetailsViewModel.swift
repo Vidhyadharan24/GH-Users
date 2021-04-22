@@ -13,6 +13,8 @@ import SkeletonView
 protocol UserDetailsViewModelInputProtocol {
     func viewDidLoad()
     func save(note: String)
+    func noteSavedAlertClose()
+    func noteSaveErrorAlertClose()
 }
 
 protocol UserDetailsViewModelOutputProtocol {
@@ -27,6 +29,9 @@ protocol UserDetailsViewModelOutputProtocol {
     var loading: CurrentValueSubject<Bool, Never> { get }
     var offline: CurrentValueSubject<Bool, Never> { get }
     var error: CurrentValueSubject<String?, Never> { get }
+    var noteSavedAlertTitle: String { get }
+    var noteSaved: CurrentValueSubject<String?, Never> { get }
+    var noteSaveError: CurrentValueSubject<String?, Never> { get }
     var title: String { get }
     var emptyDataTitle: String { get }
     var errorTitle: String { get }
@@ -59,7 +64,12 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     let title = NSLocalizedString("Details", comment: "")
     var loading = CurrentValueSubject<Bool, Never>(false)
     var offline = CurrentValueSubject<Bool, Never>(false)
+    
     var error = CurrentValueSubject<String?, Never>(nil)
+    var noteSavedAlertTitle = NSLocalizedString("Saved", comment: "")
+    var noteSaved = CurrentValueSubject<String?, Never>(nil)
+    var noteSaveError = CurrentValueSubject<String?, Never>(nil)
+    
     var emptyDataTitle = NSLocalizedString("Unable to load user details", comment: "")
     var errorTitle = NSLocalizedString("Error", comment: "")
     let offlineErrorMessage = NSLocalizedString("Offline", comment: "")
@@ -155,8 +165,20 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     
     func save(note: String) {
         repository.save(note: note, username: user.login) { (error) in
-            self.error.send(NSLocalizedString("Unable to save note", comment: ""))
+            if error != nil {
+                self.noteSaveError.send(NSLocalizedString("Unable to save note", comment: ""))
+            } else {
+                self.noteSaved.send(NSLocalizedString("Note saved", comment: ""))
+            }
         }
+    }
+    
+    func noteSavedAlertClose() {
+        self.noteSaved.send(nil)
+    }
+    
+    func noteSaveErrorAlertClose() {
+        self.noteSaveError.send(nil)
     }
     
     func cancelTasks() {

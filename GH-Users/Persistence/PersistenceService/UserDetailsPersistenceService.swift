@@ -77,10 +77,10 @@ extension UserDetailsPersistenceService {
                 userEntity?.note = note
                 try context.save()
     
-                completion(nil)
+                DispatchQueue.main.async { return completion(nil) }
             } catch (let error) {
                 debugPrint("CoreDataMoviesResponseStorage Unresolved error \(error), \((error as NSError).userInfo)")
-                completion(PersistenceError.saveError(error))
+                DispatchQueue.main.async { return completion(PersistenceError.saveError(error)) }
             }
         }
     }    

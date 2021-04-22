@@ -85,6 +85,10 @@ extension UserDetailsViewController {
         viewModel.offline.sink { [weak self] in self?.showHideOfflineView($0) }.store(in: &cancellableSet)
         
         viewModel.error.sink { [weak self] in self?.showError($0) }.store(in: &cancellableSet)
+        
+        viewModel.noteSaved.sink { [weak self] in self?.showNoteSavedMessage($0) }.store(in: &cancellableSet)
+        
+        viewModel.noteSaveError.sink { [weak self] in self?.showSaveNoteError($0) }.store(in: &cancellableSet)
     }
     
     public func updateLoading(_ loading: Bool) {
@@ -128,6 +132,24 @@ extension UserDetailsViewController {
         guard let msg = message, !viewModel.viewed else { return }
         self.errorLabel.text = msg
         self.scrollView.isHidden = true
+    }
+    
+    private func showSaveNoteError(_ message: String?) {
+        guard let msg = message else { return }
+        let alert = UIAlertController(title: viewModel.errorTitle, message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: {[weak self] (action) in
+            self?.viewModel.noteSaveErrorAlertClose()
+        }))
+        self.present(alert, animated: true, completion: completion)
+    }
+    
+    private func showNoteSavedMessage(_ message: String?) {
+        guard let msg = message else { return }
+        let alert = UIAlertController(title: viewModel.noteSavedAlertTitle, message: msg, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: ""), style: UIAlertAction.Style.default, handler: {[weak self] (action) in
+            self?.viewModel.noteSaveErrorAlertClose()
+        }))
+        self.present(alert, animated: true, completion: completion)
     }
     
     @IBAction func saveTapped(button: UIButton) {
