@@ -365,8 +365,8 @@ class PersistenceServicesTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testUserDetailsSaveNote() throws {
-        let expectation = self.expectation(description: "User search note match test")
+    func testUserDetailsSaveNoteSuccess() throws {
+        let expectation = self.expectation(description: "User save note test")
 
         func execute(_ userDetails: UserDetailsResponse?, _ error: Error?) {
            guard let userDetails = userDetails, error == nil else { return }
@@ -382,6 +382,68 @@ class PersistenceServicesTests: XCTestCase {
                     case .failure(_): break
                     }
                 }
+            }
+        }
+
+        persistenceManager.saveInBackgroundContext {(context) in
+            let userDetails = ModelGenerator.generateUserDetails(id: 1)
+            let userDetailsEntity = ModelGenerator.generateUserDetailsEntity(id: 1, in: context)
+            userDetailsEntity.login = userDetails.login!
+            
+            do {
+                try context.save()
+                execute(userDetails, nil)
+            } catch (let error) {
+                execute(nil, error)
+            }
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testUserDetailsWhitespaceSaveNoteFailure() throws {
+        let expectation = self.expectation(description: "User save note failure test")
+
+        func execute(_ userDetails: UserDetailsResponse?, _ error: Error?) {
+           guard let userDetails = userDetails, error == nil else { return }
+            
+            let request = UserDetailsRequest(username: userDetails.login!)
+            
+            userDetailsPersistenceService.save(note: " ", request: request) { (error) in
+                guard let err = error as? UserDetailsPeristanceServiceError else { return }
+                guard case .invalidNote = err else { return }
+                expectation.fulfill()
+            }
+        }
+
+        persistenceManager.saveInBackgroundContext {(context) in
+            let userDetails = ModelGenerator.generateUserDetails(id: 1)
+            let userDetailsEntity = ModelGenerator.generateUserDetailsEntity(id: 1, in: context)
+            userDetailsEntity.login = userDetails.login!
+            
+            do {
+                try context.save()
+                execute(userDetails, nil)
+            } catch (let error) {
+                execute(nil, error)
+            }
+        }
+        
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testUserDetailsNewlineSaveNoteFailure() throws {
+        let expectation = self.expectation(description: "User save note failure test")
+
+        func execute(_ userDetails: UserDetailsResponse?, _ error: Error?) {
+           guard let userDetails = userDetails, error == nil else { return }
+            
+            let request = UserDetailsRequest(username: userDetails.login!)
+            
+            userDetailsPersistenceService.save(note: "\n", request: request) { (error) in
+                guard let err = error as? UserDetailsPeristanceServiceError else { return }
+                guard case .invalidNote = err else { return }
+                expectation.fulfill()
             }
         }
 

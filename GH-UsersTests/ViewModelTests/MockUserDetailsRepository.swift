@@ -15,6 +15,8 @@ class MockUserDetailsRepository: UserDetailsRepositoryProtocol {
     var liveUserDetails: UserEntity?
     var liveError: Error?
 
+    var saveNoteError: Error?
+    
     func fetchUserDetails(username: String, cached: @escaping (Result<UserEntity?, Error>) -> Void, completion: @escaping (Result<UserEntity?, Error>) -> Void) -> Cancellable? {
         if let error = cacheError {
             cached(.failure(error))
@@ -33,5 +35,6 @@ class MockUserDetailsRepository: UserDetailsRepositoryProtocol {
     }
     
     func save(note: String, username: String?, completion: @escaping (Error?) -> Void) {
+        completion(saveNoteError)
     }
 }

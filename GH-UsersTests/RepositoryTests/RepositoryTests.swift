@@ -253,7 +253,7 @@ class RepositoryTests: XCTestCase {
         
         let expectation = self.expectation(description: "save should return an error")
 
-        userDetailsRepository.save(note: "test", username: "vid", completion: { (error) in
+        userDetailsRepository.save(note: " ", username: "vid", completion: { (error) in
             guard error != nil else { return }
             expectation.fulfill()
         })

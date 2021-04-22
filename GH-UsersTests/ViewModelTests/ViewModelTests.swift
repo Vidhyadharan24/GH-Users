@@ -75,36 +75,32 @@ class ViewModelTests: XCTestCase {
 
     // MARK: - UsersSearchViewModel tests
     func testUserSearchViewModelNoData() throws {
-        func showUserDetails(user: UserEntity, completion: @escaping () -> Void) {
-        }
-
-        let actions = LocalUsersSearchViewModelActions(showUserDetails: showUserDetails)
-
-        usersSearchViewModel = LocalUsersSearchViewModel(repository: mockSearchUsersRepository, imageRepository: mockImageRepository, actions: actions)
     }
 
-    // MARK: - UserDetailsViewModel tests
+    // MARK: - UserDetailsViewModel Notes tests
 
-    func testUserDetailsViewModelNoData() throws {
-        let expectation = self.expectation(description: "User view model no data")
+    func testUserDetailsViewModelSaveNoteSuccess() throws {
+        let user = ModelGenerator.generateUserDetailsEntity(id: 1, in: persistenceManager.viewContext)
+        
+        userDetailsViewModel = UserDetailsViewModel(user: user, repository: mockUserDetailsRepository, imageRespository: mockImageRepository)
+        
+        userDetailsViewModel.save(note: "test")
 
-        func execute(_ entity: UserEntity?, _ error: Error?) {
-            guard let entity = entity, error == nil else { return }
-            userDetailsViewModel = UserDetailsViewModel(user: entity, repository: mockUserDetailsRepository, imageRespository: mockImageRepository)
-            expectation.fulfill()
-        }
+        let result = userDetailsViewModel.noteSaveError.value == nil && userDetailsViewModel.noteSaved.value != nil
+        XCTAssert(result, "An unexpected result was encountered")
+    }
+
+    func testUserDetailsViewModelSaveNoteError() throws {
+        mockUserDetailsRepository.saveNoteError = UserDetailsPeristanceServiceError.invalidNote
         
-        persistenceManager.saveInBackgroundContext { (context) in
-            let userEntity = ModelGenerator.generateUserDetailsEntity(id: 1, in: context)
-            do {
-                try context.save()
-                execute(userEntity, nil)
-            } catch (let error) {
-                execute(nil, error)
-            }
-        }
+        let user = ModelGenerator.generateUserDetailsEntity(id: 1, in: persistenceManager.viewContext)
         
-        waitForExpectations(timeout: 1, handler: nil)
+        userDetailsViewModel = UserDetailsViewModel(user: user, repository: mockUserDetailsRepository, imageRespository: mockImageRepository)
+        
+        userDetailsViewModel.save(note: "test")
+
+        let result = userDetailsViewModel.noteSaveError.value != nil && userDetailsViewModel.noteSaved.value == nil
+        XCTAssert(result, "An unexpected result was encountered")
     }
 
 }
