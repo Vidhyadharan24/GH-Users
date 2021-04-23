@@ -140,18 +140,12 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
     }
     
     override func prepareForReuse() {
-        self.resetCell()
-    }
-    
-    private func resetCell() {
         self.userImageView.image = nil
         _ = self.cancellableSet.map { $0.cancel() }
         self.cancellableSet.removeAll()
     }
 
-    public func configure(with viewModel: UserListCellViewModelProtocol) {
-        self.resetCell()
-        
+    public func configure(with viewModel: UserListCellViewModelProtocol) {        
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.typeText
         

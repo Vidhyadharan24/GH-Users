@@ -133,15 +133,13 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func resetCell() {
+    override func prepareForReuse() {
         self.userImageView.image = nil
         _ = self.cancellableSet.map { $0.cancel() }
         self.cancellableSet.removeAll()
     }
 
     public func configure(with viewModel: UserListCellViewModelProtocol) {
-        self.resetCell()
-
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.typeText
         
