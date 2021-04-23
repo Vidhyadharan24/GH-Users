@@ -16,18 +16,21 @@ class MockUsersListRepository: UsersListRepositoryProtocol {
     var liveError: Error?
 
     func fetchUsersList(since: Int, cached: @escaping (Result<[UserEntity], Error>) -> Void, completion: @escaping (Result<[UserEntity], Error>) -> Void) -> Cancellable? {
-        if let error = cacheError {
-            cached(.failure(error))
-        } else if let userList = cachedUserList {
-            cached(.success(userList))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+            if let error = self?.cacheError {
+                cached(.failure(error))
+            } else if let userList = self?.cachedUserList {
+                cached(.success(userList))
+            }
         }
         
-        if let error = liveError {
-            completion(.failure(error))
-            return MockCancellable()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            if let error = self?.liveError {
+                completion(.failure(error))
+            } else {
+                completion(.success(self?.liveUserList ?? []))
+            }
         }
-        
-        completion(.success(liveUserList ?? []))
 
         return MockCancellable()
     }

@@ -121,6 +121,7 @@ extension NetworkDataService {
                 case .success(_):
                     completion(result)
                 case .failure(let error):
+                    // MARK: BUGFix - No no internet indicator' takes a very long time to appear
                     switch error {
                     case .notConnected, .cancelled: break
                     default:

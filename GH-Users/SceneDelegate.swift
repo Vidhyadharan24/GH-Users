@@ -41,6 +41,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                         appDIContainer: appDIContainer)
         appCoordinator?.start()
         
+        // MARK: BUGFix - In the details view, when editing note, the save button is covered by the keyboard and can't be accessed
         IQKeyboardManager.shared.enable = true
         window?.makeKeyAndVisible()
     }

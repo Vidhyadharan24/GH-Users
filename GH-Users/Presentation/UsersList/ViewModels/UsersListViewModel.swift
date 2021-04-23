@@ -25,6 +25,11 @@ enum UsersListViewModelLoading {
     case nextPage
 }
 
+enum UsersListDataType {
+    case cached
+    case live
+}
+
 protocol UsersListViewModelInputProtocol {
     func viewDidLoad()
     func didLoadNextPage()
@@ -36,7 +41,8 @@ protocol UsersListViewModelInputProtocol {
 protocol UsersListViewModelOutputProtocol {
     var userViewModels: CurrentValueSubject<[UserListCellViewModelProtocol], Never> { get }
     var loading: CurrentValueSubject<UsersListViewModelLoading?, Never> { get }
-    var error: CurrentValueSubject<String?, Never> { get }
+    var dataType: CurrentValueSubject<UsersListDataType, Never> { get }
+    var error: PassthroughSubject<String?, Never> { get }
     var offline: CurrentValueSubject<Bool, Never> { get }
     var isEmpty: Bool { get }
     var screenTitle: String { get }
@@ -52,7 +58,6 @@ protocol UsersListViewModelProtocol: UsersListViewModelInputProtocol, UsersListV
 // BONUS TASK: Coordinator and/or MVVM patterns are used.
 class UsersListViewModel: UsersListViewModelProtocol {
 
-    
     let respository: UsersListRepositoryProtocol
     let imageRepository: ImageRepositoryProtocol
 
@@ -65,7 +70,8 @@ class UsersListViewModel: UsersListViewModelProtocol {
     private var users: [UserEntity] = []
     private(set) var userViewModels = CurrentValueSubject<[UserListCellViewModelProtocol], Never>([])
     private(set) var loading = CurrentValueSubject<UsersListViewModelLoading?, Never>(.none)
-    private(set) var error = CurrentValueSubject<String?, Never>(nil)
+    private(set) var dataType = CurrentValueSubject<UsersListDataType, Never>(.live)
+    private(set) var error = PassthroughSubject<String?, Never>()
     private(set) var offline = CurrentValueSubject<Bool, Never>(false)
     var isEmpty: Bool { return userViewModels.value.isEmpty }
     let screenTitle = NSLocalizedString("Users", comment: "")
@@ -161,6 +167,7 @@ extension UsersListViewModel {
             switch result {
             case .success(let page):
                 self.appendPage(since: since, response: page)
+                self.dataType.send(.cached)
                 self.loading.send(.none)
             case .failure(let error):
                 print(error.localizedDescription)
@@ -169,6 +176,7 @@ extension UsersListViewModel {
             switch result {
             case .success(let page):
                 self.appendPage(since: since, response: page)
+                self.dataType.send(.live)
             case .failure(let error):
                 self.handle(error: error)
             }

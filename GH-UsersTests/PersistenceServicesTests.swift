@@ -365,6 +365,8 @@ class PersistenceServicesTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    // MARK: BUGFix - No actual data model tests (e.g. testing the save note logic)
+    
     func testUserDetailsSaveNoteSuccess() throws {
         let expectation = self.expectation(description: "User save note test")
 

@@ -237,6 +237,8 @@ class RepositoryTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    // MARK: BUGFix - No actual data model tests (e.g. testing the save note logic)
+
     func testSaveNoteSuccess() throws {
         let expectation = self.expectation(description: "save should return no errors")
 

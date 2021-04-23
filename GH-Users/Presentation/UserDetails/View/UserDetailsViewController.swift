@@ -91,11 +91,17 @@ extension UserDetailsViewController {
         viewModel.noteSaveError.sink { [weak self] in self?.showSaveNoteError($0) }.store(in: &cancellableSet)
     }
     
-    public func updateLoading(_ loading: Bool) {
-        if loading, !viewModel.viewed {
+    public func updateLoading(_ loading: UserDetailsViewModelLoading?) {
+        // BONUS TASK: Empty views such as list items (while data is still loading) should have Loading Shimmer aka ​Skeletons
+        // Users SkeletonView from https://github.com/Juanpe/SkeletonView to display shimmering effect when there is no user data.
+
+        if case .fullScreen = loading {
             self.scrollView.isHidden = false
-            // BONUS TASK: Empty views such as list items (while data is still loading) should have Loading Shimmer aka ​Skeletons
-            // Users SkeletonView from https://github.com/Juanpe/SkeletonView to display shimmering effect when there is no user data.
+            view.showAnimatedSkeleton()
+        } else if case .refresh = loading {
+            imageView.isSkeletonable = false
+            nameLabel.isSkeletonable = false
+
             view.showAnimatedSkeleton()
         } else {
             view.hideSkeleton()

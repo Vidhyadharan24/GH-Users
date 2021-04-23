@@ -10,6 +10,16 @@ import Combine
 import Reachability
 import SkeletonView
 
+enum UserDetailsViewModelLoading {
+    case fullScreen
+    case refresh
+}
+
+enum UserDetailsDataType {
+    case cached
+    case live
+}
+
 protocol UserDetailsViewModelInputProtocol {
     func viewDidLoad()
     func save(note: String)
@@ -18,7 +28,7 @@ protocol UserDetailsViewModelInputProtocol {
 }
 
 protocol UserDetailsViewModelOutputProtocol {
-    var image: CurrentValueSubject<UIImage?, Never> { get }
+    var image: PassthroughSubject<UIImage?, Never> { get }
     var publisRepos: String { get }
     var following: String { get }
     var name: String { get }
@@ -26,12 +36,13 @@ protocol UserDetailsViewModelOutputProtocol {
     var blog: String { get }
     var viewed: Bool { get }
     var note:  NSObject.KeyValueObservingPublisher<UserEntity, String?> { get }
-    var loading: CurrentValueSubject<Bool, Never> { get }
+    var loading: CurrentValueSubject<UserDetailsViewModelLoading?, Never> { get }
+    var dataType: CurrentValueSubject<UserDetailsDataType, Never> { get }
     var offline: CurrentValueSubject<Bool, Never> { get }
-    var error: CurrentValueSubject<String?, Never> { get }
+    var error: PassthroughSubject<String?, Never> { get }
     var noteSavedAlertTitle: String { get }
-    var noteSaved: CurrentValueSubject<String?, Never> { get }
-    var noteSaveError: CurrentValueSubject<String?, Never> { get }
+    var noteSaved: PassthroughSubject<String?, Never> { get }
+    var noteSaveError: PassthroughSubject<String?, Never> { get }
     var title: String { get }
     var emptyDataTitle: String { get }
     var errorTitle: String { get }
@@ -47,7 +58,7 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     private let repository: UserDetailsRepositoryProtocol
     let imageRepository: ImageRepositoryProtocol
 
-    private(set) var image = CurrentValueSubject<UIImage?, Never>(nil)
+    private(set) var image = PassthroughSubject<UIImage?, Never>()
     var publisRepos: String {
         String(format: NSLocalizedString("Public Repos: %d", comment: ""), Int(user.publicRepos))
     }
@@ -62,16 +73,17 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     private(set) lazy var note = self.user.publisher(for: \.note)
 
     let title = NSLocalizedString("Details", comment: "")
-    var loading = CurrentValueSubject<Bool, Never>(false)
-    var offline = CurrentValueSubject<Bool, Never>(false)
+    private(set) var loading = CurrentValueSubject<UserDetailsViewModelLoading?, Never>(nil)
+    private(set) var dataType = CurrentValueSubject<UserDetailsDataType, Never>(.live)
+    private(set) var offline = CurrentValueSubject<Bool, Never>(false)
     
-    var error = CurrentValueSubject<String?, Never>(nil)
-    var noteSavedAlertTitle = NSLocalizedString("Saved", comment: "")
-    var noteSaved = CurrentValueSubject<String?, Never>(nil)
-    var noteSaveError = CurrentValueSubject<String?, Never>(nil)
+    private(set) var error = PassthroughSubject<String?, Never>()
+    let noteSavedAlertTitle = NSLocalizedString("Saved", comment: "")
+    private(set) var noteSaved = PassthroughSubject<String?, Never>()
+    private(set) var noteSaveError = PassthroughSubject<String?, Never>()
     
-    var emptyDataTitle = NSLocalizedString("Unable to load user details", comment: "")
-    var errorTitle = NSLocalizedString("Error", comment: "")
+    let emptyDataTitle = NSLocalizedString("Unable to load user details", comment: "")
+    let errorTitle = NSLocalizedString("Error", comment: "")
     let offlineErrorMessage = NSLocalizedString("Offline", comment: "")
 
     private var repositoryTask: Cancellable? { willSet { repositoryTask?.cancel() }}
@@ -84,7 +96,6 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
         self.imageRepository = imageRespository
         
         setupObservers()
-        loadUserDetails(username: self.user.login)
     }
     
     deinit {
@@ -92,6 +103,7 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
     }
     
     func viewDidLoad() {
+        loadUserDetails(username: self.user.login)
     }
     
     func setupObservers() {
@@ -132,25 +144,27 @@ public class UserDetailsViewModel: UserDetailsViewModelProtocol {
         
     private func loadUserDetails(username: String?) {
         guard let username = username else { return }
-        self.loading.send(true)
+        self.loading.send(user.viewed ? .refresh : .fullScreen)
         repositoryTask = repository.fetchUserDetails(username: username, cached: {[weak self] (result) in
             guard let self = self else { return }
             switch result {
             case .success(_):
                 self.loadImage()
+                self.dataType.send(.cached)
                 self.userDetailsLoaded = true
             case .failure(let error):
                 print(error.localizedDescription)
             }
         }, completion: { [weak self] (result) in
             guard let self = self else { return }
-            self.loading.send(false)
             switch result {
             case .success(_):
                 self.loadImage()
+                self.dataType.send(.live)
             case .failure(let error):
                 self.handle(error: error)
             }
+            self.loading.send(.none)
         })
     }
     

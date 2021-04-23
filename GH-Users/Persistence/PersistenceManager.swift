@@ -68,7 +68,7 @@ struct PersistenceManager {
         backgroundContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy
     }
     
-    // MARK: BUGS - CD save shouldn't happend on the main thread: Saves the data to coredata using a thread from the systems thread pool except the main thread
+    // MARK: BUGFix - CD save shouldn't happend on the main thread: Saves the data to coredata using a thread from the systems thread pool except the main thread
     func saveInBackgroundContext(task: @escaping (NSManagedObjectContext) -> Void) {
         let context = backgroundContext
         serialQueue.async {

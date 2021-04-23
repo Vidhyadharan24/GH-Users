@@ -8,16 +8,26 @@
 import UIKit
 import Combine
 
-public protocol UserListCellViewModelProtocol {
+protocol UserListCellViewModelInputProtocol {
     func cellFor(tableView: UITableView, at indexPath: IndexPath) -> UsersListItemCellProtocol
     func cancelTasks()
 }
 
+protocol UserListCellViewModelOutputProtocol {
+    var username: String? { get }
+    var image: PassthroughSubject<UIImage?, Never> { get }
+    var typeText: String? { get }
+    var note: String? { get }
+    var viewed: Bool { get }
+}
+
+protocol UserListCellViewModelProtocol: UserListCellViewModelInputProtocol, UserListCellViewModelOutputProtocol {}
+
 public class UserListCellViewModel {
-    let id: String
+    private let id: String
     let username: String?
     private let imagePath: String?
-    let image = CurrentValueSubject<UIImage?, Never>(nil)
+    let image = PassthroughSubject<UIImage?, Never>()
     let typeText: String?
     private(set) var note: String?
     private(set) var viewed: Bool
@@ -56,7 +66,7 @@ public class UserListCellViewModel {
 
 // BONUS TASK: Coordinator and/or MVVM patterns are used.
 extension UserListCellViewModel: UserListCellViewModelProtocol {
-    public func cellFor(tableView: UITableView, at indexPath: IndexPath) -> UsersListItemCellProtocol {
+    func cellFor(tableView: UITableView, at indexPath: IndexPath) -> UsersListItemCellProtocol {
         let cell: UsersListItemCellProtocol
         
         let isInvertedCell = (indexPath.row + 1) % 4 == 0
@@ -81,8 +91,11 @@ extension UserListCellViewModel: UserListCellViewModelProtocol {
                 case .success(let data):
                     if let data = data, let image = UIImage(data: data) {
                         self?.image.send(image)
+                        return
                     }
+                    self?.image.send(nil)
                 case .failure(let error):
+                    self?.image.send(nil)
                     print(error.localizedDescription)
                 }
             }

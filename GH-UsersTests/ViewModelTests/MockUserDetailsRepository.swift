@@ -18,19 +18,21 @@ class MockUserDetailsRepository: UserDetailsRepositoryProtocol {
     var saveNoteError: Error?
     
     func fetchUserDetails(username: String, cached: @escaping (Result<UserEntity?, Error>) -> Void, completion: @escaping (Result<UserEntity?, Error>) -> Void) -> Cancellable? {
-        if let error = cacheError {
-            cached(.failure(error))
-        } else if let userDetails = cachedUserDetails {
-            cached(.success(userDetails))
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            if let error = self?.cacheError {
+                cached(.failure(error))
+            } else if let userDetails = self?.cachedUserDetails {
+                cached(.success(userDetails))
+            }
         }
         
-        if let error = liveError {
-            completion(.failure(error))
-            return MockCancellable()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
+            if let error = self?.liveError {
+                completion(.failure(error))
+            } else {
+                completion(.success(self?.liveUserDetails))
+            }
         }
-        
-        completion(.success(liveUserDetails))
-
         return MockCancellable()
     }
     

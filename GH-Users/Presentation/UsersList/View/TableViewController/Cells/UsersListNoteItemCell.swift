@@ -57,7 +57,7 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
         return lbl
     }()
     
-    private var viewModel: UserListCellViewModel? { willSet {viewModel?.cancelTasks() } }
+    private var viewModel: UserListCellViewModelProtocol? { willSet {viewModel?.cancelTasks() } }
     private var cancellableSet = Set<AnyCancellable>()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -140,12 +140,18 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
     }
     
     override func prepareForReuse() {
+        self.resetCell()
+    }
+    
+    private func resetCell() {
         self.userImageView.image = nil
         _ = self.cancellableSet.map { $0.cancel() }
         self.cancellableSet.removeAll()
     }
 
-    public func configure(with viewModel: UserListCellViewModel) {
+    public func configure(with viewModel: UserListCellViewModelProtocol) {
+        self.resetCell()
+        
         self.usernameLabel.text = viewModel.username
         self.descriptionLabel.text = viewModel.typeText
         
@@ -159,13 +165,13 @@ class UsersListNoteItemCell: UITableViewCell, UsersListItemCellProtocol {
         setupObservers(viewModel: viewModel)
     }
     
-    func setupObservers(viewModel: UserListCellViewModel) {
+    func setupObservers(viewModel: UserListCellViewModelProtocol) {
         viewModel.image.sink {[weak self] (image) in
             self?.set(image: image)
         }.store(in: &cancellableSet)
     }
 
     func set(image: UIImage?) {
-        self.userImageView.image = image?.resize(targetSize: self.userImageView.frame.size)
+        self.userImageView.image = image?.resize(targetSize: self.userImageView.bounds.size)
     }
 }

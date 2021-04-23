@@ -7,6 +7,6 @@
 
 import UIKit
 
-public protocol UsersListItemCellProtocol: UITableViewCell {
-    func configure(with viewModel: UserListCellViewModel)
+protocol UsersListItemCellProtocol: UITableViewCell {
+    func configure(with viewModel: UserListCellViewModelProtocol)
 }
