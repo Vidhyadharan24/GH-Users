@@ -15,7 +15,7 @@ class UsersListItemCell: UITableViewCell, UsersListItemCellProtocol {
 
     private lazy var mainBackgroundView : UIView = {
         let view = UIView()
-        view.backgroundColor = .white
+        view.backgroundColor = .tertiarySystemBackground
         view.layer.masksToBounds = true
         view.layer.cornerRadius = cornerRadius
         view.isSkeletonable = true

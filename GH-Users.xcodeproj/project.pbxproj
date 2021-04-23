@@ -1011,7 +1011,7 @@
 			repositoryURL = "https://github.com/Juanpe/SkeletonView";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.13.0;
+				minimumVersion = 1.15.0;
 			};
 		};
 		181F54942611FE7900F1546A /* XCRemoteSwiftPackageReference "Reachability" */ = {
