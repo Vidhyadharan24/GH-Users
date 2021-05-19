@@ -8,12 +8,6 @@
 import UIKit
 
 class RoundedView: UIView {
-    override var bounds: CGRect {
-        didSet {
-            setupView()
-        }
-    }
-    
     let borderWidth: CGFloat?
     let borderColor: UIColor?
 
@@ -26,6 +20,11 @@ class RoundedView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupView()
     }
     
     private func setupView() {

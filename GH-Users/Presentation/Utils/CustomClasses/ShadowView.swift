@@ -7,13 +7,7 @@
 
 import UIKit
 
-class ShadowView: UIView {
-    override var bounds: CGRect {
-        didSet {
-            setupShadow()
-        }
-    }
-    
+class ShadowView: UIView {    
     let cornerRadius: CGFloat
     
     init(cornerRadius: CGFloat) {
@@ -24,6 +18,11 @@ class ShadowView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        setupShadow()
     }
     
     private func setupShadow() {
