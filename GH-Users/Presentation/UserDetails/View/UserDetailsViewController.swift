@@ -72,20 +72,33 @@ extension UserDetailsViewController {
     func bind(to viewModel: UserDetailsViewModelProtocol) {
         let size = imageView.bounds.size
         
-        viewModel.image.sink {[weak self] (image) in
-            self?.imageView.image = image?.resize(targetSize: size)
-        }.store(in: &cancellableSet)
+//        viewModel.image.sink {[weak self] (image) in
+//            self?.imageView.image = image?.resize(targetSize: size)
+//        }.store(in: &cancellableSet)
+        viewModel.image
+            .map({$0?.resize(targetSize: size)})
+            .assign(to: \.image, on: imageView)
+            .store(in: &cancellableSet)
         
         viewModel.loading.sink {[weak self] (loading) in
             self?.updateLoading(loading)
         }.store(in: &cancellableSet)
         
-        viewModel.note.sink {[weak self] in self?.notesTextView.text = $0 }.store(in: &cancellableSet)
+//        viewModel.note.sink {[weak self] in self?.notesTextView.text = $0 }.store(in: &cancellableSet)
+        viewModel.note.assign(to: \.text, on: notesTextView).store(in: &cancellableSet)
+
+//        viewModel.offline.sink { [weak self] in self?.showHideOfflineView($0) }.store(in: &cancellableSet)
+        viewModel.offline
+            .map ({ $0 ? UILayoutPriority.defaultLow : UILayoutPriority(999)})
+            .assign(to: \.priority, on: offlineViewTopConstraint)
+            .store(in: &cancellableSet)
         
-        viewModel.offline.sink { [weak self] in self?.showHideOfflineView($0) }.store(in: &cancellableSet)
+//        viewModel.error.sink { [weak self] in self?.showError($0) }.store(in: &cancellableSet)
         
-        viewModel.error.sink { [weak self] in self?.showError($0) }.store(in: &cancellableSet)
-        
+        viewModel.error.map({ $0 != nil }).assign(to: \.isHidden, on: errorLabel).store(in: &cancellableSet)
+        viewModel.error.assign(to: \.text, on: errorLabel).store(in: &cancellableSet)
+        viewModel.error.map({ $0 == nil }).assign(to: \.isHidden, on: scrollView).store(in: &cancellableSet)
+
         viewModel.noteSaved.sink { [weak self] in self?.showNoteSavedMessage($0) }.store(in: &cancellableSet)
         
         viewModel.noteSaveError.sink { [weak self] in self?.showSaveNoteError($0) }.store(in: &cancellableSet)
